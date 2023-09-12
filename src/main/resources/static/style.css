@@ -1,0 +1,128 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: sans-serif;
+  color: #555;
+  line-height: 1;
+}
+
+.main-section {
+  height: 100vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url('images/background.jpg');
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-group {
+  width: 34rem;
+  height: 50rem;
+  margin: 0 auto;
+  padding: 3rem;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  gap: 3.2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.toggle-button-group {
+  /* width: 20rem; */
+  height: 4.4rem;
+  background-color: #fff;
+  border-radius: 3rem;
+  box-shadow: 0 0 3px rgba(0, 149, 255, 0.75);
+}
+
+.login-toggle-btn,
+.register-toggle-btn {
+  width: 10rem;
+  height: 4.4rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  border-radius: 3rem;
+  border: none;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.bg-color {
+  background-image: linear-gradient(to right, #4263eb, #d0bfff);
+}
+
+.logos {
+  display: flex;
+  gap: 2rem;
+}
+img {
+  height: 3.6rem;
+  border-radius: 50%;
+}
+
+.main-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  position: absolute;
+  transition: all 0.8s;
+}
+
+.login-form {
+  top: 20rem;
+  right: 3rem;
+  /* right: 35rem; */
+}
+
+.registration-form {
+  top: 20rem;
+  /* left: 3rem; */
+  left: 35rem;
+}
+
+.input-data {
+  display: block;
+  width: 28rem;
+  border: none;
+  border-bottom: 1px solid #999;
+  outline: none;
+  font-size: 1.6rem;
+  font-family: inherit;
+}
+
+.check-box-group {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.check-box-group span {
+  font-size: 1.2rem;
+  color: #999;
+}
+
+.btn {
+  width: 20rem;
+  height: 4.4rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  background-image: linear-gradient(to right, #4263eb, #d0bfff);
+  border-radius: 3rem;
+  border: none;
+  align-self: center;
+  margin-top: 2.4rem;
+  cursor: pointer;
+}
