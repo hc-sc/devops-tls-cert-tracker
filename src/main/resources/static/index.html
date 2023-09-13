@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Registration</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <section class="main-section">
+      <div class="form-group">
+        <div class="toggle-button-group">
+          <button class="login-toggle-btn bg-color">Log in</button>
+          <button class="register-toggle-btn">Register</button>
+        </div>
+        <div class="logos">
+          <img src="images/facebook-icon.png" alt="facebook logo" />
+          <img src="images/twitter-icon.png" alt="twitter logo" />
+          <img src="images/google-icon.png" alt="google logo" />
+        </div>
+
+        <!-- LOGIN FORM -->
+        <form action="" class="main-form login-form">
+          <input
+            class="input-data"
+            type="text"
+            placeholder="Username"
+            required
+          />
+          <input
+            class="input-data"
+            type="password"
+            placeholder="Password"
+            required
+          />
+          <div class="check-box-group">
+            <input type="checkbox" id="check" />
+            <label for="check"><span>Remember password</span></label>
+          </div>
+          <button class="btn login-btn" type="submit">Log in</button>
+        </form>
+
+        <!-- REGISTRATION FORM -->
+        <form action="" class="main-form registration-form">
+          <input
+            class="input-data"
+            type="text"
+            placeholder="Username"
+            required
+          />
+          <input class="input-data" type="email" placeholder="Email" required />
+          <input
+            class="input-data"
+            type="password"
+            placeholder="password"
+            required
+          />
+          <input
+            class="input-data"
+            type="password"
+            placeholder="repeat password"
+            required
+          />
+          <div class="check-box-group">
+            <input type="checkbox" id="check2" />
+            <label for="check2"
+              ><span>I agree to the terms & conditions</span></label
+            >
+          </div>
+          <button class="btn register-btn" type="submit">Register</button>
+        </form>
+      </div>
+    </section>
+    <script src="script.js"></script>
+  </body>
+</html>
