@@ -1,2 +1,4 @@
-package com.devops.certtracker.controller;public class CertificateController {
+package com.devops.certtracker.controller;
+
+public class CertificateController {
 }
