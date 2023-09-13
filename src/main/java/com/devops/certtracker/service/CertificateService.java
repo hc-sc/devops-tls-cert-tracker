@@ -1,2 +1,4 @@
-package com.devops.certtracker.service;public class CertificateService {
+package com.devops.certtracker.service;
+
+public class CertificateService {
 }
