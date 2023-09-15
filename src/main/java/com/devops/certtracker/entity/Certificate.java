@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * Represents a Certificate entity stored in the database.
@@ -43,13 +44,13 @@ public class Certificate {
      * The date when the certificate becomes valid.
      */
     @Column(name = "valid_from")
-    private LocalDate validFrom;
+    private Date validFrom;
 
     /**
      * The date when the certificate expires.
      */
     @Column(name = "valid_to")
-    private LocalDate validTo;
+    private Date validTo;
 
 
     /**
@@ -68,7 +69,7 @@ public class Certificate {
      * @param validFrom The date when the certificate becomes valid.
      * @param validTo   The date when the certificate expires.
      */
-    public Certificate(String url, String subject, String issuer, LocalDate validFrom, LocalDate validTo) {
+    public Certificate(String url, String subject, String issuer, Date validFrom, Date validTo) {
         this.url = url;
         this.subject = subject;
         this.issuer = issuer;
@@ -155,7 +156,7 @@ public class Certificate {
      *
      * @return The valid from date of the certificate.
      */
-    public LocalDate getValidFrom() {
+    public Date getValidFrom() {
         return validFrom;
     }
 
@@ -164,7 +165,7 @@ public class Certificate {
      *
      * @param validFrom The valid from date of the certificate.
      */
-    public void setValidFrom(LocalDate validFrom) {
+    public void setValidFrom(Date validFrom) {
         this.validFrom = validFrom;
     }
 
@@ -173,7 +174,7 @@ public class Certificate {
      *
      * @return The valid to date of the certificate.
      */
-    public LocalDate getValidTo() {
+    public Date getValidTo() {
         return validTo;
     }
 
@@ -182,7 +183,7 @@ public class Certificate {
      *
      * @param validTo The valid to date of the certificate.
      */
-    public void setValidTo(LocalDate validTo) {
+    public void setValidTo(Date validTo) {
         this.validTo = validTo;
     }
 }
