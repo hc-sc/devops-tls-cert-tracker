@@ -21,5 +21,4 @@ public class CertificateController {
         return ResponseEntity.ok(certificate);
     }
 
-
 }
