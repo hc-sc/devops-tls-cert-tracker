@@ -1,5 +1,6 @@
 package com.devops.certtracker.controller;
 
+
 import com.devops.certtracker.entity.Certificate;
 import com.devops.certtracker.service.CertificateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,4 @@ public class CertificateController {
         Certificate certificate = certificateService.retrieveAndSaveCertificate(url);
         return ResponseEntity.ok(certificate);
     }
-
-
 }

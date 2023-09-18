@@ -1,5 +1,6 @@
 package com.devops.certtracker.service;
 
+
 import com.devops.certtracker.entity.Certificate;
 import com.devops.certtracker.exception.CertificateServiceException;
 import com.devops.certtracker.repository.CertificateRepository;
@@ -85,4 +86,5 @@ public class CertificateService {
         certificate.setValidTo(x509Certificate.getNotAfter());
         return certificateRepository.save(certificate);
     }
+
 }
