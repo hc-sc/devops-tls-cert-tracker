@@ -1,7 +1,9 @@
 package com.devops.certtracker.service;
 
 import com.devops.certtracker.entity.Certificate;
+import com.devops.certtracker.exception.CertificateDeleteException;
 import com.devops.certtracker.exception.CertificateServiceException;
+import com.devops.certtracker.exception.EntityNotFoundException;
 import com.devops.certtracker.repository.CertificateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,19 @@ import java.util.Optional;
 public class CertificateService {
     @Autowired
     private CertificateRepository certificateRepository;
+
+    public void deleteCerticateById(Long certificateId){
+        // Check if the certificate exists before attempting to delete
+        if(!certificateRepository.existsById(certificateId)){
+            throw new EntityNotFoundException("Certificate with ID "+ certificateId + " not found");
+        }
+        try{
+            certificateRepository.deleteById(certificateId);
+        }catch(Exception e){
+            // Handle other exceptions
+            throw new CertificateDeleteException("Error deleting the certificate");
+        }
+    }
 
     public Certificate retrieveAndSaveCertificate(String url) {
         validateUrl(url);
