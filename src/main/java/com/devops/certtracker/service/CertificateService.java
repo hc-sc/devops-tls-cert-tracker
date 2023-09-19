@@ -2,6 +2,7 @@ package com.devops.certtracker.service;
 
 import com.devops.certtracker.entity.Certificate;
 import com.devops.certtracker.exception.CertificateDeleteException;
+import com.devops.certtracker.exception.CertificateNoContentException;
 import com.devops.certtracker.exception.CertificateServiceException;
 import com.devops.certtracker.exception.EntityNotFoundException;
 import com.devops.certtracker.repository.CertificateRepository;
@@ -17,12 +18,21 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CertificateService {
     @Autowired
     private CertificateRepository certificateRepository;
+
+    public List<Certificate> getAllCertificates(){
+        List<Certificate> certificates = certificateRepository.findAll();
+        if (certificates.isEmpty()){
+            throw new CertificateNoContentException("No certificates found in the database");
+        }
+        return  certificates;
+    }
 
     public void deleteCerticateById(Long certificateId){
         // Check if the certificate exists before attempting to delete

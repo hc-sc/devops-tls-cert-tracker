@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -25,6 +26,12 @@ public class CertificateController {
     public ResponseEntity<Void> deleteCertificateById(@PathVariable Long certificateId){
         certificateService.deleteCerticateById(certificateId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/all")
+    ResponseEntity<List<Certificate>> getALLCertificates(){
+        List<Certificate> certificates = certificateService.getAllCertificates();
+        return ResponseEntity.ok(certificates);
     }
 
 }
