@@ -1,6 +1,6 @@
 // handling form submission (fetching POST request)
-const form = document.querySelector('#urlForm');
-form.addEventListener('submit', function (e) {
+const form = document.querySelector('#submitUrl');
+form.addEventListener('click', function (e) {
   e.preventDefault();
 
   const userInput = document.querySelector("#userInputUrl").value;
