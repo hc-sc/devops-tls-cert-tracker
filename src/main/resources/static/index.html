@@ -14,7 +14,7 @@
   <meta name="dcterms.language" content="eng"/>
   <meta name="dcterms.subject" content=""/>
   <meta name="dcterms.issued" content=""/>
-  <meta name="dcterms.modified" content="2022-09-09"/>
+  <meta name="dcterms.modified" content="2023-09-20"/>
 
   <link href="GCWeb/assets/favicon.ico" rel="icon" type="image/x-icon" />
   <link rel="stylesheet" href="GCWeb/css/theme.min.css" />
@@ -32,7 +32,7 @@
   <div class="wb-frmvld">
     <form method="post" id="urlForm">
       <label for="userInputUrl">Enter URL</label>
-      <input type="url" name="userInputUrl" id="userInputUrl" placeholder="Enter URL">
+      <input type="url" name="userInputUrl" id="userInputUrl" placeholder="https://" required pattern="(https|HTTPS)://[a-zA-Z0-9-.]+" autofocus>
       <span class="glyphicon glyphicon-plus" id="submitUrl"></span>
 <!--      <button type="submit">submit</button>-->
     </form>
