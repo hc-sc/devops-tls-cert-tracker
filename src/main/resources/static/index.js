@@ -39,16 +39,16 @@ function fetchTableData() {
      // Visual notification based on the expiry date
      if (expiryDateData < today) {
        // Certificate has expired
-       addRow.classList.add('danger');
+       addRow.setAttribute('id', 'expired');
      } else if (dateCalculate < 14) {
        // Expiring within 2 weeks (less than 14 days)
-       addRow.classList.add('warning');
+       addRow.setAttribute('id', 'expiringInTwoWeeks');
      } else if (dateCalculate < 42) {
        // Expiring within 6 weeks (less than 42 days)
-       addRow.classList.add('info');
+       addRow.setAttribute('id', 'expiringInSixWeeks');
      } else {
        // else (more than 6 weeks remaining)
-       addRow.classList.add('success');
+       addRow.setAttribute('id', 'expiringGood');
      }
 
      // Deletion handling
@@ -93,7 +93,7 @@ form.addEventListener('click', async function (e) {
     await addFetch(userInput);
     location.reload(); // Reload the page after the POST request
   } catch (error) {
-    console.error('Error:', error);
+    console.log(error);
   }
 });
 
@@ -109,11 +109,11 @@ async function addFetch(userInputUrl) {
     body: JSON.stringify({ url: userInputUrl })
   });
 
-  if (!response.ok) {
-    throw new Error('Failed to add the certificate.');
-  }
-
   const data = await response.json();
+
+  if (!response.ok) {
+      throw new Error(data.message);
+    }
   console.log(data);
 }
 
