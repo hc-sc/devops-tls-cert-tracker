@@ -79,7 +79,40 @@ public class CertificateService {
         } catch (IOException | CertificateException e) {
             throw new CertificateServiceException("Error while processing certificate: " + e.getMessage(), e);
         }
+    }
 
+    public Certificate getCertificateInfo(String url) {
+        validateUrl(url);
+
+        try {
+            URL urlObject = new URL(url);
+
+            if ("https".equalsIgnoreCase(urlObject.getProtocol())) {
+                HttpsURLConnection httpsConnection = (HttpsURLConnection) urlObject.openConnection();
+
+                int responseCode = httpsConnection.getResponseCode();
+
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+                    Optional<SSLSession> optionalSslSession = httpsConnection.getSSLSession();
+
+                    if (optionalSslSession.isPresent()) {
+                        SSLSession sslSession = optionalSslSession.get();
+                        X509Certificate x509Certificate = extractCertificate(sslSession);
+                        return createCertificateInfo(url, x509Certificate);
+                    } else {
+                        throw new CertificateServiceException("No SSL session established.");
+                    }
+                } else {
+                    throw new CertificateServiceException("Failed to establish HTTPS connection. Response code: " + responseCode);
+                }
+            } else {
+                throw new CertificateServiceException("Only HTTPS URLs are supported.");
+            }
+        } catch (MalformedURLException e) {
+            throw new CertificateServiceException("Malformed URL: " + e.getMessage());
+        } catch (IOException | CertificateException e) {
+            throw new CertificateServiceException("Error while processing certificate: " + e.getMessage(), e);
+        }
     }
 
     private void validateUrl(String url) {
@@ -109,5 +142,15 @@ public class CertificateService {
         certificate.setValidFrom(x509Certificate.getNotBefore());
         certificate.setValidTo(x509Certificate.getNotAfter());
         return certificateRepository.save(certificate);
+    }
+
+    private Certificate createCertificateInfo(String url, X509Certificate x509Certificate){
+        Certificate certificate = new Certificate();
+        certificate.setUrl(url);
+        certificate.setSubject(x509Certificate.getSubjectX500Principal().getName());
+        certificate.setIssuer(x509Certificate.getIssuerX500Principal().getName());
+        certificate.setValidFrom(x509Certificate.getNotBefore());
+        certificate.setValidTo(x509Certificate.getNotAfter());
+        return certificate;
     }
 }
