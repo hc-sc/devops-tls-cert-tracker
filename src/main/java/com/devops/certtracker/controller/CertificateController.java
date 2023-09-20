@@ -15,6 +15,13 @@ public class CertificateController {
     @Autowired
     private CertificateService certificateService;
 
+    @PostMapping("/info")
+    public ResponseEntity<Object> getCertificateInfo(@RequestBody Map<String, String> requestBody) {
+        String url = requestBody.get("url");
+        Certificate certificate = certificateService.getCertificateInfo(url);
+        return ResponseEntity.ok(certificate);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<Object> addCertificate(@RequestBody Map<String, String> requestBody) {
         String url = requestBody.get("url");
