@@ -75,15 +75,21 @@ function fetchTableData() {
  // Function call to fetch all the list of certificates in the database
  fetchTableData();
 
- // handling form submission (fetching POST request)
 // handling form submission (fetching POST request)
+let submissionInProgress = false;
 const form = document.querySelector('#submitUrl');
 form.addEventListener('click', async function (e) {
   e.preventDefault();
 
+//prevent multiple form submission while it's loading the data
+  if (submissionInProgress) {
+      return;
+  }
+
   const userInput = document.querySelector("#userInputUrl").value;
 
   try {
+    submissionInProgress = true;
     await addFetch(userInput);
     location.reload(); // Reload the page after the POST request
   } catch (error) {
