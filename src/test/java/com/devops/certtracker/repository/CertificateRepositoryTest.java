@@ -1,3 +1,6 @@
+/**
+ * This package contains the repository classes for managing certificates in the database.
+ */
 package com.devops.certtracker.repository;
 
 import com.devops.certtracker.entity.Certificate;
@@ -6,14 +9,16 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+/**
+ * This class contains unit tests for the CertificateRepository, which is responsible for
+ * interacting with the database to perform CRUD operations on certificates.
+ */
 @DataJpaTest
 public class CertificateRepositoryTest {
 
@@ -23,45 +28,48 @@ public class CertificateRepositoryTest {
     private Certificate certificate1;
     private Certificate certificate2;
 
+    /**
+     * Initialize test data before each test case.
+     */
     @BeforeEach
-    void init(){
+    public void init() {
         certificate1 = new Certificate();
         certificate1.setUrl("https://www.google.com");
         certificate1.setSubject("CN=google.com");
         certificate1.setIssuer("CN=issuer.com");
         certificate1.setValidFrom(new Date());
-        Calendar calendar1 = Calendar.getInstance();
-        calendar1.set(2024, Calendar.JANUARY, 26, 12, 0, 0);
-        Date validToDate1 = calendar1.getTime();
-        certificate1.setValidTo(validToDate1);
+        certificate1.setValidTo(new Date());
 
         certificate2 = new Certificate();
         certificate2.setUrl("https://www.github.com");
         certificate2.setSubject("CN=github.com");
         certificate2.setIssuer("CN=issuer.com");
         certificate2.setValidFrom(new Date());
-        Calendar calendar2 = Calendar.getInstance();
-        calendar2.set(2025, Calendar.FEBRUARY, 10, 12, 0, 0);
-        Date validToDate2 = calendar2.getTime();
-        certificate2.setValidTo(validToDate2);
+        certificate2.setValidTo(new Date());
     }
 
+    /**
+     * Test saving a certificate to the database.
+     */
     @Test
     @DisplayName("Should save certificate to the database")
-    void testSaveCertificate() {
-        //Save certificate1 to the database and get the saved certificate (newCertificate)
+    public void testSave() {
+        // Save certificate1 to the database and get the saved certificate (newCertificate)
         Certificate newCertificate = certificateRepository.save(certificate1);
 
-        //Verify that the saved certificate is not null (indicating a successful save operation)
+        // Verify that the saved certificate is not null (indicating a successful save operation)
         assertNotNull(newCertificate);
 
-        //Verify that the ID of the saved certificate is generated and not null
+        // Verify that the ID of the saved certificate is generated and not null
         assertNotNull(newCertificate.getId());
     }
 
+    /**
+     * Test retrieving a list of certificates from the database.
+     */
     @Test
     @DisplayName("Should return the certificate list with a size of 2")
-    void testGetAllCertificates() {
+    public void testFindAll() {
         // Save two certificates to the database
         certificateRepository.save(certificate1);
         certificateRepository.save(certificate2);
@@ -76,15 +84,19 @@ public class CertificateRepositoryTest {
         assertEquals(2, list.size());
     }
 
-
+    /**
+     * Test retrieving a certificate by its ID from the database.
+     */
     @Test
     @DisplayName("Should return certificate by its id")
-    void testGetCertificateById(){
-        // save certificate in the database
+    public void testFindById() {
+        // Save certificate in the database
         Certificate savedCertificate = certificateRepository.save(certificate1);
+
         // Retrieve the certificate by its ID
         Certificate retrievedCertificate = certificateRepository.findById(certificate1.getId()).orElse(null);
-        //Assert that the retrieved certificate is not null
+
+        // Assert that the retrieved certificate is not null and its properties match the saved certificate
         assertNotNull(retrievedCertificate);
         assertEquals(savedCertificate.getUrl(), retrievedCertificate.getUrl());
         assertEquals(savedCertificate.getSubject(), retrievedCertificate.getSubject());
@@ -93,9 +105,28 @@ public class CertificateRepositoryTest {
         assertEquals(savedCertificate.getValidTo(), retrievedCertificate.getValidTo());
     }
 
+    /**
+     * Test attempting to retrieve a certificate by a non-existent ID, expecting null as the result.
+     */
+    @Test
+    @DisplayName("Should return null for a non-existent certificate ID")
+    public void testFindByIdNonExistent() {
+        // Declare a non-existing ID
+        Long nonExistingId = -1L;
+
+        // Attempt to retrieve a certificate using a non-existent ID
+        Certificate retrievedCertificate = certificateRepository.findById(nonExistingId).orElse(null);
+
+        // Ensure that the retrieved certificate is null
+        assertNull(retrievedCertificate);
+    }
+
+    /**
+     * Test deleting an existing certificate from the database.
+     */
     @Test
     @DisplayName("Should delete an existing certificate from the database")
-    void testDeleteCertificate() {
+    public void testDelete() {
         // Save certificate1 to the database
         certificateRepository.save(certificate1);
 
@@ -113,7 +144,8 @@ public class CertificateRepositoryTest {
         Optional<Certificate> existingCertificate = certificateRepository.findById(id);
 
         assertEquals(1, list.size());
-        assertFalse(existingCertificate.isPresent()); // Check if certificate1 is not present in the database
-    }
 
+        // Check if certificate1 is not present in the database
+        assertFalse(existingCertificate.isPresent());
+    }
 }

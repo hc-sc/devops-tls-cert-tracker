@@ -34,7 +34,7 @@ public class CertificateService {
         return  certificates;
     }
 
-    public void deleteCerticateById(Long certificateId){
+    public void deleteCertificateById(Long certificateId){
         // Check if the certificate exists before attempting to delete
         if(!certificateRepository.existsById(certificateId)){
             throw new EntityNotFoundException("Certificate with ID "+ certificateId + " not found");
@@ -53,31 +53,34 @@ public class CertificateService {
         try {
             URL urlObject = new URL(url);
 
-            if ("https".equalsIgnoreCase(urlObject.getProtocol())) {
-                HttpsURLConnection httpsConnection = (HttpsURLConnection) urlObject.openConnection();
-
-                int responseCode = httpsConnection.getResponseCode();
-
-                if (responseCode == HttpsURLConnection.HTTP_OK) {
-                    Optional<SSLSession> optionalSslSession = httpsConnection.getSSLSession();
-
-                    if (optionalSslSession.isPresent()) {
-                        SSLSession sslSession = optionalSslSession.get();
-                        X509Certificate x509Certificate = extractCertificate(sslSession);
-                        return saveCertificate(url, x509Certificate);
-                    } else {
-                        throw new CertificateServiceException("No SSL session established.");
-                    }
-                } else {
-                    throw new CertificateServiceException("Failed to establish HTTPS connection. Response code: " + responseCode);
-                }
-            } else {
+            if (!"https".equalsIgnoreCase(urlObject.getProtocol())) {
                 throw new CertificateServiceException("Only HTTPS URLs are supported.");
             }
+
+            HttpsURLConnection httpsConnection = (HttpsURLConnection) urlObject.openConnection();
+            int responseCode = httpsConnection.getResponseCode();
+
+            if (responseCode != HttpsURLConnection.HTTP_OK) {
+                throw new CertificateServiceException("Failed to establish HTTPS connection. Response code: " + responseCode);
+            }
+
+            Optional<SSLSession> optionalSslSession = httpsConnection.getSSLSession();
+
+            if (optionalSslSession.isPresent()) {
+                SSLSession sslSession = optionalSslSession.get();
+                try {
+                    X509Certificate x509Certificate = extractCertificate(sslSession);
+                    return saveCertificate(url, x509Certificate);
+                } catch (CertificateException e) {
+                    throw new CertificateServiceException("Error while processing the SSL certificate: " + e.getMessage());
+                }
+            } else {
+                throw new CertificateServiceException("No SSL session established.");
+            }
         } catch (MalformedURLException e) {
-            throw new CertificateServiceException("Malformed URL: " + e.getMessage());
-        } catch (IOException | CertificateException e) {
-            throw new CertificateServiceException("Error while processing certificate: " + e.getMessage(), e);
+            throw new CertificateServiceException("Invalid URL format - " + e.getMessage());
+        } catch (IOException e) {
+            throw new CertificateServiceException("Error while establishing the HTTPS connection: " + e.getMessage());
         }
     }
 
@@ -87,33 +90,37 @@ public class CertificateService {
         try {
             URL urlObject = new URL(url);
 
-            if ("https".equalsIgnoreCase(urlObject.getProtocol())) {
-                HttpsURLConnection httpsConnection = (HttpsURLConnection) urlObject.openConnection();
-
-                int responseCode = httpsConnection.getResponseCode();
-
-                if (responseCode == HttpsURLConnection.HTTP_OK) {
-                    Optional<SSLSession> optionalSslSession = httpsConnection.getSSLSession();
-
-                    if (optionalSslSession.isPresent()) {
-                        SSLSession sslSession = optionalSslSession.get();
-                        X509Certificate x509Certificate = extractCertificate(sslSession);
-                        return createCertificateInfo(url, x509Certificate);
-                    } else {
-                        throw new CertificateServiceException("No SSL session established.");
-                    }
-                } else {
-                    throw new CertificateServiceException("Failed to establish HTTPS connection. Response code: " + responseCode);
-                }
-            } else {
+            if (!"https".equalsIgnoreCase(urlObject.getProtocol())) {
                 throw new CertificateServiceException("Only HTTPS URLs are supported.");
             }
+
+            HttpsURLConnection httpsConnection = (HttpsURLConnection) urlObject.openConnection();
+            int responseCode = httpsConnection.getResponseCode();
+
+            if (responseCode != HttpsURLConnection.HTTP_OK) {
+                throw new CertificateServiceException("Failed to establish HTTPS connection. Response code: " + responseCode);
+            }
+
+            Optional<SSLSession> optionalSslSession = httpsConnection.getSSLSession();
+
+            if (optionalSslSession.isPresent()) {
+                SSLSession sslSession = optionalSslSession.get();
+                try {
+                    X509Certificate x509Certificate = extractCertificate(sslSession);
+                    return createCertificateInfo(url, x509Certificate);
+                } catch (CertificateException e) {
+                    throw new CertificateServiceException("Error while processing the SSL certificate: " + e.getMessage());
+                }
+            } else {
+                throw new CertificateServiceException("No SSL session established.");
+            }
         } catch (MalformedURLException e) {
-            throw new CertificateServiceException("Malformed URL: " + e.getMessage());
-        } catch (IOException | CertificateException e) {
-            throw new CertificateServiceException("Error while processing certificate: " + e.getMessage(), e);
+            throw new CertificateServiceException("Invalid URL format - " + e.getMessage());
+        } catch (IOException e) {
+            throw new CertificateServiceException("Error while establishing the HTTPS connection: " + e.getMessage());
         }
     }
+
 
     private void validateUrl(String url) {
         if (url == null || url.isEmpty()) {
