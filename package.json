@@ -1,0 +1,19 @@
+{
+  "name": "devops-tls-cert-tracker",
+  "version": "1.0.0",
+  "description": "DevOps Student Project - Fall 2023\r Makes a page to track certifcates so you don't forget to renew them.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha src/main/resources/static/test/testcases/homepage.js --timeout 60000"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chromedriver": "^117.0.3",
+    "mocha": "^10.2.0",
+    "selenium-webdriver": "^3.6.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.10"
+  }
+}
