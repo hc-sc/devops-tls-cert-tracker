@@ -1,3 +1,5 @@
+name: Cert Tracker frontend CI
+
 on:
   push:
     branches:
