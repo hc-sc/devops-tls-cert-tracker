@@ -41,6 +41,7 @@ jobs:
           
     # Define permissions for the job (GitHub Actions permissions).
     permissions:
+      id-token: write
       contents: read
       actions: read
       checks: write
