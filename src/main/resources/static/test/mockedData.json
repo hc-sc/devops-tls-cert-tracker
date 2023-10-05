@@ -1,0 +1,22 @@
+[
+    {
+      "id": 1,
+      "url": "www.dummy.com",
+      "ValidTo": "2023-10-10"
+    },
+    {
+        "id": 2,
+        "url": "www.dummy1.com",
+        "ValidTo": "2023-11-20"
+    },
+      {
+        "id": 3,
+        "url": "www.dummy2.com",
+        "ValidTo": "2024-10-10"
+      },
+      {
+        "id": 4,
+        "url": "www.dummy3.com",
+        "ValidTo": "2023-10-25"
+      }
+]
