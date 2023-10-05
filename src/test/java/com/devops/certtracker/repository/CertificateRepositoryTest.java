@@ -29,7 +29,7 @@ public class CertificateRepositoryTest {
     private Certificate certificate2;
 
     /**
-     * Initialize test data before each test case
+     * Initialize test data before each test case.
      */
     @BeforeEach
     public void init() {
