@@ -1,0 +1,1 @@
+live-server --open=src/main/resources/static/test/ &
