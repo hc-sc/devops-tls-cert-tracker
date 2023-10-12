@@ -49,6 +49,7 @@ public class CertificateServiceTest {
         MockitoAnnotations.openMocks(this);
 
         certificate1 = new Certificate();
+        certificate1.setId(1L);
         certificate1.setUrl("https://www.google.com");
         certificate1.setSubject("CN=google.com");
         certificate1.setIssuer("CN=issuer.com");
@@ -56,6 +57,7 @@ public class CertificateServiceTest {
         certificate1.setValidTo(new Date());
 
         certificate2 = new Certificate();
+        certificate2.setId(2L);
         certificate2.setUrl("https://www.github.com");
         certificate2.setSubject("CN=github.com");
         certificate2.setIssuer("CN=issuer.com");
@@ -106,6 +108,38 @@ public class CertificateServiceTest {
     }
 
     /**
+     *  Test get certificate by id functionality
+     */
+    @Test
+    @DisplayName("Get a certificate by ID")
+    public void testGetCertificateById(){
+        when(certificateRepository.findById(anyLong())).thenReturn(Optional.of(certificate1));
+        Certificate existingCertificate = certificateService.getCertificateById(certificate1.getId());
+        assertNotNull(existingCertificate);
+        assertNotNull(existingCertificate.getId());
+        assertEquals(certificate1.getId(),existingCertificate.getId());
+    }
+
+    /**
+     * Test the scenario where a certificate with a non-existing ID is attempted to be obtained,
+     * resulting in an EntityNotFoundException.
+     */
+    @Test
+    @DisplayName("Get a certificate by non-existing ID - Entity Not Found")
+    public void testGetCertificateById_NonExistingId() {
+        // Mock data
+        Long nonExistingId = 9L;
+        when(certificateRepository.findById(nonExistingId)).thenReturn(Optional.empty());
+
+        // Test and assert exception
+        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, ()->{
+            certificateService.getCertificateById(nonExistingId);
+        });
+
+        assertTrue(exception.getMessage().contains("Certificate with ID " + nonExistingId + " not found"));
+    }
+
+    /**
      * Test the deletion of a certificate by ID.
      */
     @Test
@@ -121,6 +155,7 @@ public class CertificateServiceTest {
         // Verify that deleteById is called
         verify(certificateRepository, times(1)).deleteById(certificateId);
     }
+
 
     /**
      * Test the scenario where a certificate with a non-existing ID is attempted to be deleted,

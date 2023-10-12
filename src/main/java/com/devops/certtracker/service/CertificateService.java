@@ -33,7 +33,10 @@ public class CertificateService {
         }
         return  certificates;
     }
-
+//    public Certificate getCertificateById(Long certificateId){
+//        return certificateRepository.findById(certificateId)
+//                    .orElseThrow(() -> new EntityNotFoundException("Certificate with ID "+ certificateId + " not found"));
+//    }
     public void deleteCertificateById(Long certificateId){
         // Check if the certificate exists before attempting to delete
         if(!certificateRepository.existsById(certificateId)){
