@@ -41,10 +41,10 @@ public class CertificateController {
         return ResponseEntity.ok(certificates);
     }
 
-//    @GetMapping("get/{certificateId}")
-//    ResponseEntity<Object> getCertificateById(@PathVariable Long certificateId){
-//        Certificate certificate = certificateService.getCertificateById(certificateId);
-//        return ResponseEntity.ok(certificate);
-//    }
+    @GetMapping("get/{certificateId}")
+    ResponseEntity<Object> getCertificateById(@PathVariable Long certificateId){
+        Certificate certificate = certificateService.getCertificateById(certificateId);
+        return ResponseEntity.ok(certificate);
+    }
 
 }
