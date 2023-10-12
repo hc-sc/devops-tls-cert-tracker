@@ -38,7 +38,7 @@ describe('This tests for index.html', function(){
 
     it("Test if user input begins with https://", async function(){
         // Enter test steps
-        const testResult = await homepage.userInputFormat("https://thestar.com");
+        const testResult = await homepage.user_InputFormat_test("https://thestar.com");
         expect(testResult).to.equal(true);
     });
 
@@ -60,4 +60,27 @@ describe('This tests for index.html', function(){
         expect(testResult).to.equal(true);
     });
 
+    it("Test if rows are getting deleted from the table", async function(){
+        // Enter test steps
+        const testResult = await homepage.deletingRow_test();
+        expect(testResult).to.equal(true);
+    });
+
+    it("Test if default submission of the form is prevented with pressing enter", async function(){
+        // Enter test steps
+        const testResult = await homepage.default_formPrevention_test("form submission");
+        expect(testResult).to.equal(true);
+    });
+
+    it("Test if pressing enter the input to table triggering the correct button", async function(){
+        // Enter test steps
+        const testResult = await homepage.add_UrlWithEnterKey_test("test input");
+        expect(testResult).to.equal(true);
+    });
+
+    it("Test if user is sent to view additional information about certificate by clicking icon", async function(){
+        // Enter test steps
+        const testResult = await homepage.more_infoPage_test();
+        expect(testResult).to.equal(true);
+    });
 })
