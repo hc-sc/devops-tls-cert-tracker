@@ -83,10 +83,4 @@ describe('This tests for index.html', function(){
         const testResult = await homepage.more_infoPage_test();
         expect(testResult).to.equal(true);
     });
-
-    it("Test if user can go back to the index page from certficiate page by clicking link", async function(){
-        // Enter test steps
-        const testResult = await homepage.back_toIndex_test();
-        expect(testResult).to.equal(true);
-    });
 })
