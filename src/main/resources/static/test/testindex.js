@@ -92,16 +92,16 @@ function addandDeleteRow(certificate) {
   // Visual notification based on the expiry date
   if (expiryDateData < today) {
     // Certificate has expired
-    addRow.setAttribute('id', 'expired');
+    addRow.classList.add('color_expired');
   } else if (dateCalculate < 14) {
     // Expiring within 2 weeks (less than 14 days)
-    addRow.setAttribute('id', 'expiringInTwoWeeks');
+    addRow.classList.add('color_expiringInTwoWeeks');
   } else if (dateCalculate < 42) {
     // Expiring within 6 weeks (less than 42 days)
-    addRow.setAttribute('id', 'expiringInSixWeeks');
+    addRow.classList.add('color_expiringInSixWeeks');
   } else {
     // else (more than 6 weeks remaining)
-    addRow.setAttribute('id', 'expiringGood');
+    addRow.classList.add('color_expiringGood');
   }
 
   //link to page displaying additional info about certification and save corresponding id number to cookie
@@ -114,7 +114,7 @@ function addandDeleteRow(certificate) {
   moreCert.addEventListener('click', () => {
     
     const certificateId = addRow.getAttribute('certificateId');
-    setCookie("certId",certificateId)
+    setCookie("certId", certificateId)
     window.location.replace("http://127.0.0.1:5500/src/main/resources/static/test/certinfo.html");
   });
 

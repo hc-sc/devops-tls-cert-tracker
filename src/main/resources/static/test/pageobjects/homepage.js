@@ -217,7 +217,7 @@ class HomePage extends BasePage {
         return result;
     }
 
-    //Test if the table is visually alerting the users with correct css Id
+    //Test if the table is visually alerting the users with correct css class name
     async visual_alert_test() {
         let result = true;
 
@@ -226,8 +226,8 @@ class HomePage extends BasePage {
             const rows = await table.findElements(By.css('tbody tr'));
 
             for (const row of rows) {
-                const rowId = await row.getAttribute('id');
-                if (rowId === "expiringInTwoWeeks" || rowId === "expiringInSixWeeks" || rowId === "expired" || rowId === "expiringGood") {
+                const rowClass = await row.getAttribute('class');
+                if (rowClass.includes("expiringInTwoWeeks") || rowClass.includes("expiringInSixWeeks") || rowClass.includes("expired") || rowClass.includes("expiringGood")) {
                     result = true;
                 } else {
                     console.log("Fail, some rows are not visually alerting the users")
@@ -336,6 +336,28 @@ class HomePage extends BasePage {
         }
         
     }
+
+        //Test if user can go back to the index page from certficiate page by clicking link
+        async back_toIndex_test(){
+            const moreCertInfoIcons = await driver.findElements(By.className("moreCertInfo"));
+            moreCertInfoIcons[0].click();
+
+            driver.sleep(5000);
+
+            const goingBackBtn = await driver.findElement(By.id("toHomeBtn"));
+            goingBackBtn.click();
+            //get text from additional information
+            const currentUrl = await driver.getCurrentUrl();
+    
+            if (currentUrl.includes("index.html")){
+                console.log("Success, you are redirected to index page")
+                return true;
+            } else {
+                console.log("Fail, you are not redirected to index page")
+                return false;
+            }
+            
+        }
 
 }
 

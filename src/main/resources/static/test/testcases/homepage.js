@@ -54,7 +54,7 @@ describe('This tests for index.html', function(){
         expect(testResult).to.equal(true);
     });
 
-    it("Test if the table is visually alerting the users with correct css Id", async function(){
+    it("Test if the table is visually alerting the users with correct css class name", async function(){
         // Enter test steps
         const testResult = await homepage.visual_alert_test();
         expect(testResult).to.equal(true);
@@ -81,6 +81,12 @@ describe('This tests for index.html', function(){
     it("Test if user is sent to view additional information about certificate by clicking icon", async function(){
         // Enter test steps
         const testResult = await homepage.more_infoPage_test();
+        expect(testResult).to.equal(true);
+    });
+
+    it("Test if user can go back to the index page from certficiate page by clicking link", async function(){
+        // Enter test steps
+        const testResult = await homepage.back_toIndex_test();
         expect(testResult).to.equal(true);
     });
 })
