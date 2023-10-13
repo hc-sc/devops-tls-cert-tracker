@@ -342,10 +342,11 @@ class HomePage extends BasePage {
             const moreCertInfoIcons = await driver.findElements(By.className("moreCertInfo"));
             moreCertInfoIcons[0].click();
 
-            driver.sleep(5000);
+            driver.sleep(10000);
 
             const goingBackBtn = await driver.findElement(By.id("toHomeBtn"));
             goingBackBtn.click();
+
             //get text from additional information
             const currentUrl = await driver.getCurrentUrl();
     
