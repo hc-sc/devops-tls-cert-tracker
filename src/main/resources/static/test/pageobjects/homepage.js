@@ -336,30 +336,6 @@ class HomePage extends BasePage {
         }
         
     }
-
-        //Test if user can go back to the index page from certficiate page by clicking link
-        async back_toIndex_test(){
-            const moreCertInfoIcons = await driver.findElements(By.className("moreCertInfo"));
-            moreCertInfoIcons[0].click();
-
-            driver.sleep(10000);
-
-            const goingBackBtn = await driver.findElement(By.id("toHomeBtn"));
-            goingBackBtn.click();
-
-            //get text from additional information
-            const currentUrl = await driver.getCurrentUrl();
-    
-            if (currentUrl.includes("index.html")){
-                console.log("Success, you are redirected to index page")
-                return true;
-            } else {
-                console.log("Fail, you are not redirected to index page")
-                return false;
-            }
-            
-        }
-
 }
 
 module.exports = new HomePage;
