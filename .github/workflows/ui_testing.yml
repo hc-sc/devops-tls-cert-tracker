@@ -45,3 +45,6 @@ jobs:
 
     - name: Run Selenium tests
       run: npm test
+
+    - name: Run frontend API test
+      run: npm run api-test
