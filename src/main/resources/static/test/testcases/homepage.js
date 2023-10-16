@@ -54,7 +54,7 @@ describe('This tests for index.html', function(){
         expect(testResult).to.equal(true);
     });
 
-    it("Test if the table is visually alerting the users with correct css Id", async function(){
+    it("Test if the table is visually alerting the users with correct css class name", async function(){
         // Enter test steps
         const testResult = await homepage.visual_alert_test();
         expect(testResult).to.equal(true);
