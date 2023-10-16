@@ -48,3 +48,7 @@ jobs:
 
     - name: Run Selenium tests for certinfo.html
       run: npm run test-certpage
+
+    - name: Run frontend API test
+      run: npm run api-test
+
