@@ -32,20 +32,22 @@
   </header>
 
   <main class="container" property="mainContentOfPage" resource="#wb-main" typeof="WebPageElement">
-    <h1 id="wb-cont" property="name">Welcome!</h1>
+    <h1 id="wb-cont" property="name"></h1>
     <div class="wb-prettify all-pre"></div>
-    <section>
-      <div>
-        <span>Common Name: </span><span class="certName"></span>
-      </div>
-      <div>
-        <span>Issuer: </span><span class="certIssuer"></span>
-      </div>
-      <div>
-        <span>Valid From: </span><span class="certValidFrom"></span>
-      </div>
-      <div>
-        <span>Valid Until: </span><span class="certValidTo"></span>
+    <section class="certInfo_container">
+      <div class="certInfo brdr panel panel-default">
+        <div>
+          <span class="certLabel">Common Name: </span><span class="certName"></span>
+        </div>
+        <div>
+          <span class="certLabel">Issuer: </span><span class="certIssuer"></span>
+        </div>
+        <div>
+          <span class="certLabel">Valid From: </span><span class="certValidFrom"></span>
+        </div>
+        <div>
+          <span class="certLabel">Valid Until: </span><span class="certValidTo"></span>
+        </div>
       </div>
     </section>
     <a class="pull-right" id="toHomeBtn" href="./index.html">Back to the list ></a>

@@ -1,3 +1,7 @@
+const pageHeading = document.querySelector("#wb-cont");
+let certId = getCookie('certId');
+pageHeading.textContent = "Details about certificate number " + certId
+
 function getCookie(name) {
     const nameEQ = name + "=";
     const ca = document.cookie.split(';');

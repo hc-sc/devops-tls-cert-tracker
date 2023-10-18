@@ -40,3 +40,18 @@
     cursor: pointer;
     color: grey;
 }
+
+.certInfo_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.certInfo {
+    padding: 1em;
+}
+
+.certLabel {
+    font-weight: bold;
+}
