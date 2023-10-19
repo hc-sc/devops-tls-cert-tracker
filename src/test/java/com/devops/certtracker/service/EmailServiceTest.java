@@ -41,17 +41,14 @@ public class EmailServiceTest {
     private EmailService emailService;
 
     // Sample Certificate instances used for testing purposes.
-    private Certificate certificate1;
-    private Certificate certificate2;
+    private Certificate certificate1, certificate2;
 
-    private Date tenDaysFromNow;
-    private Date tenDaysAgo;
-
-    private Date twoMonthsFromNow;
+    private Date tenDaysFromNow, tenDaysAgo, twoMonthsFromNow;
 
     private SimpleMailMessage message;
 
     private String body, recipient;
+
     /**
      * Initialize test data before each test case.
      */
