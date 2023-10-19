@@ -38,15 +38,15 @@ async function fetchCertificateById(certid) {
 
   // change text of html element with data
   function certificateTextContent(certificate){
+    const certUrl = document.querySelector(".certUrl");
     const certName = document.querySelector(".certName");
     const certIssuer = document.querySelector(".certIssuer");
     const certValidFrom = document.querySelector(".certValidFrom");
     const certValidTo = document.querySelector(".certValidTo");
-    const pageHeading = document.querySelector("#wb-cont");
 
-    pageHeading.textContent = "You are viewing the certificate for\n" + certificate.url;
-    pageHeading.style.whiteSpace= "pre";
-    pageHeading.textContent += 
+    // pageHeading.textContent = "Certificate Details\n" + certificate.url;
+    // pageHeading.style.whiteSpace= "pre";
+    certUrl.textContent = certificate.url;
     certName.textContent = certificate.name;
     certIssuer.textContent = certificate.issuer;
     certValidFrom.textContent = certificate.ValidFrom;

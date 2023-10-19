@@ -115,7 +115,7 @@ function addandDeleteRow(certificate) {
     
     const certificateId = addRow.getAttribute('certificateId');
     setCookie("certId", certificateId)
-    window.location.replace("http://127.0.0.1:5500/src/main/resources/static/test/certinfo.html");
+    window.location.replace("./certinfo.html");
   });
 
   // Deletion handling

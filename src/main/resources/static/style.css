@@ -1,14 +1,15 @@
 .color_expiringInTwoWeeks{
-    background-color: #ff922b !important;
+    background-color: #ffa94d !important;
+
 }
 .color_expiringInSixWeeks{
     background-color: #ffd43b !important;
 }
 .color_expired{
-    background-color: #e03131 !important;
+    background-color: #fa5252 !important;
 }
 .color_expiringGood{
-    background-color: #51cf66 !important;
+    background-color: #69db7c !important;
 }
 
 .color_key_container {
@@ -35,6 +36,9 @@
 #certTable tbody {
     font-weight: bold;
 }
+#submitUrl {
+    font-size: 2em;
+}
 
 #submitUrl:hover, .moreCertInfo:hover, .deleteBtn:hover {
     cursor: pointer;
@@ -44,7 +48,6 @@
 .certInfo_container{
     display: flex;
     justify-content: center;
-    align-items: center;
     flex-direction: column;
 }
 
@@ -54,4 +57,9 @@
 
 .certLabel {
     font-weight: bold;
+}
+
+#userInputUrl {
+    width: 20em;
+    height: 2em;
 }

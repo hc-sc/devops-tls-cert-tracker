@@ -61,7 +61,7 @@ function addandDeleteRow(certificate) {
   const addRow = tableBody.insertRow();
   const url = addRow.insertCell(0);
   const expiryDate = addRow.insertCell(1);
-  const deleteRow = addRow.insertCell(2);
+  const actionRow = addRow.insertCell(2);
 
   const today = new Date();
   const expiryDateData = new Date(certificate.validTo);
@@ -76,19 +76,33 @@ function addandDeleteRow(certificate) {
   const dateCalculate = Math.floor((expiryDateData - today) / (1000 * 60 * 60 * 24));
 
   // Visual notification based on the expiry date
-  if (expiryDateData < today) {
-    // Certificate has expired
-    addRow.setAttribute('id', 'expired');
-  } else if (dateCalculate < 14) {
-    // Expiring within 2 weeks (less than 14 days)
-    addRow.setAttribute('id', 'expiringInTwoWeeks');
-  } else if (dateCalculate < 42) {
-    // Expiring within 6 weeks (less than 42 days)
-    addRow.setAttribute('id', 'expiringInSixWeeks');
-  } else {
-    // else (more than 6 weeks remaining)
-    addRow.setAttribute('id', 'expiringGood');
-  }
+  // if (expiryDateData < today) {
+  //   // Certificate has expired
+  //   addRow.setAttribute('id', 'expired');
+  // } else if (dateCalculate < 14) {
+  //   // Expiring within 2 weeks (less than 14 days)
+  //   addRow.setAttribute('id', 'expiringInTwoWeeks');
+  // } else if (dateCalculate < 42) {
+  //   // Expiring within 6 weeks (less than 42 days)
+  //   addRow.setAttribute('id', 'expiringInSixWeeks');
+  // } else {
+  //   // else (more than 6 weeks remaining)
+  //   addRow.setAttribute('id', 'expiringGood');
+  // }
+
+    //link to page displaying additional info about certification and save corresponding id number to cookie
+    const moreCert = document.createElement("span");
+    moreCert.classList.add('moreCertInfo');
+    moreCert.classList.add('glyphicon');
+    moreCert.classList.add('glyphicon-info-sign');
+    actionRow.appendChild(moreCert)
+  
+    moreCert.addEventListener('click', () => {
+      
+      const certificateId = addRow.getAttribute('certificateId');
+      setCookie("certId", certificateId)
+      window.location.replace("./certinfo.html");
+    });
 
   // Deletion handling
 
@@ -102,11 +116,17 @@ function addandDeleteRow(certificate) {
   deleteButton.classList.add('glyphicon-trash');
   deleteButton.setAttribute('alt', 'Delete Button');
   // Append the element into the appropriate cell in the table
-  deleteRow.appendChild(deleteButton);
+  actionRow.appendChild(deleteButton);
   deleteButton.addEventListener('click', () => {
     const certificateId = addRow.getAttribute('certificateId');
     deleteFetch(certificateId);
   });
+}
+
+//save id number to cookie and send it to certinfo.html js file
+function setCookie(name, value){
+  const cookieExpires = "";
+  document.cookie = name + "=" + (value || "");
 }
 
 // *************************************************************************************************************

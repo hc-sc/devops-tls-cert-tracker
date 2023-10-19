@@ -153,22 +153,28 @@
     <section class="certInfo_container">
       <dl class="certInfo brdr panel panel-default">
         <dt>
-          URL
-        </dt>
-        <dd>
-          <span class="certUrl"></span>
-        </dd>
-        <dt>
           Issued To
         </dt>
         <dd>
-          Common Name&#58; <span class="certName"></span>
+          Common Name &#40;CN&#41;&#58; <span class="certSubjectName"></span>
+        </dd>
+        <dd>
+          Organization &#40;O&#41; &#58; <span class="certSubjectOrganization"></span>
+        </dd>
+        <dd>
+          Organizational Unit &#40;OU&#41;&#58; <span class="certSubjectOrganizationUnit"></span>
         </dd>
         <dt>
           Issued By
         </dt>
         <dd>
-          Common Name&#58; <span class="certIssuer"></span>
+          Common Name &#40;CN&#41;&#58; <span class="certIssuerName"></span>
+        </dd>
+        <dd>
+          Organization &#40;O&#41; &#58; <span class="certIssuerOrganization"></span>
+        </dd>
+        <dd>
+          Organizational Unit &#40;OU&#41;&#58; <span class="certIssuerOrganizationUnit"></span>
         </dd>
         <dt>
           Validity
@@ -248,7 +254,7 @@
   <script src="../wet-boew/js/wet-boew.min.js"></script>
   <script src="../GCWeb/js/theme.min.js"></script>
   <!-- testing scripts -->
-  <script src="./testcertinfo.js"></script>
+  <script src="./certinfo.js"></script>
 </body>
 
 </html>
