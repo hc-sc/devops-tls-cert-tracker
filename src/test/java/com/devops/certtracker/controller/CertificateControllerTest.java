@@ -205,7 +205,34 @@ public class CertificateControllerTest {
     }
 
     @Test
-    void testDeleteCertificateById() throws Exception {
+    public void testGetCertificateById() throws Exception {
+       Long cerificateId = 1L;
+        when(certificateService.getCertificateById(cerificateId)).thenReturn(certificate1);
+        this.mockMvc.perform(get("/api/certificates/get/{certificateId}", cerificateId))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").exists())
+                .andExpect(jsonPath("$.url").exists())
+                .andExpect(jsonPath("$.subject").exists())
+                .andExpect(jsonPath("$.issuer").exists())
+                .andExpect(jsonPath("$.validFrom").exists())
+                .andExpect(jsonPath("$.validTo").exists());
+    }
+
+    @Test
+    public void testGetCertificateById_NonExistingId() throws Exception{
+        Long nonExistingId = 999L;
+        doThrow(new EntityNotFoundException("Certificate with ID " + nonExistingId + " not found"))
+                .when(certificateService)
+                .getCertificateById(nonExistingId);
+
+        this.mockMvc.perform(get("/api/certificates/get/{id}", nonExistingId))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.error").value("Certificate not Found"))
+                .andExpect(jsonPath("$.message").value("Certificate with ID " + nonExistingId + " not found"));
+    }
+
+    @Test
+    public void testDeleteCertificateById() throws Exception {
         // Define the ID of the certificate to be deleted
         Long certificateId = 1L;
 
@@ -219,7 +246,7 @@ public class CertificateControllerTest {
     }
 
     @Test
-    void testDeleteCertificateById_NonExistingId() throws Exception {
+    public void testDeleteCertificateById_NonExistingId() throws Exception {
         Long nonExistingId = 999L;
 
         doThrow(new EntityNotFoundException("Certificate with ID " + nonExistingId + " not found"))

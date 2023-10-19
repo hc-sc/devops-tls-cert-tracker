@@ -4,7 +4,10 @@
   "description": "DevOps Student Project - Fall 2023\r Makes a page to track certifcates so you don't forget to renew them.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha src/main/resources/static/test/testcases/homepage.js --timeout 60000"
+    "test": "mocha src/main/resources/static/test/testcases/homepage.js --timeout 200000",
+    "test-certpage": "mocha src/main/resources/static/test/testcases/certpage.js --timeout 200000",
+    "api-test": "mocha src/main/resources/static/test/apitesting/apitest.js --timeout 60000"
+
   },
   "author": "",
   "license": "ISC",
