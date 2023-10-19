@@ -1,7 +1,3 @@
-const pageHeading = document.querySelector("#wb-cont");
-let certId = getCookie('certId');
-pageHeading.textContent = "Details about certificate number " + certId
-
 function getCookie(name) {
     const nameEQ = name + "=";
     const ca = document.cookie.split(';');
@@ -38,7 +34,6 @@ async function fetchCertificateById(certid) {
   
   // Usage: Call the function with the desired id (e.g., 2)
   const certificateIdFromCookie = getCookie('certId');
-  console.log(certificateIdFromCookie);
   fetchCertificateById(certificateIdFromCookie);
 
   // change text of html element with data
@@ -47,7 +42,11 @@ async function fetchCertificateById(certid) {
     const certIssuer = document.querySelector(".certIssuer");
     const certValidFrom = document.querySelector(".certValidFrom");
     const certValidTo = document.querySelector(".certValidTo");
-    
+    const pageHeading = document.querySelector("#wb-cont");
+
+    pageHeading.textContent = "You are viewing the certificate for\n" + certificate.url;
+    pageHeading.style.whiteSpace= "pre";
+    pageHeading.textContent += 
     certName.textContent = certificate.name;
     certIssuer.textContent = certificate.issuer;
     certValidFrom.textContent = certificate.ValidFrom;

@@ -35,7 +35,7 @@
     <h1 id="wb-cont" property="name"></h1>
     <div class="wb-prettify all-pre"></div>
     <section class="certInfo_container">
-      <div class="certInfo brdr panel panel-default">
+      <!-- <div class="certInfo brdr panel panel-default">
         <div>
           <span class="certLabel">Common Name: </span><span class="certName"></span>
         </div>
@@ -48,7 +48,30 @@
         <div>
           <span class="certLabel">Valid Until: </span><span class="certValidTo"></span>
         </div>
-      </div>
+      </div> -->
+      <dl class="certInfo brdr panel panel-default">
+        <dt>
+          Issued To
+        </dt>
+        <dd>
+          Common Name&#58; <span class="certName"></span>
+        </dd>
+        <dt>
+          Issued By
+        </dt>
+        <dd>
+          Common Name&#58; <span class="certIssuer"></span>
+        </dd>
+        <dt>
+          Validity
+        </dt>
+        <dd>
+          Issued on&#58; <span class="certValidFrom"></span>
+        </dd>
+        <dd>
+          Expires on&#58; <span class="certValidTo"></span>
+        </dd>
+      </dl>
     </section>
     <a class="pull-right" id="toHomeBtn" href="./index.html">Back to the list ></a>
   </main>
