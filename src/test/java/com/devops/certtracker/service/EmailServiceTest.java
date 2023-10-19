@@ -4,7 +4,6 @@
 package com.devops.certtracker.service;
 
 import com.devops.certtracker.entity.Certificate;
-import com.devops.certtracker.repository.CertificateRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,7 +16,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -32,8 +30,6 @@ import static org.mockito.Mockito.*;
 public class EmailServiceTest {
 
     // Mocked repository for simulating interactions with the Certificate database.
-//    @Mock
-//    private CertificateRepository certificateRepository;
 
     @Mock
     private CertificateService certificateService;
@@ -126,15 +122,11 @@ public class EmailServiceTest {
 
         // Mock the repository's findAll() method to return the mock data
         when(certificateService.getAllCertificates()).thenReturn(certificates);
-//        when(emailService.generateEmail(recipient, 14).thenReturn(message));
-//        when(javaMailSender.send(message).thenReturn("Email sent successfully"));
 
         // Verify that the email is sent successfully
         assertEquals(
                 "Email sent successfully",
                 emailService.sendListEmail("kyle.ryc@gmail.com"));
-
-
     }
 
 }
