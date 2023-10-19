@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
@@ -31,10 +32,10 @@ public class EmailServiceTest {
 
     // Mocked repository for simulating interactions with the Certificate database.
 
-    @Mock
+    @MockBean
     private CertificateService certificateService;
 
-    @Mock
+    @MockBean
     private JavaMailSender javaMailSender;
     // The service under test, which will be automatically injected with mocked dependencies.
     @InjectMocks
