@@ -26,6 +26,10 @@ const urlSubmitBtn = document.querySelector('#submitUrl');
 urlSubmitBtn.addEventListener('click', async function (e) {
   e.preventDefault();
 
+
+  const loadingImg = document.querySelector('.loadingImg');
+  loadingImg.classList.remove("hidden");
+
   // prevent multiple form submission while it's loading the data
   if (submissionInProgress) {
     return;
@@ -63,6 +67,8 @@ function addandDeleteRow(certificate) {
   const expiryDate = addRow.insertCell(1);
   const actionRow = addRow.insertCell(2);
 
+  actionRow.classList.add("actionRow");
+
   const today = new Date();
   const expiryDateData = new Date(certificate.validTo);
 
@@ -74,21 +80,26 @@ function addandDeleteRow(certificate) {
 
   // Expiration date calculation for visual notification
   const dateCalculate = Math.floor((expiryDateData - today) / (1000 * 60 * 60 * 24));
+  
+  let calculatedTimeRemaining = calculateTimeRemaining(today, expiryDateData);
+  let formattedMessage = formatTimeRemaining(calculatedTimeRemaining);
+  console.log(formattedMessage);
+  expiryDate.textContent += ", " + formattedMessage ;
 
   // Visual notification based on the expiry date
-  // if (expiryDateData < today) {
-  //   // Certificate has expired
-  //   addRow.setAttribute('id', 'expired');
-  // } else if (dateCalculate < 14) {
-  //   // Expiring within 2 weeks (less than 14 days)
-  //   addRow.setAttribute('id', 'expiringInTwoWeeks');
-  // } else if (dateCalculate < 42) {
-  //   // Expiring within 6 weeks (less than 42 days)
-  //   addRow.setAttribute('id', 'expiringInSixWeeks');
-  // } else {
-  //   // else (more than 6 weeks remaining)
-  //   addRow.setAttribute('id', 'expiringGood');
-  // }
+  if (expiryDateData < today) {
+    // Certificate has expired
+    addRow.classList.add('color_expired');
+  } else if (dateCalculate < 14) {
+    // Expiring within 2 weeks (less than 14 days)
+    addRow.classList.add('color_expiringInTwoWeeks');
+  } else if (dateCalculate < 42) {
+    // Expiring within 6 weeks (less than 42 days)
+    addRow.classList.add('color_expiringInSixWeeks');
+  } else {
+    // else (more than 6 weeks remaining)
+    addRow.classList.add('color_expiringGood');
+  }
 
     //link to page displaying additional info about certification and save corresponding id number to cookie
     const moreCert = document.createElement("span");
@@ -108,7 +119,6 @@ function addandDeleteRow(certificate) {
 
   // Create button element for deleting the certificate
   const deleteButton = document.createElement("span");
-  // deleteButton.textContent = 'DELETE';
 
   // Adding class to style the delete button
   deleteButton.classList.add('deleteBtn');
@@ -129,6 +139,59 @@ function setCookie(name, value){
   document.cookie = name + "=" + (value || "");
 }
 
+// Calculate time, days, week, month left to expiry
+function calculateTimeRemaining(fromDate, toDate) {
+  const msPerHour = 1000 * 60 * 60;
+  const msPerDay = msPerHour * 24;
+  const msPerWeek = msPerDay * 7;
+  const timeDifference = toDate - fromDate;
+  const monthsRemaining = ((toDate - fromDate) / msPerDay / 30.44);
+  const weeksRemaining = (timeDifference / msPerWeek);
+  const daysRemaining = timeDifference / msPerDay;
+  const hoursRemaining = Math.floor(timeDifference % msPerDay) / msPerHour;
+  const minutesRemaining = Math.floor(timeDifference % msPerHour) / (1000 * 60);
+  
+  return { months: monthsRemaining, weeks: weeksRemaining, days: daysRemaining, hours: hoursRemaining, minutes: minutesRemaining };
+}
+
+// Format the calculated remaining time to expiry and return correct message depending on the time
+function formatTimeRemaining(calculatedTimeRemaining) {
+  const { months, weeks, days, hours, minutes } = calculatedTimeRemaining;
+
+  const roundedMonths = Math.round(months);
+  const roundedWeeks = Math.round(weeks);
+  const roundedDays = Math.round(days);
+  const roundedHours = Math.round(hours);
+  const roundedMinutes = Math.round(minutes);
+
+  const commonMessage = "left to expire"
+
+  if (months >= 1) {
+
+    return `${roundedMonths} month(s) ${commonMessage}`;
+
+  } else if (weeks >= 1) {
+
+    return `${roundedWeeks} week(s) ${commonMessage}`;
+
+  } else if (days >= 1) {
+
+    return `${roundedDays} day(s) ${commonMessage}`;
+
+  } else if (hours >= 1) {
+
+    return `${roundedHours} hour(s) ${roundedMinutes} minute(s) ${commonMessage}`;
+
+  } else if (minutes >= 1) {
+
+    return `${roundedMinutes} minute(s) ${commonMessage}`;
+
+  } else {
+    return "This certificate is expired";
+  }
+}
+
+
 // *************************************************************************************************************
 // ************************************************API Functions************************************************
 // *************************************************************************************************************
@@ -148,6 +211,12 @@ async function fetchTableData() {
     if(!response.ok){
       throw data;
     } else {
+      const noDataElement = document.querySelector('.dataTables_empty');
+      if (noDataElement) {
+        const noDataRow = noDataElement.parentElement; // Get the parent <tr> element
+        noDataRow.remove(); // Remove the row if the "no data" element exists
+      }
+      console.log(data);
       populateTable(data);
     }
 
@@ -175,6 +244,7 @@ async function addFetch(userInputUrl) {
       throw data;
     } else {
       addandDeleteRow(data);
+      location.reload();
     }
   } catch (error) {
     console.error("Error calling data for addFetch:", error)
@@ -207,5 +277,6 @@ async function deleteFetch(certificateId) {
 
   if (rowToRemove) {
     tableBody.removeChild(rowToRemove);
+    location.reload();
   }
 }

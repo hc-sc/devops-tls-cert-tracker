@@ -165,11 +165,19 @@
           <span>Expired</span>
         </div>
       </div>
+
     </div>
     <div class="table-responsive">
       <table
-        class="wb-tables table wb-init no-footer table-bordered-th table-striped table-bordered"
+        class="wb-tables table no-footer table-bordered-th table-striped table-bordered"
         id="certTable"
+        data-wb-tables='{
+          "columnDefs": [ {
+            "targets": 2,
+            "orderable": false
+          } ]
+          
+        }'
         aria-label="This table provides list of SSL/TLS certificates user saved to the table providing informtaion about the certificates">
         <h4>List of Certificates</h4>
         <thead>
