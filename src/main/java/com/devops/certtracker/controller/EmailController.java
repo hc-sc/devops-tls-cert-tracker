@@ -10,8 +10,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/email")
 public class EmailController {
-    @Autowired
     private EmailService emailService;
+
+    public EmailController(EmailService emailService) {
+        this.emailService = emailService;
+    }
 
     @PostMapping("/send")
     ResponseEntity<String> sendEmail(@RequestBody Map<String, String> requestBody){
