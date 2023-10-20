@@ -1,6 +1,5 @@
 package com.devops.certtracker.controller;
 
-import com.devops.certtracker.service.CertificateService;
 import com.devops.certtracker.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +17,7 @@ public class EmailController {
     ResponseEntity<String> sendEmail(@RequestBody Map<String, String> requestBody){
 
         String recipient = requestBody.get("recipient");
-        String response =  emailService.sendListEmail(recipient, 14);
+        String response =  emailService.sendListEmail(recipient);
         return ResponseEntity.ok(response);
     }
 

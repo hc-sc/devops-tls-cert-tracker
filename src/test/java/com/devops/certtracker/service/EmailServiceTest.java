@@ -32,27 +32,24 @@ public class EmailServiceTest {
 
     // Mocked repository for simulating interactions with the Certificate database.
 
-    @MockBean
+    @Mock
     private CertificateService certificateService;
 
-    @MockBean
+    @Mock
     private JavaMailSender javaMailSender;
     // The service under test, which will be automatically injected with mocked dependencies.
     @InjectMocks
     private EmailService emailService;
 
     // Sample Certificate instances used for testing purposes.
-    private Certificate certificate1;
-    private Certificate certificate2;
+    private Certificate certificate1, certificate2;
 
-    private Date tenDaysFromNow;
-    private Date tenDaysAgo;
-
-    private Date twoMonthsFromNow;
+    private Date tenDaysFromNow, tenDaysAgo, twoMonthsFromNow;
 
     private SimpleMailMessage message;
 
     private String body, recipient;
+
     /**
      * Initialize test data before each test case.
      */
