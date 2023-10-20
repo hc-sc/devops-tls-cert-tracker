@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
-@Component
+@Service
 public class EmailService {
 
     @Autowired
