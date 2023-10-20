@@ -11,7 +11,7 @@ public class EmailScheduler {
     private EmailService emailService;
 
     // Schedule an email to be sent out every week on Monday morning at 8:00 AM.
-    @Scheduled(cron = "0 0 8 ? * MON")
+    @Scheduled(fixedRate = 604800000)
     public void sendEmail() {
         emailService.sendListEmail("kyle.ryc@gmail.com", 14);
     }
