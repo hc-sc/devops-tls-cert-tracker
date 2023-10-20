@@ -22,6 +22,27 @@ describe("GET API Request test", async() => {
     )
 })
 
+describe("GET API Request test #2", async() => {
+  it("should be able to get a single user with id 2", async() => {
+      
+      apiUrl = "https://reqres.in/api/users/2"
+        
+      const response = await axios.get(apiUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': "application/json"
+        }
+      });
+      const data = response.data;
+        if(!(response.statusText == 'OK')){
+          throw data;
+        } else {
+          expect(data.data.id).to.equal(2);
+        }
+    }
+  )
+})
+
 describe("DELETE API Request test", async() => {
   it("should get response 204", async() => {
       
