@@ -47,8 +47,7 @@
         <div class="brand col-xs-9 col-sm-5 col-md-4" property="publisher" typeof="GovernmentOrganization">
           <a href="https://wet-boew.github.io/GCWeb/" property="url">
             <img src="https://wet-boew.github.io/themes-dist/GCWeb/GCWeb/assets/sig-blk-en.svg"
-              alt="Government of Canada" property="logo" /><span class="wb-inv"> / <span lang="fr">Gouvernement du
-                Canada</span></span>
+              alt="Government of Canada" property="logo" /><span class="wb-inv"> / <span lang="fr">Gouvernement du Canada</span></span>
           </a>
           <meta property="name" content="Government of Canada">
           <meta property="areaServed" typeof="Country" content="Canada" />
@@ -58,22 +57,21 @@
 
 
         <!-- <section id="wb-srch" class="col-lg-offset-4 col-md-offset-4 col-sm-offset-2 col-xs-12 col-sm-5 col-md-4">
-          <h2>Search</h2>
-          <form action="#" method="post" name="cse-search-box" role="search">
-            <div class="form-group wb-srch-qry">
-              <label for="wb-srch-q" class="wb-inv">Search Canada.ca</label>
-              <input id="wb-srch-q" list="wb-srch-q-ac" class="wb-srch-q form-control" name="q" type="search" value=""
-                size="34" maxlength="170" placeholder="Search Canada.ca" />
-              <datalist id="wb-srch-q-ac"></datalist>
-            </div>
-            <div class="form-group submit">
-              <button type="submit" id="wb-srch-sub" class="btn btn-primary btn-small" name="wb-srch-sub">
-                <span class="glyphicon-search glyphicon"></span>
-                <span class="wb-inv">Search</span>
-              </button>
-            </div>
-          </form>
-        </section> -->
+    <h2>Search</h2>
+    <form action="#" method="post" name="cse-search-box" role="search">
+      <div class="form-group wb-srch-qry">
+        <label for="wb-srch-q" class="wb-inv">Search Canada.ca</label>
+        <input id="wb-srch-q" list="wb-srch-q-ac" class="wb-srch-q form-control" name="q" type="search" value="" size="34" maxlength="170" placeholder="Search Canada.ca" />
+        <datalist id="wb-srch-q-ac"></datalist>
+      </div>
+      <div class="form-group submit">
+        <button type="submit" id="wb-srch-sub" class="btn btn-primary btn-small" name="wb-srch-sub">
+          <span class="glyphicon-search glyphicon"></span>
+          <span class="wb-inv">Search</span>
+        </button>
+      </div>
+    </form>
+  </section> -->
 
 
       </div>
@@ -134,6 +132,14 @@
             </a>
             <meta property="position" content="1">
           </li>
+
+          <li property="itemListElement" typeof="ListItem">
+            <a property="item" typeof="WebPage"
+              href="./certinfo.html">
+              <span property="name">Certificate Details</span>
+            </a>
+            <meta property="position" content="2">
+          </li>
         </ol>
       </div>
     </nav>
@@ -142,69 +148,40 @@
   </header>
 
   <main class="container" property="mainContentOfPage" resource="#wb-main" typeof="WebPageElement">
-    <h1 id="wb-cont" property="name">Dash Board</h1>
+    <h1 id="wb-cont" property="name">Certificate Details</h1>
     <div class="wb-prettify all-pre"></div>
-    <div class="color_key_container mrgn-tp-md">
-      <h4>Expiry Visual Notification &#8211; <span class="small">Colour Key</span></h4>
-      <div class="color_key brdr panel panel-default">
-        <div class="color_item">
-          <div class="color_expiringGood color_circle" alt="color for the certficate expires in more than 6 weeks">
-          </div>
-          <span>More than 6 weeks</span>
-        </div>
-        <div class="color_item">
-          <div class="color_expiringInSixWeeks color_circle" alt="color for the certficate expires in 6 weeks"></div>
-          <span>6 weeks</span>
-        </div>
-        <div class="color_item">
-          <div class="color_expiringInTwoWeeks color_circle" alt="color for the certficate expires in 2 weeks"></div>
-          <span>2 weeks</span>
-        </div>
-        <div class="color_item">
-          <div class="color_expired color_circle" alt="color for the expired certficate"></div>
-          <span>Expired</span>
-        </div>
-      </div>
-    </div>
-    <div class="table-responsive">
-      <table
-        class="wb-tables table wb-init no-footer table-bordered-th table-striped table-bordered"
-        id="certTable"
-        data-wb-tables='{
-          "columnDefs": [ {
-            "targets": 2,
-            "orderable": false
-          } ]
-        }'
-        aria-label="This table provides list of SSL/TLS certificates user saved to the table providing informtaion about the certificates">
-        <h4>List of Certificates</h4>
-        <thead>
-          <tr>
-            <th>URL</th>
-            <th>Expiry</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody> 
-        </tbody>
-        <img class="loadingImg hidden" src="./images/ZKZx.gif" alt="loading image">
-      </table>
-    </div>
-    <div class="urlForm_container mrgn-tp-lg wb-frmvld">
-      <h4>URL &#8211; <span class="small">Please provide the URL of the website for which you would like to obtain certificate information</span></h4>
-      <form method="post" id="urlForm">
-        <div class="urlInput_wrapper">
-          <label for="userInputUrl" class="wb-inv">Enter URL</label>
-          <input type="url" name="userInputUrl" id="userInputUrl" placeholder="https://">
-          <span class="glyphicon glyphicon-plus mrgn-lft-sm" id="submitUrl"></span>
-        </div>
-
-        <div class="errorContainer">
-
-        </div>
-      </form>
-    </div>
-    
+    <section class="certInfo_container">
+      <dl class="certInfo brdr panel panel-default">
+        <dt>
+          URL
+        </dt>
+        <dd>
+          <span class="certUrl"></span>
+        </dd>
+        <dt>
+          Issued To
+        </dt>
+        <dd>
+          Common Name&#58; <span class="certName"></span>
+        </dd>
+        <dt>
+          Issued By
+        </dt>
+        <dd>
+          Common Name&#58; <span class="certIssuer"></span>
+        </dd>
+        <dt>
+          Validity
+        </dt>
+        <dd>
+          Issued on&#58; <span class="certValidFrom"></span>
+        </dd>
+        <dd>
+          Expires on&#58; <span class="certValidTo"></span>
+        </dd>
+      </dl>
+    </section>
+    <a class="pull-right" id="toHomeBtn" href="./index.html">Back to the list ></a>
   </main>
   <footer class="mrgn-tp-xl" id="wb-info">
     <h2 class="wb-inv">About this site</h2>
@@ -270,7 +247,8 @@
     crossorigin="anonymous"></script>
   <script src="../wet-boew/js/wet-boew.min.js"></script>
   <script src="../GCWeb/js/theme.min.js"></script>
-  <script src="./index.js"></script>
+  <!-- testing scripts -->
+  <script src="./testcertinfo.js"></script>
 </body>
 
 </html>

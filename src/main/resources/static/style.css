@@ -1,16 +1,116 @@
-#expiringInTwoWeeks{
-    background-color: #ff922b;
-}
-#expiringInSixWeeks{
-    background-color: #ffd43b;
-}
-#expired{
-    background-color: #e03131;
-}
-#expiringGood{
-    background-color: #51cf66;
+/* Visual notification (color notification) */
+.color_expiringInTwoWeeks{
+    background-color: #ffa94d !important;
+
 }
 
+.color_expiringInSixWeeks{
+    background-color: #ffd43b !important;
+}
+
+.color_expired{
+    background-color: #fa5252 !important;
+}
+
+.color_expiringGood{
+    background-color: #69db7c !important;
+}
+
+/* Styles for color key */
+.color_key_container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2em;
+}
+
+.color_key {
+    padding: 0.5em;
+    display: flex;
+    justify-content: space-around;
+}
+
+.color_item {
+    display: flex;
+    align-items: center;
+}
+
+.color_circle {
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    margin-right: 0.5em;
+}
+
+/* Styles for certificate table */
 #certTable tbody {
     font-weight: bold;
 }
+
+.actionRow {
+    text-align: center;
+}
+
+.actionRow > * {
+    margin-right: 0.4em;
+}
+
+
+/* Styles for URL submission section */
+/* #urlForm {
+    display: flex;
+    align-items: center;
+} */
+
+.urlInput_wrapper {
+    display: flex;
+    align-items: center;
+}
+
+#userInputUrl {
+    width: 20em;
+    height: 2em;
+    font-weight: bold;
+}
+
+#submitUrl {
+    font-size: 1.5em;
+    margin-bottom: 0.23em;
+}
+
+#submitUrl:hover, .moreCertInfo:hover, .deleteBtn:hover {
+    cursor: pointer;
+    color: grey;
+}
+
+/* Styles for certificate detail page (certinfo.html) */
+.certInfo_container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.certInfo {
+    padding: 1em;
+}
+
+
+.loadingImg{
+    z-index: 1000;
+    max-width: 2em;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.hidden {
+    display: hidden;
+}
+
+/* // Large devices (desktops, 992px and down) */
+@media (max-width: 992px) {
+    .color_key {
+        flex-direction: column;
+    }
+ }
