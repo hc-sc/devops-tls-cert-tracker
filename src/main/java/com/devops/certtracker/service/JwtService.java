@@ -23,7 +23,7 @@ public class JwtService {
     @Value("${application.security.jwt.secretKey}")
     private String secretKey;
     @Value("${application.security.jwt.expiration}")
-    private String jwtExpiration;
+    private int jwtExpiration;
 
     @Value("${application.security.jwt.cookieName}")
     private String jwtCookie;

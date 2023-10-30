@@ -1,19 +1,24 @@
 package com.devops.certtracker.handler;
 
 import com.devops.certtracker.entity.ErrorResponse;
-import com.devops.certtracker.exception.CertificateDeleteException;
-import com.devops.certtracker.exception.CertificateNoContentException;
-import com.devops.certtracker.exception.CertificateServiceException;
-import com.devops.certtracker.exception.EntityNotFoundException;
+import com.devops.certtracker.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(RefreshTokenException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ResponseEntity<ErrorResponse> handleRefreshTokenException(RefreshTokenException ex, WebRequest request){
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.FORBIDDEN.value(), ex.getMessage(), request.getDescription(false));
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorResponse);
+    }
 
     @ExceptionHandler(CertificateServiceException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
