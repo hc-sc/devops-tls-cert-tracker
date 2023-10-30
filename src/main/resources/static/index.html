@@ -124,7 +124,7 @@
         </div>
       </div>
     </div>
-    <nav id="wb-bc" property="breadcrumb">
+    <!-- <nav id="wb-bc" property="breadcrumb">
       <h2>You are here:</h2>
       <div class="container">
         <ol class="breadcrumb" typeof="BreadcrumbList">
@@ -136,7 +136,7 @@
           </li>
         </ol>
       </div>
-    </nav>
+    </nav> -->
 
 
   </header>
@@ -144,26 +144,46 @@
   <main class="container" property="mainContentOfPage" resource="#wb-main" typeof="WebPageElement">
     <h1 id="wb-cont" property="name">Dash Board</h1>
     <div class="wb-prettify all-pre"></div>
-    <div class="color_key_container mrgn-tp-md">
-      <h4>Expiry Visual Notification &#8211; <span class="small">Colour Key</span></h4>
-      <div class="color_key brdr panel panel-default">
-        <div class="color_item">
-          <div class="color_expiringGood color_circle" alt="color for the certficate expires in more than 6 weeks">
+    <div class="color_key_container mrgn-tp-sm">
+      <div class="urlForm_container wb-frmvld">
+        <h4>URL &#8211; <span class="small">Please provide the URL of the website for which you would like to obtain certificate information</span></h4>
+        <form method="post" id="urlForm">
+          <div class="urlInput_wrapper">
+            <label for="userInputUrl" class="wb-inv">Enter URL</label>
+            <input type="url" name="userInputUrl" id="userInputUrl" pattern="(https|HTTPS)://[a-zA-Z0-9-.]+" placeholder="https://">
+            <button type="submit" class="glyphicon glyphicon-plus mrgn-lft-sm iconBtn" id="submitUrl"></button>
           </div>
-          <span>More than 6 weeks</span>
-        </div>
-        <div class="color_item">
-          <div class="color_expiringInSixWeeks color_circle" alt="color for the certficate expires in 6 weeks"></div>
-          <span>6 weeks</span>
-        </div>
-        <div class="color_item">
-          <div class="color_expiringInTwoWeeks color_circle" alt="color for the certficate expires in 2 weeks"></div>
-          <span>2 weeks</span>
-        </div>
-        <div class="color_item">
-          <div class="color_expired color_circle" alt="color for the expired certficate"></div>
-          <span>Expired</span>
-        </div>
+          <div class="errorContainer">
+          </div>
+        </form>
+      </div>
+      <h4>Colour Key</h4>
+      <div class="color_key">
+        <ul class="list-unstyled">
+          <li>
+            <details>
+              <summary>Expiry Visual Notification</summary>
+              <div class="color_item">
+                <div class="color_expiringGood color_circle" alt="color for the certficate expires in more than 6 weeks">
+                </div>
+                <span>More than 6 weeks</span>
+              </div>
+              <div class="color_item">
+                <div class="color_expiringInSixWeeks color_circle" alt="color for the certficate expires in 6 weeks"></div>
+                <span>Less than 6 weeks</span>
+              </div>
+              <div class="color_item">
+                <div class="color_expiringInTwoWeeks color_circle" alt="color for the certficate expires in 2 weeks"></div>
+                <span>Less than 2 weeks</span>
+              </div>
+              <div class="color_item">
+                <div class="color_expired color_circle" alt="color for the expired certficate"></div>
+                <span>Expired</span>
+              </div>
+            </details>
+          </li>
+        </ul>
+        
       </div>
     </div>
     <div class="table-responsive">
@@ -189,20 +209,6 @@
         </tbody>
         <img class="loadingImg hidden" src="./images/ZKZx.gif" alt="loading image">
       </table>
-    </div>
-    <div class="urlForm_container mrgn-tp-lg wb-frmvld">
-      <h4>URL &#8211; <span class="small">Please provide the URL of the website for which you would like to obtain certificate information</span></h4>
-      <form method="post" id="urlForm">
-        <div class="urlInput_wrapper">
-          <label for="userInputUrl" class="wb-inv">Enter URL</label>
-          <input type="url" name="userInputUrl" id="userInputUrl" placeholder="https://">
-          <span class="glyphicon glyphicon-plus mrgn-lft-sm" id="submitUrl"></span>
-        </div>
-
-        <div class="errorContainer">
-
-        </div>
-      </form>
     </div>
     
   </main>

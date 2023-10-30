@@ -24,9 +24,7 @@
 }
 
 .color_key {
-    padding: 0.5em;
     display: flex;
-    justify-content: space-around;
 }
 
 .color_item {
@@ -42,6 +40,9 @@
 }
 
 /* Styles for certificate table */
+#certTable {
+    box-sizing: border-box;
+}
 #certTable tbody {
     font-weight: bold;
 }
@@ -60,7 +61,11 @@
     display: flex;
     align-items: center;
 } */
-
+.iconBtn{
+    padding: 0;
+    border: none;
+    background-color: transparent;
+}
 .urlInput_wrapper {
     display: flex;
     align-items: center;
@@ -70,6 +75,7 @@
     width: 20em;
     height: 2em;
     font-weight: bold;
+    box-sizing: content-box;
 }
 
 #submitUrl {
@@ -108,9 +114,35 @@
     display: hidden;
 }
 
+/* Form error styles */
+/* .error {
+    display: inline-block;
+    width: 100%;
+} */
+
+
 /* // Large devices (desktops, 992px and down) */
 @media (max-width: 992px) {
     .color_key {
         flex-direction: column;
     }
+ }
+
+
+ /* styles for positioning show password icon */
+.passwordinput_wrapper{
+    display: inline-block;
+    position: relative;
+}
+
+.password-input-container input {
+    width: 100%;
+}
+
+.passwordinput_wrapper > i {
+    position: absolute;
+    top: 50%; /* Vertically center the icon */
+    right: 5%;
+    transform: translateY(-50%); /* Center vertically using transform */
+    cursor: pointer;
  }

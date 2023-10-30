@@ -86,6 +86,7 @@ function manipulateRow(certificate) {
    const calculatedTimeRemaining = calculateTimeRemaining(today, expiryDateData);
    const formattedMessage = formatTimeRemaining(calculatedTimeRemaining);
    
+   console.log(calculatedTimeRemaining.hours + `${certificate.url}` + expiryDateData);
    // add text how many time is left to expire
    expiryDate.textContent += ", " + formattedMessage ;
  
@@ -104,7 +105,7 @@ function manipulateRow(certificate) {
      
      const certificateId = addRow.getAttribute('certificateId');
      setCookie("certId", certificateId)
-     window.location.replace("./certinfo.html");
+     location.href = "./certinfo.html";
  
    });
 
@@ -138,7 +139,7 @@ function calculateTimeRemaining(fromDate, toDate) {
   const msPerDay = msPerHour * 24;
   const msPerWeek = msPerDay * 7;
   const timeDifference = toDate - fromDate;
-  const monthsRemaining = ((toDate - fromDate) / msPerDay / 30.44);
+  const monthsRemaining = (timeDifference / msPerDay / 30.44);
   const weeksRemaining = (timeDifference / msPerWeek);
   const daysRemaining = timeDifference / msPerDay;
   const hoursRemaining = Math.floor(timeDifference % msPerDay) / msPerHour;
@@ -258,7 +259,7 @@ async function sendUrlAndFetchCertificate(userInputUrl) {
       // Don't need to manualy add a row because of refreshing the page
       // manipulateRow(data);
       // refresh the page to update table
-      location.reload();
+      // location.reload();
     }
   } catch (error) {
     console.error("Error calling data for sendUrlAndFetchCertificate:", error)
@@ -283,7 +284,7 @@ async function fetchDeleteCertificate(certificateId) {
       throw error;
     } else {
       // refresh the page to update table
-      location.reload();
+      // location.reload();
     }
 
   } catch (error) {

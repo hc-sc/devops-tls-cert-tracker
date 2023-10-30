@@ -1,4 +1,4 @@
-const homepage = require('../pageobjects/homepage');
+const homepage = require('../pageobjects/homepagetests');
 const expect = require('chai').expect
 
 describe('This tests for index.html', function(){

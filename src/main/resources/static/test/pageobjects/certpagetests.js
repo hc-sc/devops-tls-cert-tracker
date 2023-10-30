@@ -5,8 +5,8 @@ const webdriver = require('selenium-webdriver');
 
 const mockedData = require('../mockedData.json');
 
-class CertPage extends BasePage {
-    //Test if user can go back to the index page from certficiate page by clicking link
+class CertPageTests extends BasePage {
+    // Test if user can go back to the index page from certficiate page by clicking link
     async back_toIndex_test(){
 
         const goingBackBtn = await driver.findElement(By.id("toHomeBtn"));
@@ -26,4 +26,4 @@ class CertPage extends BasePage {
 
 }
 
-module.exports = new CertPage;
+module.exports = new CertPageTests;

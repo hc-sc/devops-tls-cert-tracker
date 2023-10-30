@@ -5,7 +5,7 @@ const webdriver = require('selenium-webdriver');
 
 const mockedData = require('../mockedData.json');
 
-class HomePage extends BasePage {
+class HomePageTests extends BasePage {
 
     // Test if user's input is being added to the list
     async Input_test_case(userInput) {
@@ -338,4 +338,4 @@ class HomePage extends BasePage {
     }
 }
 
-module.exports = new HomePage;
+module.exports = new HomePageTests;

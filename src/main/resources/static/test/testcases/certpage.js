@@ -1,4 +1,4 @@
-const certpage = require('../pageobjects/certpage');
+const certpage = require('../pageobjects/certpagetests');
 const expect = require('chai').expect
 
 describe('This tests for certinfo.html', function(){
