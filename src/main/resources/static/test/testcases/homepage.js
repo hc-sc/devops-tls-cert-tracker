@@ -6,6 +6,7 @@ describe('This tests for index.html', function(){
         // Enter actions performed before test
         const baseUrl = 'http://127.0.0.1:8080/src/main/resources/static/test/';
         homepage.go_to_url(baseUrl);
+        driver.sleep(500);
     });
 
     afterEach(async function(){
