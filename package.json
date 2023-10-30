@@ -8,7 +8,8 @@
     "test-certpage": "mocha src/main/resources/static/test/testcases/certpage.js --timeout 200000",
     "api-test": "mocha src/main/resources/static/test/apitesting/apitest.js --timeout 60000",
     "test-registration": "mocha src/main/resources/static/test/testcases/registrationpage.js --timeout 60000",
-    "test-signin": "mocha src/main/resources/static/test/testcases/signinpage.js --timeout 60000"
+    "test-signin": "mocha src/main/resources/static/test/testcases/signinpage.js --timeout 60000",
+    "test-all": "npm run test && npm run test-certpage && npm run api-test && npm run test-registration && npm run test-signin"
 
   },
   "author": "",
