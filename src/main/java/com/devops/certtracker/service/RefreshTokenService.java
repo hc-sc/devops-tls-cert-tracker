@@ -1,6 +1,7 @@
 package com.devops.certtracker.service;
 
 import com.devops.certtracker.entity.RefreshToken;
+import com.devops.certtracker.exception.RefreshTokenException;
 import com.devops.certtracker.repository.RefreshTokenRepository;
 import com.devops.certtracker.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
