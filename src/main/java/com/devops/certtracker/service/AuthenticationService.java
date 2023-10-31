@@ -106,7 +106,7 @@ public class AuthenticationService {
         };
     }
 
-    public ResponseEntity<?> logoutUser() {
+    public ResponseEntity<?> signout() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(!principal.toString().equals("anonymousUser")) {
             Long userId = ((UserDetailsImpl)principal).getId();
