@@ -28,7 +28,7 @@ public class JwtService {
     @Value("${application.security.jwt.cookieName}")
     private String jwtCookie;
 
-    @Value("${ application.security.jwt.refresh.cookieName}")
+    @Value("${application.security.jwt.refresh.cookieName}")
     private String jwtRefreshCookie;
 
     public ResponseCookie generateJwtCookie(UserDetailsImpl principal){
