@@ -4,6 +4,7 @@ import com.devops.certtracker.entity.Certificate;
 import com.devops.certtracker.exception.CertificateNoContentException;
 import com.devops.certtracker.exception.CertificateServiceException;
 import com.devops.certtracker.exception.EntityNotFoundException;
+import com.devops.certtracker.service.AuthenticationService;
 import com.devops.certtracker.service.CertificateService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
@@ -32,6 +34,9 @@ public class CertificateControllerTest {
 
     @MockBean
     private CertificateService certificateService;
+
+    @MockBean
+    private AuthenticationService authenticationService;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -177,7 +182,7 @@ public class CertificateControllerTest {
                 .andExpect(jsonPath("$.error").value("Error processing certificate"))
                 .andExpect(jsonPath("$.message").value("Error while establishing the HTTPS connection"));
     }
-
+    @WithMockUser(roles = "USER")
     @Test
     public void testGetAllCertificates() throws Exception {
         List<Certificate> list = new ArrayList<>();
@@ -245,6 +250,7 @@ public class CertificateControllerTest {
         verify(certificateService, times(1)).deleteCertificateById(certificateId);
     }
 
+    @WithMockUser(roles = "USER")
     @Test
     public void testDeleteCertificateById_NonExistingId() throws Exception {
         Long nonExistingId = 999L;

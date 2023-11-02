@@ -1,5 +1,6 @@
 package com.devops.certtracker.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -52,6 +53,10 @@ public class Certificate {
     @Column(name = "valid_to")
     private Date validTo;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonIgnore
+    private User user;
 
     /**
      * Default constructor.
@@ -75,6 +80,11 @@ public class Certificate {
         this.issuer = issuer;
         this.validFrom = validFrom;
         this.validTo = validTo;
+    }
+
+    public Certificate(String url, String subject, String issuer, Date validFrom, Date validTo, User user) {
+        this(url, subject, issuer, validFrom, validTo);
+        this.user = user;
     }
 
     // Getters and setters
@@ -185,6 +195,14 @@ public class Certificate {
      */
     public void setValidTo(Date validTo) {
         this.validTo = validTo;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
 

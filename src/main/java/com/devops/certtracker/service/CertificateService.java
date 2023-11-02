@@ -6,7 +6,10 @@ import com.devops.certtracker.exception.CertificateNoContentException;
 import com.devops.certtracker.exception.CertificateServiceException;
 import com.devops.certtracker.exception.EntityNotFoundException;
 import com.devops.certtracker.repository.CertificateRepository;
+import com.devops.certtracker.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -26,6 +29,9 @@ public class CertificateService {
     @Autowired
     private CertificateRepository certificateRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public List<Certificate> getAllCertificates(){
         List<Certificate> certificates = certificateRepository.findAll();
         if (certificates.isEmpty()){
@@ -33,10 +39,20 @@ public class CertificateService {
         }
         return  certificates;
     }
+    public List<Certificate> getAllUserCertificates(){
+        Long userId = getUserIdFromAuthentication();
+        List<Certificate> certificates = certificateRepository.findAllByUser_Id(userId);
+        if (certificates.isEmpty()){
+            throw new CertificateNoContentException("No certificates found in the database");
+        }
+        return  certificates;
+    }
+
     public Certificate getCertificateById(Long certificateId){
         return certificateRepository.findById(certificateId)
                     .orElseThrow(() -> new EntityNotFoundException("Certificate with ID "+ certificateId + " not found"));
     }
+
     public void deleteCertificateById(Long certificateId){
         // Check if the certificate exists before attempting to delete
         if(!certificateRepository.existsById(certificateId)){
@@ -46,6 +62,19 @@ public class CertificateService {
             certificateRepository.deleteById(certificateId);
         }catch(Exception e){
             // Handle other exceptions
+            throw new CertificateDeleteException("Error deleting the certificate");
+        }
+    }
+
+    public void deleteUserCertificateById(Long certificateId){
+        Long userId = getUserIdFromAuthentication();
+        Certificate certificate = getCertificateById(certificateId);
+        if(certificate == null || !certificate.getUser().getId().equals(userId) ){
+            throw new EntityNotFoundException("Certificate with ID "+ certificateId + " not found for this user");
+        }
+        try{
+            certificateRepository.deleteById(certificateId);
+        }catch(Exception e){
             throw new CertificateDeleteException("Error deleting the certificate");
         }
     }
@@ -151,6 +180,7 @@ public class CertificateService {
         certificate.setIssuer(x509Certificate.getIssuerX500Principal().getName());
         certificate.setValidFrom(x509Certificate.getNotBefore());
         certificate.setValidTo(x509Certificate.getNotAfter());
+        certificate.setUser(userRepository.findById(getUserIdFromAuthentication()).get());
         return certificateRepository.save(certificate);
     }
 
@@ -161,6 +191,17 @@ public class CertificateService {
         certificate.setIssuer(x509Certificate.getIssuerX500Principal().getName());
         certificate.setValidFrom(x509Certificate.getNotBefore());
         certificate.setValidTo(x509Certificate.getNotAfter());
+        certificate.setUser(userRepository.findById(getUserIdFromAuthentication()).get());
         return certificate;
+    }
+
+    public Long getUserIdFromAuthentication(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if(authentication !=null && authentication.getPrincipal() instanceof UserDetailsImpl){
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+            return  userDetails.getId();
+        }
+        return  null;
     }
 }

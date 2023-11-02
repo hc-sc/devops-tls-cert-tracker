@@ -40,12 +40,26 @@ public class CertificateController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("delete/user/{certificateId}")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    public ResponseEntity<Void> deleteUserCertificateById(@PathVariable Long certificateId){
+        certificateService.deleteUserCertificateById(certificateId);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/all")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-    ResponseEntity<List<Certificate>> getALLCertificates(){
+    ResponseEntity<List<Certificate>> getAllCertificates(){
         List<Certificate> certificates = certificateService.getAllCertificates();
         return ResponseEntity.ok(certificates);
     }
+    @GetMapping("/user/all")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    ResponseEntity<List<Certificate>> getAllUserCertificates(){
+        List<Certificate> certificates = certificateService.getAllUserCertificates();
+        return ResponseEntity.ok(certificates);
+    }
+
 
     @GetMapping("get/{certificateId}")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
