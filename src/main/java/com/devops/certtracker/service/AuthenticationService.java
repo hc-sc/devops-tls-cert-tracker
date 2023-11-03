@@ -12,6 +12,8 @@ import com.devops.certtracker.exception.RefreshTokenException;
 import com.devops.certtracker.repository.RoleRepository;
 import com.devops.certtracker.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -22,6 +24,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.HashSet;
 import java.util.List;
@@ -42,6 +46,8 @@ public class AuthenticationService {
     private PasswordEncoder encoder;
     @Autowired
     private JwtService jwtService;
+
+    private static final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
 
     public ResponseEntity<?> authenticate(SigninRequest signinRequest) {
 
@@ -106,13 +112,19 @@ public class AuthenticationService {
         };
     }
 
-    public ResponseEntity<?> signout() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(!principal.toString().equals("anonymousUser")) {
-            Long userId = ((UserDetailsImpl)principal).getId();
-            refreshTokenService.deleteByUserId(userId);
-        }
 
+    public ResponseEntity<?> signout() {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (!principal.toString().equals("anonymousUser")) {
+            Long userId = ((UserDetailsImpl) principal).getId();
+            String refreshToken = jwtService.getJwtRefreshFromCookies(request);
+            // Check if the token is valid before deleting
+            if (refreshToken != null && refreshToken.length() > 0) {
+                refreshTokenService.deleteByToken(refreshToken);
+            }
+        }
         ResponseCookie jwtCookie = jwtService.getCleanJwtCookie();
         ResponseCookie jwtRefreshCookie = jwtService.getCleanJwtRefreshCookies();
 
@@ -122,8 +134,10 @@ public class AuthenticationService {
                 .body(new MessageResponse("You've been signed out!"));
     }
 
+
     public ResponseEntity<?> refreshToken(HttpServletRequest request) {
         String refreshToken = jwtService.getJwtRefreshFromCookies(request);
+        logger.info("Received refresh token: " + refreshToken);
 
         if ((refreshToken != null) && refreshToken.length()>0) {
             return refreshTokenService.findByToken(refreshToken)

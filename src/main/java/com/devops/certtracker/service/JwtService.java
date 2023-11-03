@@ -42,7 +42,7 @@ public class JwtService {
     }
 
     public ResponseCookie generateRefreshJwtCookie(String refreshToken){
-        return generateCookie(jwtRefreshCookie, refreshToken, "/api/auth/refreshtoken");
+        return generateCookie(jwtRefreshCookie, refreshToken, "/api/auth");
     }
 
     public String getJwtFromCookies(HttpServletRequest request){
@@ -54,11 +54,11 @@ public class JwtService {
     }
 
     public ResponseCookie getCleanJwtCookie(){
-        return ResponseCookie.from(jwtCookie, null).path("/api").build();
+        return ResponseCookie.from(jwtCookie, null).path("/api").maxAge(0).build();
     }
 
     public ResponseCookie getCleanJwtRefreshCookies(){
-        return ResponseCookie.from(jwtRefreshCookie, null).path("/api/auth/refreshtoken").build();
+        return ResponseCookie.from(jwtRefreshCookie, null).path("/api/auth").maxAge(0).build();
     }
 
     public String getUserNameFromJwtToken(String token){
