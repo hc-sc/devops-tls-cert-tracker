@@ -7,12 +7,11 @@
     "test": "mocha src/main/resources/static/test/testcases/homepage.js --timeout 200000",
     "test-certpage": "mocha src/main/resources/static/test/testcases/certpage.js --timeout 200000",
     "api-test": "mocha src/main/resources/static/test/apitesting/apitest.js --timeout 60000"
-
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "chromedriver": "^117.0.3",
+    "chromedriver": "^119.0.1",
     "mocha": "^10.2.0",
     "selenium-webdriver": "^3.6.0"
   },
