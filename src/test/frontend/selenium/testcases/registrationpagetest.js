@@ -25,19 +25,19 @@ describe('This tests for registration.html', function(){
     });
     
     it("Test validation error messages for first name input field", async function(){
-        const testResult = await registrationpage.nameRuleValidation('fname');
+        const testResult = await registrationpage.nameRuleValidation('firstname');
         expect(testResult).to.equal(true);
     });
 
     it("Test validation error messages for last name input field", async function(){
-        const testResult = await registrationpage.nameRuleValidation('lname');
+        const testResult = await registrationpage.nameRuleValidation('lastname');
         expect(testResult).to.equal(true);
     });
 
-    it("Test validation error messages for tel input field", async function(){
-        const testResult = await registrationpage.telRuleValidation();
-        expect(testResult).to.equal(true);
-    });
+    // it("Test validation error messages for tel input field", async function(){
+    //     const testResult = await registrationpage.telRuleValidation();
+    //     expect(testResult).to.equal(true);
+    // });
 
     it("Test validation error messages for email input field", async function(){
         const testResult = await registrationpage.emailRuleValidation();

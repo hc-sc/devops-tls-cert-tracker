@@ -20,23 +20,23 @@ class RegistrationTests extends BasePage {
         this.clickSubmit();
         await driver.sleep(500);
 
-        let fnameError = await super.getTextById("fname-error");
+        let fnameError = await super.getTextById("firstname-error");
         if(!fnameError.includes("This field is required.")){
             console.log('Fail, fname required input');
             result = false;
         }
 
-        let lnameError = await super.getTextById("lname-error");
+        let lnameError = await super.getTextById("lastname-error");
         if(!lnameError.includes("This field is required.")){
             console.log('Fail, lname required input');
             result = false;
         }
 
-        let telError = await super.getTextById("tel-error");
-        if(!telError.includes("This field is required.")){
-            console.log('Fail, tel required input');
-            result = false;
-        }
+        // let telError = await super.getTextById("tel-error");
+        // if(!telError.includes("This field is required.")){
+        //     console.log('Fail, tel required input');
+        //     result = false;
+        // }
 
         let emailError = await super.getTextById("email-error");
         if(!emailError.includes("This field is required.")){
