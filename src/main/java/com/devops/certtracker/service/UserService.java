@@ -44,6 +44,10 @@ public class UserService {
 
        // Save the password
        userRepository.save(user);
+    }
 
+    public void changePassword(User theUser, String newPassword) {
+        theUser.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(theUser);
     }
 }

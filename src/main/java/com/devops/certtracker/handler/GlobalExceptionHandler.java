@@ -12,7 +12,12 @@ import org.springframework.web.context.request.WebRequest;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
+    @ExceptionHandler(EmailAlreadyInUseException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleEmailAlreadyInUseException(EmailAlreadyInUseException ex){
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), "Bad Request", ex.getMessage());
+        return  errorResponse;
+    }
     @ExceptionHandler(ChangePasswordException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ErrorResponse> handleChangePasswordException(ChangePasswordException ex){
@@ -22,7 +27,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RefreshTokenException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ResponseEntity<ErrorResponse> handleRefreshTokenException(RefreshTokenException ex, WebRequest request){
-        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.FORBIDDEN.value(), ex.getMessage(), request.getDescription(false));
+        //ErrorResponse errorResponse = new ErrorResponse(HttpStatus.FORBIDDEN.value(), ex.getMessage(), request.getDescription(false));
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.FORBIDDEN.value(), "Forbidden",ex.getMessage());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorResponse);
     }
 
@@ -53,10 +59,10 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
-    @ExceptionHandler(Exception.class)
+    /*@ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<ErrorResponse> handleGlobalException(Exception ex) {
         ErrorResponse errorResponse = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Internal server error", ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
-    }
+    }*/
 }

@@ -1,12 +1,13 @@
 package com.devops.certtracker.service;
 
+import com.devops.certtracker.dto.request.ResetPasswordRequest;
 import com.devops.certtracker.dto.request.SigninRequest;
 import com.devops.certtracker.dto.request.SignupRequest;
-import com.devops.certtracker.dto.response.MessageResponse;
-import com.devops.certtracker.dto.response.UserInfoResponse;
+import com.devops.certtracker.dto.response.*;
 import com.devops.certtracker.entity.*;
 import com.devops.certtracker.event.RegistrationCompleteEvent;
 import com.devops.certtracker.event.listener.RegistrationCompleteEventListener;
+import com.devops.certtracker.exception.EmailAlreadyInUseException;
 import com.devops.certtracker.exception.RefreshTokenException;
 import com.devops.certtracker.repository.RoleRepository;
 import com.devops.certtracker.repository.UserRepository;
@@ -17,24 +18,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -61,11 +58,17 @@ public class AuthenticationService {
     @Autowired
     private VerificationTokenService verificationTokenService;
     @Autowired
+    private PasswordResetTokenService passwordResetTokenService;
+    @Autowired
+    private  UserService userService;
+    @Autowired
     private RegistrationCompleteEventListener eventListener;
+    @Autowired
+    private EmailService emailService;
 
     private static final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
 
-    public ResponseEntity<?> authenticate(SigninRequest signinRequest) {
+    public SigninResponse authenticate(SigninRequest signinRequest) {
 
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(signinRequest.getEmail(), signinRequest.getPassword()));
@@ -79,29 +82,26 @@ public class AuthenticationService {
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
         ResponseCookie jwtRefreshCookie = jwtService.generateRefreshJwtCookie(refreshToken.getToken());
 
-        return ResponseEntity.ok()
-                .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString())
-                .body(new UserInfoResponse(
-                        userDetails.getId(),
+        return new SigninResponse(
+                jwtCookie.toString(),
+                jwtRefreshCookie.toString(),
+                new UserInfoResponse( userDetails.getId(),
                         userDetails.getFirstname(),
                         userDetails.getLastname(),
                         userDetails.getUsername(),
-                        roles
-                ));
-    }
-    public ResponseEntity<?> register(SignupRequest signupRequest, HttpServletRequest request) {
-        if (userRepository.existsByEmail(signupRequest.getEmail())){
-            return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use !"));
-        }
-        User user = createUserFromRequest(signupRequest);
-        userRepository.save(user);
-        publisher.publishEvent(new RegistrationCompleteEvent(user, applicationUrl(request)));
-        return ResponseEntity.ok(
-                new MessageResponse("User registered successfully!"+
-                        "Check your email to complete your registration")
+                        roles)
         );
     }
+   public MessageResponse register(SignupRequest signupRequest, HttpServletRequest request) {
+       if (userRepository.existsByEmail(signupRequest.getEmail())){
+           throw new EmailAlreadyInUseException("Email is already in use !");
+       }
+       User user = createUserFromRequest(signupRequest);
+       userRepository.save(user);
+       publisher.publishEvent(new RegistrationCompleteEvent(user, applicationUrl(request)));
+       return new MessageResponse("User registered successfully! Check your email to complete your registration");
+   }
+
     public String applicationUrl(HttpServletRequest request){
         return "http://"+ request.getServerName() + ":" + request.getServerPort() +
                 request.getContextPath();
@@ -138,6 +138,9 @@ public class AuthenticationService {
         String url = applicationUrl(servletRequest)+"/api/auth/resend-verification-token?token="+token;
 
         VerificationToken verificationToken = verificationTokenRepository.findByToken(token);
+        if (verificationToken == null) {
+            return "Invalid verification token";
+        }
         if(verificationToken.getUser().isEnabled()){
             return "This account has already been verified, please login";
         }
@@ -150,61 +153,93 @@ public class AuthenticationService {
 
 
 
+
     public String resendVerificationToken(String oldToken, HttpServletRequest request)
             throws MessagingException, UnsupportedEncodingException {
         VerificationToken verificationToken = verificationTokenService.generateNewVerificationToken(oldToken);
         User user = verificationToken.getUser();
         resendRegistrationVerificationTokenEmail(user, applicationUrl(request), verificationToken);
-        return "A new verification link has been sent to your email. "+
-                "Please check your email to activate your \n";
+        return "A new verification link has been sent to your email. Please check your email to activate your account";
     }
 
     private void resendRegistrationVerificationTokenEmail(
             User user, String applicationUrl, VerificationToken verificationToken)
             throws MessagingException, UnsupportedEncodingException {
         String url = applicationUrl+"/api/auth/verifyEmail?token="+verificationToken.getToken();
-        eventListener.sendVerificationEmail(user,url);
+        emailService.sendVerificationEmail(user,url);
     }
 
 
-    public ResponseEntity<?> signout() {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public String resetPasswordRequest(ResetPasswordRequest resetPasswordRequest,
+                                        HttpServletRequest servletRequest)
+            throws MessagingException, UnsupportedEncodingException {
 
-        if (!principal.toString().equals("anonymousUser")) {
-            Long userId = ((UserDetailsImpl) principal).getId();
-            String refreshToken = jwtService.getJwtRefreshFromCookies(request);
-            // Check if the token is valid before deleting
-            if (refreshToken != null && refreshToken.length() > 0) {
-                refreshTokenService.deleteByToken(refreshToken);
-            }
+        Optional<User> user = userRepository.findByEmail(resetPasswordRequest.getEmail());
+        String passwordResetUrl = "";
+        if (user.isPresent()) {
+            var passwordResetToken = passwordResetTokenService.createPasswordResetToken(user.get());
+            passwordResetUrl = passwordResetEmailLink(user.get(), applicationUrl(servletRequest), passwordResetToken.getToken());
         }
-        ResponseCookie jwtCookie = jwtService.getCleanJwtCookie();
-        ResponseCookie jwtRefreshCookie = jwtService.getCleanJwtRefreshCookies();
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString())
-                .body(new MessageResponse("You've been signed out!"));
+        return passwordResetUrl;
     }
 
+    private String passwordResetEmailLink(User user, String applicationUrl,
+                                          String passwordToken) throws MessagingException, UnsupportedEncodingException {
+        String url = applicationUrl+"/form?token="+passwordToken;
+        emailService.sendPasswordResetVerificationEmail(user, url);
+        return url;
+    }
 
-    public ResponseEntity<?> refreshToken(HttpServletRequest request) {
+    public String resetPassword(ResetPasswordRequest resetPasswordRequest, String token){
+        String tokenVerificationResult = passwordResetTokenService.validateToken(token);
+        if (!tokenVerificationResult.equalsIgnoreCase("valid")) {
+            return "Invalid token password reset token";
+        }
+        Optional<User> user = passwordResetTokenService.findUserByPasswordToken(token);
+        if (user.isPresent()) {
+            userService.changePassword(user.get(), resetPasswordRequest.getNewPassword());
+            return "Password has been reset successfully";
+        }
+        return "Invalid password reset token";
+    }
+
+   public SignoutResponse signout() {
+       HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+       Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+       if (!principal.toString().equals("anonymousUser")) {
+           Long userId = ((UserDetailsImpl) principal).getId();
+           String refreshToken = jwtService.getJwtRefreshFromCookies(request);
+           // Check if the token is valid before deleting
+           if (refreshToken != null && refreshToken.length() > 0) {
+               refreshTokenService.deleteByToken(refreshToken);
+           }
+       }
+       ResponseCookie jwtCookie = jwtService.getCleanJwtCookie();
+       ResponseCookie jwtRefreshCookie = jwtService.getCleanJwtRefreshCookies();
+
+       return new SignoutResponse(
+               jwtCookie.toString(),
+               jwtRefreshCookie.toString(),
+               new MessageResponse("You've been signed out!"));
+   }
+
+    public RefreshTokenResponse refreshToken(HttpServletRequest request) {
         String refreshToken = jwtService.getJwtRefreshFromCookies(request);
-        logger.info("Received refresh token: " + refreshToken);
-
-        if ((refreshToken != null) && refreshToken.length()>0) {
+        //logger.info("Received refresh token: " + refreshToken);
+        if((refreshToken == null) || refreshToken.isEmpty()){
+            throw new RefreshTokenException("Refresh token is empty!");
+        }else{
             return refreshTokenService.findByToken(refreshToken)
                     .map(refreshTokenService::verifyExpiration)
                     .map(RefreshToken::getUser)
                     .map(user -> {
                         ResponseCookie jwtCookie = jwtService.generateJwtCookie(user);
-                        return ResponseEntity.ok()
-                                .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                                .body(new MessageResponse("Your access token is refreshed successfully!"));
+                        return new RefreshTokenResponse(jwtCookie.toString(),
+                                new MessageResponse("Your access token is refreshed successfully!"));
                     }).orElseThrow(() -> new RefreshTokenException(refreshToken, "Refresh token is not in database"));
         }
-        return ResponseEntity.badRequest().body(new MessageResponse("Refresh Token is empty !"));
+       // return ResponseEntity.badRequest().body(new MessageResponse("Refresh Token is empty !"));
     }
 
 }

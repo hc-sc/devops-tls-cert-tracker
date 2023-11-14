@@ -1,17 +1,23 @@
 package com.devops.certtracker.controller;
 
+import com.devops.certtracker.CertTrackerApplication;
 import com.devops.certtracker.entity.Certificate;
 import com.devops.certtracker.exception.CertificateNoContentException;
 import com.devops.certtracker.exception.CertificateServiceException;
 import com.devops.certtracker.exception.EntityNotFoundException;
+import com.devops.certtracker.security.SecurityConfiguration;
 import com.devops.certtracker.service.AuthenticationService;
 import com.devops.certtracker.service.CertificateService;
+import com.devops.certtracker.service.PasswordResetTokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -27,16 +33,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest
+@WebMvcTest(CertificateController.class)
+@AutoConfigureMockMvc(addFilters = false)
 public class CertificateControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
     private CertificateService certificateService;
-
-    @MockBean
-    private AuthenticationService authenticationService;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -64,6 +68,7 @@ public class CertificateControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     public void testAddCertificateEndpoint_ValidUrl() throws Exception {
         String url = "https://www.google.com";
         String request = "{\"url\": \"" + url + "\"}";
@@ -83,6 +88,7 @@ public class CertificateControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = "USER")
     public void testAddCertificateEndpoint_InvalidUrl() throws Exception{
         String invalidUrl = "invalid url";
         String request = "{\"url\": \""+ invalidUrl + "\"}";
@@ -97,6 +103,7 @@ public class CertificateControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     public void testAddCertificateEndpoint_NotSecureURL() throws Exception{
         String unsecureUrl = "http://www.google.com";
         String request = "{\"url\": \""+ unsecureUrl + "\"}";
@@ -111,6 +118,7 @@ public class CertificateControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     public void testAddGetCertificateEndpoint_HTTPError() throws Exception{
         String fakeUrl = "http://www.my-fake-web-site.com";
         String request = "{\"url\": \""+ fakeUrl + "\"}";
@@ -124,6 +132,7 @@ public class CertificateControllerTest {
                 .andExpect(jsonPath("$.message").value("Error while establishing the HTTPS connection"));
     }
     @Test
+    @WithMockUser(roles = "USER")
     public void testGetCertificateInfoEndpoint_ValidUrl() throws Exception {
         String url = "https://www.google.com";
         String request = "{\"url\": \"" + url + "\"}";
@@ -142,6 +151,7 @@ public class CertificateControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "user",roles = "USER")
     public void testGetCertificateInfoEndpoint_InvalidUrl() throws Exception{
         String invalidUrl = "invalid url";
         String request = "{\"url\": \""+ invalidUrl + "\"}";
@@ -156,6 +166,7 @@ public class CertificateControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     public void testGetCertificateInfoEndpoint_NotSecureURL() throws Exception{
         String unsecureUrl = "http://www.google.com";
         String request = "{\"url\": \""+ unsecureUrl + "\"}";
@@ -170,6 +181,7 @@ public class CertificateControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     public void testGetCertificateInfoEndpoint_HTTPError() throws Exception{
         String fakeUrl = "http://www.my-fake-web-site.com";
         String request = "{\"url\": \""+ fakeUrl + "\"}";
@@ -197,6 +209,7 @@ public class CertificateControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     public void testGetAllCertificates_EmptyList() throws Exception {
         List<Certificate> list = new ArrayList<>();
 
@@ -210,6 +223,7 @@ public class CertificateControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     public void testGetCertificateById() throws Exception {
        Long cerificateId = 1L;
         when(certificateService.getCertificateById(cerificateId)).thenReturn(certificate1);
@@ -224,6 +238,7 @@ public class CertificateControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     public void testGetCertificateById_NonExistingId() throws Exception{
         Long nonExistingId = 999L;
         doThrow(new EntityNotFoundException("Certificate with ID " + nonExistingId + " not found"))
@@ -237,6 +252,7 @@ public class CertificateControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     public void testDeleteCertificateById() throws Exception {
         // Define the ID of the certificate to be deleted
         Long certificateId = 1L;

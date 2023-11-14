@@ -2,9 +2,12 @@ package com.devops.certtracker.controller;
 
 import com.devops.certtracker.entity.Certificate;
 import com.devops.certtracker.service.CertificateService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +16,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api/certificates")
+@Slf4j
 public class CertificateController {
     @Autowired
     private CertificateService certificateService;
@@ -28,6 +32,9 @@ public class CertificateController {
     @PostMapping("/add")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<Object> addCertificate(@RequestBody Map<String, String> requestBody) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        log.debug("Authenticated user: {}", authentication.getName());
+        log.debug("User roles: {}", authentication.getAuthorities());
         String url = requestBody.get("url");
         Certificate certificate = certificateService.retrieveAndSaveCertificate(url);
         return ResponseEntity.ok(certificate);

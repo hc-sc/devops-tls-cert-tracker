@@ -5,8 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class MessageResponse {
-    private String message;
+@NoArgsConstructor
+public class SignoutResponse {
+    private String jwtCookie;
+    private String jwtRefreshCookie;
+    private MessageResponse messageResponse;
 }
