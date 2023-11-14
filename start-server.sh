@@ -1,1 +1,1 @@
-live-server --open=src/main/resources/static/test/ &
+live-server --open=src/test/frontend/ &
