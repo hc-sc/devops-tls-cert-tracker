@@ -254,3 +254,21 @@ hr {
 #url-popup .popup-modal-dismiss {
     display: none !important;
 }
+
+.capitalization {
+    text-transform: capitalize;
+}
+
+.padding-left{
+    padding-left: 15px;
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}

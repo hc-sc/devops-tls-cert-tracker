@@ -59,7 +59,8 @@ public class SecurityConfiguration {
                .authorizeHttpRequests(auth -> auth
                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                        .requestMatchers("/").permitAll() // Allow access to the root endpoint
-                       .requestMatchers("/*.html").permitAll() // Allow access to HTML files in the root
+                       .requestMatchers("/index.html").permitAll() // Allow access to HTML files in the root
+                       .requestMatchers("/public/**").permitAll() // Allow access to HTML files in public
                        .requestMatchers("/api/auth/**").permitAll()
                        .requestMatchers("/GCWeb/**").permitAll()
                        .requestMatchers("/wet-boew/**").permitAll()

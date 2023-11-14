@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
-  <title>Profile</title>
+  <title>SSL/TLS Tracking Application</title>
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta name="description" content=" " />
   <meta name="author" content=" " />
@@ -16,12 +16,13 @@
   <meta name="dcterms.issued" content="" />
   <meta name="dcterms.modified" content="2023-09-20" />
 
-  <link href="./GCWeb/assets/favicon.ico" rel="icon" type="image/x-icon" />
-  <link rel="stylesheet" href="./GCWeb/css/theme.min.css" />
+  <link href="../GCWeb/assets/favicon.ico" rel="icon" type="image/x-icon" />
+  <link rel="stylesheet" href="../GCWeb/css/theme.min.css" />
   <noscript>
-    <link rel="stylesheet" href="./wet-boew/css/noscript.min.css" />
+    <link rel="stylesheet" href="../wet-boew/css/noscript.min.css" />
   </noscript>
-  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script src="https://kit.fontawesome.com/fcc4f36ea3.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -43,19 +44,16 @@
           </ul>
         </section> -->
 
-
         <div class="brand col-xs-9 col-sm-5 col-md-4" property="publisher" typeof="GovernmentOrganization">
           <a href="https://www.canada.ca/" property="url">
-            <img src="./GCWeb/assets/sig-blk-en.svg"
+            <img src="../GCWeb/assets/sig-blk-en.svg"
               alt="Government of Canada" property="logo" /><span class="wb-inv"> / <span lang="fr">Gouvernement du
                 Canada</span></span>
           </a>
           <meta property="name" content="Government of Canada">
           <meta property="areaServed" typeof="Country" content="Canada" />
-          <link property="logo" href="./GCWeb/assets/wmms-blk.svg" />
+          <link property="logo" href="../GCWeb/assets/wmms-blk.svg" />
         </div>
-
-
 
         <!-- <section id="wb-srch" class="col-lg-offset-4 col-md-offset-4 col-sm-offset-2 col-xs-12 col-sm-5 col-md-4">
           <h2>Search</h2>
@@ -74,7 +72,6 @@
             </div>
           </form>
         </section> -->
-
 
       </div>
     </div>
@@ -123,47 +120,32 @@
         </div>
         <div class="col-xs-offset-6 col-xs-6 col-md-offset-0 col-md-4">
           <section id="wb-so">
-            <div class="row">
-                <div class="col-md-12 button-container">
-                  <!-- button overlay -->
-                    <button id="open-user-overlay-btn" class="btn btn-primary">Account</button>
-                    <div class="user-overlay" id="user-overlay">
-                      <ul class="list-unstyled overlay-list">
-                        <li>
-                          <a class="remove-link-style" href="#"><span class="glyphicon glyphicon-user"></span> Profile</a>
-                        </li>
-                        <hr class="mrgn-tp-sm mrgn-bttm-sm">
-                        <li>
-                          <a class="remove-link-style" href="./index.html"><span class="glyphicon glyphicon-tasks"></span> Dash Board</a>
-                        </li>
-                        <hr class="mrgn-tp-sm mrgn-bttm-sm">
-                        <li>
-                          <button class="signOut icon-btn" ><span class="glyphicon glyphicon-log-out"></span> Sign out</button>
-                        </li>
-                      </ul>
-                      <div class="user-overlay-footer">
-                        <button class="btn btn-primary"id="close-user-overlay-btn">Close</button>
-                      </div>
-                    </div>
-                    <!-- <a class="btn btn-default" href="./registration.html">Register</a> -->
-                    <!-- <button class="btn btn-primary">Account</button> -->
-                    <!-- <a href="#right-panel" aria-controls="right-panel" class="overlay-lnk btn btn-primary" role="button">Account</a>
-                    <section id="right-panel" class="wb-overlay modal-content overlay-def wb-panel-r">
-                      <header class="modal-header">
-                        <h2 class="modal-title">Sexy Jato</h2>
-                      </header>
-                      <div class="modal-body">
-                        <ul class="list-unstyled">
-                          <li><a href="">Sign out</a></li>
-                          <li><a href="">Profile</a></li>
+              <div class="row">
+                  <div class="col-md-12 button-container">
+                    <!-- button overlay -->
+                      <button id="open-user-overlay-btn" class="btn btn-primary"></button>
+                      <div class="user-overlay" id="user-overlay">
+                        <ul class="list-unstyled overlay-list">
+                          <li>
+                            <a class="remove-link-style" href="./profile.html"><span class="glyphicon glyphicon-user"></span> Profile</a>
+                          </li>
+                          <hr class="mrgn-tp-sm mrgn-bttm-sm">
+                          <li>
+                            <a class="remove-link-style" href="./dashboard.html"><span class="glyphicon glyphicon-tasks"></span> Dashboard</a>
+                          </li>
+                          <hr class="mrgn-tp-sm mrgn-bttm-sm">
+                          <li>
+                            <button class="signOut icon-btn" ><span class="glyphicon glyphicon-log-out"></span> Sign out</button>
+                          </li>
                         </ul>
-                        
+                        <div class="user-overlay-footer">
+                          <button class="btn btn-primary"id="close-user-overlay-btn">Close</button>
+                        </div>
                       </div>
-                    </section> -->
-                </div>
-            </div>
-        </section>
-      </div>
+                  </div>
+              </div>
+          </section>
+        </div>
       </div>
     </div>
     <!-- <nav id="wb-bc" property="breadcrumb">
@@ -171,8 +153,8 @@
       <div class="container">
         <ol class="breadcrumb" typeof="BreadcrumbList">
           <li property="itemListElement" typeof="ListItem">
-            <a property="item" typeof="WebPage" href="./index.html">
-              <span property="name">Dash Board</span>
+            <a property="item" typeof="WebPage" href="./dashboard.html">
+              <span property="name">DashBoard</span>
             </a>
             <meta property="position" content="1">
           </li>
@@ -183,101 +165,136 @@
 
   </header>
 
-    <main property="mainContentOfPage" resource="#wb-main" typeof="WebPageElement">
-      <div class="container">
-        <h1 id="wb-cont" property="name">Profile</h1>
+  <main property="mainContentOfPage" resource="#wb-main" typeof="WebPageElement">
+    <div class="container">
+      <h1 id="wb-cont" property="name">Dashboard</h1>
+      <p><a href="#url-popup" aria-controls="centred-popup" class="wb-lbx lbx-modal url-form" role="button">Click here to add new certificate</a></p>
 
-      <div class="wb-frmvld">
-        <form action="" method="get" id="recovery-email-form">
-          <div class="form-group col-md-6">
-            <label for="fname">
-              <span class="field-name">First name</span> 
-            </label>
-            <input class="form-control" id="fname" name="fname" type="fname" readonly />
-          </div>
-          <div class="form-group col-md-6">
-            <label for="lname">
-              <span class="field-name">Last name</span> 
-            </label>
-            <input class="form-control" id="lname" name="lname" type="lname" readonly />
-          </div>
-          <div class="form-group col-md-12">
-            <label for="email">
-              <span class="field-name">Email</span> 
-            </label>
-            <input class="form-control" id="email" name="email" type="email" readonly />
+      <section id="url-popup" class="mfp-hide modal-dialog modal-content overlay-def" >
+        <header class="modal-header">
+          <h2 class="modal-title">Add new certificate</h2>
+        </header>
+        <div class="modal-body">
+          <div class="url-form-container wb-frmvld">
+            <form action="#" method="get" id="url-form">
+              <span>Please provide the URL of the website for which you would like to obtain certificate information</span>
+              <div class="urlInput-wrapper mrgn-tp-lg">
+                <label for="userInputUrl" class="wb-inv">Enter URL</label>
+                <input name="userInputUrl" id="userInputUrl" 
+                pattern="^(https|HTTPS)://[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/\S*)?$" 
+                placeholder="https://" 
+                required="required"/>
+                <button type="submit" class="fas fa-plus mrgn-lft-sm icon-btn" id="submitUrl"><span class="wb-inv">Submit URL address</span></button>
+              </div>
+            </form>
           </div>
           
-          <div class="form-group col-md-12"> 
-            <fieldset class="legend-brdr-bttm">
-              <legend>Change your password</legend>
-                <div class="form-group">
-                  <div>
-                    <label for="current-password" class="required"><span class="field-name">Current password</span> <strong class="required">(required)</strong></label>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-sm btn-primary pull-left"id="close-url-form" type="button">Close</button>
+        </div>
+        <img class="loadingImg hidden" src="../images/loading.gif" alt="loading image">
+      </section>
+      <div class="color-key-container mrgn-tp-sm">
+        <h4>Colour Key</h4>
+        <div class="color-key">
+          <ul class="list-unstyled">
+            <li>
+              <details>
+                <summary>Expiry Visual Notification</summary>
+                <div class="color-item">
+                  <div class="color-expiringGood color-circle" alt="color for the certficate expires in more than 6 weeks">
                   </div>
-                  <div class="password-input-wrapper">
-                    <input class="form-control" id="current-password" name="current-password" type="password"
-                      maxlength="12" 
-                      size="12" 
-                      autocomplete="off"
-                      required="required"/>
-                      <button type="button" id="show-current-password" class="glyphicon glyphicon-eye-open icon-btn"><span id="show-current-password-text" class="wb-inv">show password</span></button>
-                  </div>
+                  <span>More than 6 weeks</span>
                 </div>
-                <div class="form-group">
-                  <div>
-                    <label for="new-password" class="required"><span class="field-name">New password</span> <strong class="required">(required)</strong></label>
-                  </div>
-                  <div class="password-input-wrapper">
-                    <input class="form-control" id="new-password" name="new-password" type="password"
-                      maxlength="12" 
-                      size="12" 
-                      autocomplete="off"
-                      pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&+=!])(?!.*\s).{6,12}$" 
-                      data-msg="Password must be between 6 and 12 characters and contains at least 1 letter, 1 number and 1 special character." 
-                      required="required"/>
-                      <button type="button" id="show-new-password" class="glyphicon glyphicon-eye-open icon-btn"><span id="show-new-password-text" class="wb-inv">show password</span></button>
-                  </div>
-    
+                <div class="color-item">
+                  <div class="color-expiringInSixWeeks color-circle" alt="color for the certficate expires in 6 weeks"></div>
+                  <span>Less than 6 weeks</span>
                 </div>
-                <div class="form-group">
-                  <div>
-                    <label for="new-password-confirm" class="required"><span class="field-name">Confirm your new password</span> <strong class="required">(required)</strong></label>
-                  </div>
-                  <div class="password-input-wrapper">
-                    <input class="form-control" id="new-password-confirm" name="new-password-confirm" type="password"
-                      maxlength="12" size="12" autocomplete="off" data-rule-equalTo="#new-password" required="required" />
-                    <button type="button" id="show-new-password-confirm" class="glyphicon glyphicon-eye-open icon-btn"><span id="show-new-password-confirm-text" class="wb-inv">show password</span></button>
-                  </div>
+                <div class="color-item">
+                  <div class="color-expiringInTwoWeeks color-circle" alt="color for the certficate expires in 2 weeks"></div>
+                  <span>Less than 2 weeks</span>
                 </div>
-                <section class="alert alert-info">
-                  <p class="h5">Your password must:</p>
-                  <ul class="password-rules">
-                    <li>
-                      be at least 6 and maximum 12 characters longs
-                    </li>
-                    <li>
-                      include at least 1 number and 1 symbol
-                    </li>
-                    <li>
-                      match in both fields
-                    </li>
-                    <li>
-                      cannot contain spaces
-                    </li>
-                  </ul>
-                </section>
-            </fieldset>
-          </div>
-                
+                <div class="color-item">
+                  <div class="color-expired color-circle" alt="color for the expired certficate"></div>
+                  <span>Expired</span>
+                </div>
+              </details>
+            </li>
+          </ul>
           
-          <input type="submit" value="Save" class="btn btn-primary">
-          <a class="btn btn-default" href="./index.html">Exit</a> 
-        </form>
+        </div>
       </div>
-      
-  
-    </main>
+      <div class="table-responsive">
+        <table
+          class="wb-tables table wb-init no-footer table-bordered-th table-striped table-bordered"
+          id="certTable"
+          data-wb-tables='{
+            "columnDefs": [ {
+              "targets": [0, 3],
+              "orderable": false,
+              "width": "7%"
+            } ]
+          }'
+          aria-label="This table provides list of SSL/TLS certificates user saved to the table providing informtaion about the certificates">
+          <h4>List of Certificates</h4>
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>URL</th>
+              <th>Expiry</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody> 
+          </tbody>
+        </table>
+      </div>
+      <section id="certinfo-popup" class="mfp-hide modal-dialog modal-content overlay-def">
+        <header class="modal-header">
+          <h2 class="modal-title certInfo-header">Certificate details</h2>
+        </header>
+        <div class="modal-body">
+          <section class="certInfo-container">
+            <dl class="certInfo brdr panel panel-default">
+              <dt>
+                Issued To
+              </dt>
+              <dd>
+                Common Name &#40;CN&#41;&#58; <span class="certSubjectName"></span>
+              </dd>
+              <dd>
+                Organization &#40;O&#41; &#58; <span class="certSubjectOrganization"></span>
+              </dd>
+              <dd>
+                Organizational Unit &#40;OU&#41;&#58; <span class="certSubjectOrganizationUnit"></span>
+              </dd>
+              <dt>
+                Issued By
+              </dt>
+              <dd>
+                Common Name &#40;CN&#41;&#58; <span class="certIssuerName"></span>
+              </dd>
+              <dd>
+                Organization &#40;O&#41; &#58; <span class="certIssuerOrganization"></span>
+              </dd>
+              <dd>
+                Organizational Unit &#40;OU&#41;&#58; <span class="certIssuerOrganizationUnit"></span>
+              </dd>
+              <dt>
+                Validity
+              </dt>
+              <dd>
+                Issued on&#58; <span class="certValidFrom"></span>
+              </dd>
+              <dd>
+                Expires on&#58; <span class="certValidTo"></span>
+              </dd>
+            </dl>
+          </section>
+        </div>
+      </section>
+    </div>
     
   </main>
   <footer class="mrgn-tp-xl" id="wb-info">
@@ -332,7 +349,7 @@
           </ul>
         </nav>
         <div class="wtrmrk align-self-end">
-          <img src="./GCWeb/assets/wmms-blk.svg"
+          <img src="../GCWeb/assets/wmms-blk.svg"
             alt="Symbol of the Government of Canada" />
         </div>
       </div>
@@ -342,9 +359,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"
     integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB"
     crossorigin="anonymous"></script>
-  <script src="./wet-boew/js/wet-boew.min.js"></script>
-  <script src="./GCWeb/js/theme.min.js"></script>
-  <script type="module" src="./profile.js"></script>
+  <script src="../wet-boew/js/wet-boew.min.js"></script>
+  <script src="../GCWeb/js/theme.min.js"></script>
+  <script type="module" src="../js/dashboard.js"></script>
 </body>
 
 </html>

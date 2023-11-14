@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
-  <title>SSL/TLS Tracking Application</title>
+  <title>Profile</title>
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta name="description" content=" " />
   <meta name="author" content=" " />
@@ -16,12 +16,12 @@
   <meta name="dcterms.issued" content="" />
   <meta name="dcterms.modified" content="2023-09-20" />
 
-  <link href="./GCWeb/assets/favicon.ico" rel="icon" type="image/x-icon" />
-  <link rel="stylesheet" href="./GCWeb/css/theme.min.css" />
+  <link href="../GCWeb/assets/favicon.ico" rel="icon" type="image/x-icon" />
+  <link rel="stylesheet" href="../GCWeb/css/theme.min.css" />
   <noscript>
-    <link rel="stylesheet" href="./wet-boew/css/noscript.min.css" />
+    <link rel="stylesheet" href="../wet-boew/css/noscript.min.css" />
   </noscript>
-  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="../css/style.css" />
 </head>
 
 <body>
@@ -46,13 +46,13 @@
 
         <div class="brand col-xs-9 col-sm-5 col-md-4" property="publisher" typeof="GovernmentOrganization">
           <a href="https://www.canada.ca/" property="url">
-            <img src="./GCWeb/assets/sig-blk-en.svg"
+            <img src="../GCWeb/assets/sig-blk-en.svg"
               alt="Government of Canada" property="logo" /><span class="wb-inv"> / <span lang="fr">Gouvernement du
                 Canada</span></span>
           </a>
           <meta property="name" content="Government of Canada">
           <meta property="areaServed" typeof="Country" content="Canada" />
-          <link property="logo" href="./GCWeb/assets/wmms-blk.svg" />
+          <link property="logo" href="../GCWeb/assets/wmms-blk.svg" />
         </div>
 
 
@@ -122,14 +122,48 @@
           </nav>
         </div>
         <div class="col-xs-offset-6 col-xs-6 col-md-offset-0 col-md-4">
-            <section id="wb-so">
-                <div class="row">
-                    <div class="col-md-12">
-                        <a class="btn btn-primary" href="./signin.html">CertTracker Sign in</a>
+          <section id="wb-so">
+            <div class="row">
+                <div class="col-md-12 button-container">
+                  <!-- button overlay -->
+                    <button id="open-user-overlay-btn" class="btn btn-primary">Account</button>
+                    <div class="user-overlay" id="user-overlay">
+                      <ul class="list-unstyled overlay-list">
+                        <li>
+                          <a class="remove-link-style" href="#"><span class="glyphicon glyphicon-user"></span> Profile</a>
+                        </li>
+                        <hr class="mrgn-tp-sm mrgn-bttm-sm">
+                        <li>
+                          <a class="remove-link-style" href="dashboard.html"><span class="glyphicon glyphicon-tasks"></span> Dash Board</a>
+                        </li>
+                        <hr class="mrgn-tp-sm mrgn-bttm-sm">
+                        <li>
+                          <button class="signOut icon-btn" ><span class="glyphicon glyphicon-log-out"></span> Sign out</button>
+                        </li>
+                      </ul>
+                      <div class="user-overlay-footer">
+                        <button class="btn btn-primary"id="close-user-overlay-btn">Close</button>
+                      </div>
                     </div>
+                    <!-- <a class="btn btn-default" href="./registration.html">Register</a> -->
+                    <!-- <button class="btn btn-primary">Account</button> -->
+                    <!-- <a href="#right-panel" aria-controls="right-panel" class="overlay-lnk btn btn-primary" role="button">Account</a>
+                    <section id="right-panel" class="wb-overlay modal-content overlay-def wb-panel-r">
+                      <header class="modal-header">
+                        <h2 class="modal-title">Sexy Jato</h2>
+                      </header>
+                      <div class="modal-body">
+                        <ul class="list-unstyled">
+                          <li><a href="">Sign out</a></li>
+                          <li><a href="">Profile</a></li>
+                        </ul>
+                        
+                      </div>
+                    </section> -->
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
+      </div>
       </div>
     </div>
     <!-- <nav id="wb-bc" property="breadcrumb">
@@ -137,7 +171,7 @@
       <div class="container">
         <ol class="breadcrumb" typeof="BreadcrumbList">
           <li property="itemListElement" typeof="ListItem">
-            <a property="item" typeof="WebPage" href="./index.html">
+            <a property="item" typeof="WebPage" href="./dashboard.html">
               <span property="name">Dash Board</span>
             </a>
             <meta property="position" content="1">
@@ -145,64 +179,107 @@
         </ol>
       </div>
     </nav> -->
+
+
   </header>
 
-  <main property="mainContentOfPage" resource="#wb-main" typeof="WebPageElement">
-    <div class="container">
-        <div class="row mrgn-tp-lg">
-            <div class="col-md-6">
-                <h1 property="name" id="wb-cont">Certificate Tracker</h1>
-                <p class="lead">Empower Your Security with TLS and SSL Certificate Tracker: Stay Informed, Stay Secured.</p>
-            </div>
-            <div class="col-md-6 mrgn-tp-sm hidden-sm hidden-xs provisional gc-topic-bg">
-                <img src="./images/laptop-7336401_510.png"></img>
-            </div>
-        </div>
+    <main property="mainContentOfPage" resource="#wb-main" typeof="WebPageElement">
+      <div class="container">
+        <h1 id="wb-cont" property="name">Profile</h1>
+        <form>
+          <div class="form-group col-md-6">
+            <label for="firstname">
+              <span class="field-name">First name</span> 
+            </label>
+            <input class="form-control capitalization" id="firstname" name="firstname" type="firstname" readonly />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="lastname">
+              <span class="field-name">Last name</span> 
+            </label>
+            <input class="form-control capitalization" id="lastname" name="lastname" type="lastname" readonly />
+          </div>
+          <div class="form-group padding-left">
+            <label for="email">
+              <span class="field-name">Email</span> 
+            </label>
+            <input class="form-control" id="email" name="email" type="email" size="30" readonly />
+          </div>
+        </form>
 
-        <div class="container mrgn-tp-xl">
-            <div class="row">
-                <h2 class="text-center">What are we?</h2>
-                <p class="lead">Our user-friendly, secure, and innovative web application simplifies certificate management, making it easier than ever to keep track of your valuable credentials. 
-                    </p>
-            </div>
-        </div>
+          
 
-
-        <div class="container mrgn-tp-xl">
-            <h2 class="text-center">Key Features</h2>
-            <div class="row key-feature-row mrgn-tp-xl">
-                <div class="col-md-6 feature-text">
-                    <h3>Effortless Certificate Tracking</h3>
-                    <p>Simply enter the URL associated with your certificate, and our system will automatically fetch and store the certificate's information, including its expiration date.</p>
+      <div class="wb-frmvld mrgn-tp-lg">
+        <form action="" method="post" id="profile-change-password-form">
+          <div class="form-group col-md-12"> 
+            <fieldset class="legend-brdr-bttm">
+              <legend>Change your password</legend>
+                <div class="form-group">
+                  <div>
+                    <label for="currentPassword" class="required"><span class="field-name">Current password</span> <strong class="required">(required)</strong></label>
+                  </div>
+                  <div class="password-input-wrapper">
+                    <input class="form-control" id="currentPassword" name="currentPassword" type="password"
+                      maxlength="12" 
+                      size="12" 
+                      autocomplete="off"
+                      required="required"/>
+                      <button type="button" id="show-current-password" class="glyphicon glyphicon-eye-open icon-btn"><span id="show-current-password-text" class="wb-inv">show password</span></button>
+                  </div>
                 </div>
-                <div class="col-md-6 feature-img">
-                    <img class="responsive" src="./images/inputURL.JPG" alt="">
+                <div class="form-group">
+                  <div>
+                    <label for="newPassword" class="required"><span class="field-name">New password</span> <strong class="required">(required)</strong></label>
+                  </div>
+                  <div class="password-input-wrapper">
+                    <input class="form-control" id="newPassword" name="newPassword" type="password"
+                      maxlength="12" 
+                      size="12" 
+                      autocomplete="off"
+                      pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&+=!])(?!.*\s).{6,12}$" 
+                      data-msg="Password must be between 6 and 12 characters and contains at least 1 letter, 1 number and 1 special character." 
+                      required="required"/>
+                      <button type="button" id="show-new-password" class="glyphicon glyphicon-eye-open icon-btn"><span id="show-new-password-text" class="wb-inv">show password</span></button>
+                  </div>
+    
                 </div>
-            </div>
-            
-            <div class="row key-feature-row mrgn-tp-xl">
-                <div class="col-md-6 feature-img">
-                    <img class="responsive" src="./images/visual-notification.JPG" alt="">
+                <div class="form-group">
+                  <div>
+                    <label for="confirmationPassword" class="required"><span class="field-name">Confirm your new password</span> <strong class="required">(required)</strong></label>
+                  </div>
+                  <div class="password-input-wrapper">
+                    <input class="form-control" id="confirmationPassword" name="confirmationPassword" type="password"
+                      maxlength="12" size="12" autocomplete="off" data-rule-equalTo="#newPassword" required="required" />
+                    <button type="button" id="show-new-password-confirm" class="glyphicon glyphicon-eye-open icon-btn"><span id="show-new-password-confirm-text" class="wb-inv">show password</span></button>
+                  </div>
                 </div>
-                <div class="col-md-6 feature-text">
-                    <h3>Visual Alerts for Every Certificate</h3>
-                    <p>Experience clarity at a glance. Our dynamic table visually alerts you with vibrant colors for each certificate, depending on how much time is left before expiration. 
-                        Instantly identify certificates in need of attention and stay in control.</p>
-                </div>
-            </div>
-
-            <div class="row key-feature-row mrgn-tp-xl">
-                <div class="col-md-6 feature-text">
-                    <h3>Email Notification</h3>
-                    <p>Don't leave renewal to chance. Set your own timing for email notifications about certificates that are expiring soon. 
-                        Tailor your reminders to suit your schedule and never miss a deadline again.</p>
-                </div>
-                <div class="col-md-6 feature-img">
-                    <img class="responsive" src="./images/envelope-4313721_420.png" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
+                <section class="alert alert-info">
+                  <p class="h5">Your password must:</p>
+                  <ul class="password-rules">
+                    <li>
+                      be at least 6 and maximum 12 characters longs
+                    </li>
+                    <li>
+                      include at least 1 number and 1 symbol
+                    </li>
+                    <li>
+                      match in both fields
+                    </li>
+                    <li>
+                      cannot contain spaces
+                    </li>
+                  </ul>
+                </section>
+            </fieldset>
+          </div>
+          <input type="submit" value="Save" class="btn btn-primary">
+          <a class="btn btn-default" href="dashboard.html">Exit</a>
+        </form>
+      </div>
+      
+  
+    </main>
+    
   </main>
   <footer class="mrgn-tp-xl" id="wb-info">
     <h2 class="wb-inv">About this site</h2>
@@ -256,7 +333,7 @@
           </ul>
         </nav>
         <div class="wtrmrk align-self-end">
-          <img src="./GCWeb/assets/wmms-blk.svg"
+          <img src="../GCWeb/assets/wmms-blk.svg"
             alt="Symbol of the Government of Canada" />
         </div>
       </div>
@@ -266,8 +343,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"
     integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB"
     crossorigin="anonymous"></script>
-  <script src="./wet-boew/js/wet-boew.min.js"></script>
-  <script src="./GCWeb/js/theme.min.js"></script>
+  <script src="../wet-boew/js/wet-boew.min.js"></script>
+  <script src="../GCWeb/js/theme.min.js"></script>
+  <script type="module" src="../js/profile.js"></script>
 </body>
 
 </html>

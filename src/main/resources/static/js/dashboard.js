@@ -1,7 +1,6 @@
-import {userBtn, displayServerErrorMessages, clearServerErrorMessage, signOut, setAttributes} from "./module.js";
+import {userBtn, displayServerErrorMessages, clearServerMessage, signOut, setAttributes, refreshToken} from "./module.js";
 
-// user button behaviour for signed in user
-userBtn();
+refreshToken();
 // sign out
 signOut();
 // Function call to fetch all the list of certificates in the database
@@ -231,6 +230,7 @@ function colorAlert(daysRemaining, status){
 
 // GET request to API to fetch list of all the certificate in the database and populate Table when browser open
 async function fetctAllCertificate() {
+  refreshToken();
   let apiUrl = "/api/certificates/all"
 
   try {
@@ -418,3 +418,7 @@ document.querySelector("#close-url-form").addEventListener('click',()=>{
     // refreshing the page to update table once the popup is closed
     location.reload();
   });
+
+
+// user button behaviour for signed in user
+userBtn();

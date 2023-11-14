@@ -2,15 +2,12 @@
 export function signOut(){
     const signOutBtn = document.querySelector(`.signOut`);
     signOutBtn.addEventListener('click', ()=>{
-        let signOutConfirmation = confirm("Are you signing out?");
-        if (signOutConfirmation){
             
-            // call sign out api here
-
-            // redirect user to landing page if signed out.
-            location.href="./certificate-tracker.html";
-        }
-        
+    // call sign out api here
+    fetctSignOut();
+    
+    // redirect user to landing page if signed out.
+    
     })
     
 }
@@ -22,8 +19,10 @@ export function userBtn(){
     const closeOverlayBtn = document.getElementById('close-user-overlay-btn');
     const overlay = document.getElementById('user-overlay');
     
-    const userName = getCookie('userName');
-    openOverlayBtn.textContent = `Hi, ${userName}`;
+    const userFirstName = getCookie('userFirstName');
+    if(userFirstName !=null) {
+        openOverlayBtn.textContent = `Hi, ${userFirstName[0].toUpperCase() + userFirstName.slice(1)}`;
+    }
 
     openOverlayBtn.addEventListener('click', function () {
         overlay.style.display = 'block';
@@ -59,29 +58,27 @@ export function getCookie(name) {
     return null;
   }
 
-
 // generic form behavior for sign in, registration, password change (relevant to authentication)
-export function authenticationSubmit(form, apiCallBack){
+export function authenticationSubmit(form, api){
     form.addEventListener('submit', function(e) {
-        
         e.preventDefault();
 
-        clearServerErrorMessage()
+        clearServerMessage()
 
         // Check the validity of the form with jQeury (which WET-boew utilizes for its form validation) to see if the form is ready to call the api
         if(!$(this).valid()){
             return ;
         } else {
+        // Convert form data into JSON data
+        const formData = new FormData(this);
+        formData.delete('password-confirm');
+        const formJsonData = {};
+        formData.forEach(function(key, value) {
+            formJsonData[value] = key;
+        });
+        console.log(formJsonData);
+        api(formJsonData);
             
-            // Convert form data into JSON data
-            const formData = new FormData(this);
-            const formJsonData = {};
-    
-            formData.forEach(function(key, value) {
-                formJsonData[key] = value;
-            });
-            
-            apiCallBack(formJsonData);
         }       
     });
 }
@@ -121,8 +118,7 @@ export function displayServerErrorMessages(formId, error) {
       const ul = document.createElement('ul');
       const li = document.createElement('li');
       const anchor = document.createElement('a');
-      anchor.href = `#error-test`;
-      anchor.textContent = `Error test: ${error.message}`;
+      anchor.textContent = `Invalid Authentication: ${error}`;
       li.appendChild(anchor);
       ul.appendChild(li);
   
@@ -134,13 +130,38 @@ export function displayServerErrorMessages(formId, error) {
       form.insertBefore(errorSection, form.firstChild);
     }
   }
+
+  export function displaySuccessMessages(formId, message) {
+
+    if (message) {
+      const successSection = document.createElement('section');
+      successSection.classList.add('alert', 'alert-success', 'server-success');
+  
+      successSection.setAttribute('tabindex', '-1');
+  
+      const h2 = document.createElement('h2');
+      h2.textContent = `${message}`;
+    
+      successSection.appendChild(h2);
+  
+      // Insert the error section before the form
+      const form = document.getElementById(`${formId}`);
+      form.insertBefore(successSection, form.firstChild);
+    }
+  }
+
   
   // Clear (remove the server error element) server error messages
-  export function clearServerErrorMessage(){
+  export function clearServerMessage(){
     const serverErrorSection = document.querySelector('.server-error');
+    const successMessageSection = document.querySelector('.server-success');
     if (serverErrorSection) {
-      serverErrorSection.remove();
+        serverErrorSection.remove();
     }
+    if (successMessageSection){
+        successMessageSection.remove();
+    }
+
   }
 
 
@@ -148,5 +169,69 @@ export function displayServerErrorMessages(formId, error) {
 export function setAttributes(el, attrs) {
   for(var key in attrs) {
     el.setAttribute(key, attrs[key]);
+  }
+}
+
+async function fetctSignOut() {
+
+    let apiUrl = "/api/auth/signout";
+  
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': "application/json"
+        },
+      });
+      const data = await response.json();
+      if(!response.ok){
+        displayServerErrorMessages(data.error);
+        throw data;
+      } else {
+        location.href="../index.html";
+      }
+    } catch (error) {
+      console.error("Error fetching JSON data (Sign Out):", error);
+    }
+  }
+
+  export async function refreshToken(){
+        let apiUrl = "/api/auth/refreshtoken";
+      
+        try {
+          const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': "application/json"
+            },
+          });
+          const data = await response.json();
+          if(!response.ok){
+            location.href="../index.html";
+            
+          } else {
+            console.log(data);
+          }
+        } catch (error) {
+          console.error("Error fetching JSON data (Sign in):", error);
+      }
+  }
+
+  export async function refreshTokenPageRedirection(htmlPage){
+    let apiUrl = "/api/auth/refreshtoken"
+  
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': "application/json"
+        },
+      });
+      if(response.ok){
+        location.href=`${htmlPage}`;
+      }
+
+    } catch (error) {
+      console.error("Error fetching JSON data (refreshToken redirection):", error);
   }
 }
