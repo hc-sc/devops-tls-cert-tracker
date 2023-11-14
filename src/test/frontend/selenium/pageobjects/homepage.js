@@ -65,9 +65,9 @@ class HomePageTests extends BasePage {
             super.enterInputById('userInputUrl', userInput);
             // Locate the button by id and click it
             this.submitUrl();
-            await driver.sleep(500);
+            await driver.sleep(1000);
             super.clickById('close-url-form');
-            await driver.sleep(500);
+            await driver.sleep(1000);
 
             // const table = await driver.findElement(By.id("certTable"));
             const table = await this.findTable();
