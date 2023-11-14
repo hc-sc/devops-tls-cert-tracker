@@ -4,10 +4,14 @@
 package com.devops.certtracker.service;
 
 import com.devops.certtracker.entity.Certificate;
+import com.devops.certtracker.entity.ERole;
+import com.devops.certtracker.entity.Role;
+import com.devops.certtracker.entity.User;
 import com.devops.certtracker.exception.CertificateNoContentException;
 import com.devops.certtracker.exception.CertificateServiceException;
 import com.devops.certtracker.exception.EntityNotFoundException;
 import com.devops.certtracker.repository.CertificateRepository;
+import com.devops.certtracker.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +20,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -32,13 +35,19 @@ public class CertificateServiceTest {
     @Mock
     private CertificateRepository certificateRepository;
 
+    @Mock
+    private UserRepository userRepository;
+
     // The service under test, which will be automatically injected with mocked dependencies.
     @InjectMocks
     private CertificateService certificateService;
+//    @Mock
+//    private HttpsURLConnection mockedConnection;
 
     // Sample Certificate instances used for testing purposes.
     private Certificate certificate1;
     private Certificate certificate2;
+    private User user;
 
 
     /**
@@ -47,6 +56,16 @@ public class CertificateServiceTest {
     @BeforeEach
     void init() {
         MockitoAnnotations.openMocks(this);
+        user = new User();
+        user.setId(1L);
+        user.setFirstname("Ulrich");
+        user.setLastname("Guiffo");
+        user.setEmail("ulrichjato@yahoo.fr");
+        user.setEnabled(true);
+        user.setPassword("123456");
+        Set<Role> roles = new HashSet<>();
+        roles.add(new Role(ERole.ROLE_USER));
+        user.setRoles(roles);
 
         certificate1 = new Certificate();
         certificate1.setId(1L);
@@ -55,6 +74,7 @@ public class CertificateServiceTest {
         certificate1.setIssuer("CN=issuer.com");
         certificate1.setValidFrom(new Date());
         certificate1.setValidTo(new Date());
+        certificate1.setUser(user);
 
         certificate2 = new Certificate();
         certificate2.setId(2L);
@@ -63,6 +83,7 @@ public class CertificateServiceTest {
         certificate2.setIssuer("CN=issuer.com");
         certificate2.setValidFrom(new Date());
         certificate2.setValidTo(new Date());
+        certificate2.setUser(user);
     }
 
     /**
@@ -194,6 +215,8 @@ public class CertificateServiceTest {
         savedCertificate.setValidFrom(new Date());
         savedCertificate.setValidTo(new Date());
 
+        when(userRepository.findById(certificateService.getUserIdFromAuthentication())).thenReturn(Optional.of(user));
+
         when(certificateRepository.save(any(Certificate.class))).thenReturn(savedCertificate);
 
         Certificate result = certificateService.retrieveAndSaveCertificate(validHttpsUrl);
@@ -261,7 +284,7 @@ public class CertificateServiceTest {
     @Test
     @DisplayName("Retrieve and save a certificate with an HTTP error - HTTPS Connection Error")
     public void testRetrieveAndSaveCertificate_HttpError() throws Exception {
-        String httpErrorUrl = "https://chat.openai.com";
+        String httpErrorUrl = "https://ttttttt.teeest.com";
 
         // Define the expected exception
         assertThrows(CertificateServiceException.class, () -> {
@@ -271,4 +294,6 @@ public class CertificateServiceTest {
         // Verify that the certificateRepository.save method is never called
         verify(certificateRepository, never()).save(any(Certificate.class));
     }
+
+
 }

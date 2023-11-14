@@ -11,6 +11,7 @@
     "test-signin": "mocha src/test/frontend/selenium/testcases/signinpagetest.js --timeout 60000",
     "test-profile": "mocha src/test/frontend/selenium/testcases/profilepagetest.js",
     "test": "npm run test-dashboard && npm run test-landingpage && npm run api-test && npm run test-registration && npm run test-signin && npm run test-profile"
+
   },
   "author": "",
   "license": "ISC",
