@@ -44,5 +44,5 @@ jobs:
       run: sleep 5  # Wait for 5 seconds to ensure live-server is up
 
     - name: Run frontend Selenium UI testing and API test
-      run: npm run test-all
+      run: npm test
 
