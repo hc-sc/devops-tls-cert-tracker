@@ -15,5 +15,4 @@ public class EmailScheduler {
     public void sendEmail() {
         emailService.checkCertificateExpirationAndSendEmail( 30000);
     }
-
 }

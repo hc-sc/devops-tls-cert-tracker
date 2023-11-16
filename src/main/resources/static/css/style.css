@@ -1,47 +1,87 @@
-/* Visual notification (color notification) */
-.color_expiringInTwoWeeks{
-    background-color: #ffa94d !important;
-
+/* generic css */
+.remove-padding{
+    padding: 0;
 }
 
-.color_expiringInSixWeeks{
+.padding-left{
+    padding-left: 15px;
+}
+
+.hidden{
+    display: hidden;
+}
+
+.icon-btn{
+    padding: 0;
+    border: none;
+    background-color: transparent;
+}
+
+.capitalization {
+    text-transform: capitalize;
+}
+
+
+/* Styles for authentication related forms */
+.checkbox, .checkbox-inline, .radio, .radio-inline, :not(#wb-srch) form, form .btn:not(.btn-call-to-action) {
+    font-size: 20px;
+    line-height: 30px;
+}
+
+/* .dashboard-header{
+    text-align: right;
+    display: flex; 
+    justify-content: space-between; 
+
+ } */
+
+/* Visual notification (color notification) */
+.color-expiringInTwoWeeks{
+    background-color: #ffa94d !important;
+}
+
+.color-expiringInSixWeeks{
     background-color: #ffd43b !important;
 }
 
-.color_expired{
+.color-expired{
     background-color: #fa5252 !important;
 }
 
-.color_expiringGood{
+.color-expiringGood{
     background-color: #69db7c !important;
 }
 
 /* Styles for color key */
-.color_key_container {
+.color-key-container {
     display: flex;
     flex-direction: column;
     gap: 0.2em;
 }
 
-.color_key {
-    padding: 0.5em;
+.color-key {
     display: flex;
-    justify-content: space-around;
 }
 
-.color_item {
+.color-item {
     display: flex;
     align-items: center;
 }
 
-.color_circle {
+.color-item > * {
+    margin-right: 0.5em;
+}
+.color-circle {
+    display: inline-block;
     width: 1em;
     height: 1em;
     border-radius: 50%;
-    margin-right: 0.5em;
 }
 
 /* Styles for certificate table */
+#certTable {
+    box-sizing: border-box;
+}
 #certTable tbody {
     font-weight: bold;
 }
@@ -54,27 +94,49 @@
     margin-right: 0.4em;
 }
 
+#certTable tbody td{
+    vertical-align: middle;
+}
 
-/* Styles for URL submission section */
-/* #urlForm {
+td.status-cell{
+    text-align: center;
+}
+
+.status-cell > *{
+    vertical-align: middle;
+}
+
+/* loading gif css behaviour */
+.loadingImg{
+    z-index: 1000;
+    max-width: 2em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+/* styles for form to add certificate on dash board */
+.urlInput-wrapper {
     display: flex;
     align-items: center;
-} */
-
-.urlInput_wrapper {
-    display: flex;
-    align-items: center;
+    justify-content: center;
 }
 
 #userInputUrl {
     width: 20em;
     height: 2em;
     font-weight: bold;
+    box-sizing: content-box;
+    border: 1px solid black;
+    border-radius: 10px;
 }
 
 #submitUrl {
     font-size: 1.5em;
-    margin-bottom: 0.23em;
+    vertical-align: middle;
+
 }
 
 #submitUrl:hover, .moreCertInfo:hover, .deleteBtn:hover {
@@ -82,35 +144,122 @@
     color: grey;
 }
 
-/* Styles for certificate detail page (certinfo.html) */
-.certInfo_container{
+/* hiding WET plug in for lightbox modal popup's default button to add reloading feature to the button on closure*/
+#url-popup .popup-modal-dismiss {
+    display: none !important;
+}
+
+/* Styles for certificate detail displaying more info popup about a cert */
+.certInfo-container{
     display: flex;
     justify-content: center;
     flex-direction: column;
-
 }
 
 .certInfo {
     padding: 1em;
 }
 
+/* styles for positioning show password icon on signin.html, registration.html, profile.html for the changing the password */
+.password-input-wrapper{
+    display: inline-block;
+    position: relative;
+}
 
-.loadingImg{
-    z-index: 1000;
-    max-width: 2em;
+.password-input-container input {
+    width: 100%;
+}
+
+.password-input-wrapper > button {
     position: absolute;
-    top: 70%;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 50%; /* Vertically center the icon */
+    right: 5%;
+    transform: translateY(-50%); /* Center vertically using transform */
+    cursor: pointer;
 }
 
-.hidden {
-    display: hidden;
+
+/* landing page style (index.html) */
+.key-feature-row{
+   display:flex;
 }
+
+.key-feature-row > * {
+   display:flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+}
+
+.feature-text{
+    text-align: center;
+}
+
+.responsive{
+   max-width: 100%;
+   height: auto;
+}
+
+/* user overlay button */
+
+.button-container {
+    position: relative;
+    /* text-align: center; */
+}
+    
+.user-overlay {
+    background-color: white;
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 15px;
+    padding: 10px;
+    z-index: 1;
+    text-align: center;
+    border: 1px solid #26374a;
+    box-shadow: 3px 3px rgba(0, 0, 0, 0.2);
+  }
+  
+hr {
+    border-color:#26374a;
+}
+
+.remove-link-style{
+    text-decoration: none;
+    color: inherit;
+}
+
+.remove-link-style:visited, .remove-link-style:hover, .remove-link-style:focus{
+    color: inherit;
+    text-decoration: none;
+}
+
+/* password rule style for profile.html and registration.html */
+.alert > .password-rules {
+    margin-left: 0;
+}
+
+
 
 /* // Large devices (desktops, 992px and down) */
 @media (max-width: 992px) {
-    .color_key {
+    .color-key {
         flex-direction: column;
     }
- }
+
+    .key-feature-row{
+        /* flex-direction: column; */
+        font-size: 3vw;
+    }
+}
+
+/* Hiding edge's default show password icon */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
