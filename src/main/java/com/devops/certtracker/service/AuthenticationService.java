@@ -20,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -69,28 +71,33 @@ public class AuthenticationService {
     private static final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
 
     public SigninResponse authenticate(SigninRequest signinRequest) {
+        try {
+            Authentication authentication = authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(signinRequest.getEmail(), signinRequest.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+            ResponseCookie jwtCookie = jwtService.generateJwtCookie(userDetails);
+            List<String> roles = userDetails.getAuthorities().stream()
+                    .map(item -> item.getAuthority())
+                    .collect(Collectors.toList());
 
-        Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(signinRequest.getEmail(), signinRequest.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        ResponseCookie jwtCookie = jwtService.generateJwtCookie(userDetails);
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
+            RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
+            ResponseCookie jwtRefreshCookie = jwtService.generateRefreshJwtCookie(refreshToken.getToken());
 
-        RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
-        ResponseCookie jwtRefreshCookie = jwtService.generateRefreshJwtCookie(refreshToken.getToken());
-
-        return new SigninResponse(
-                jwtCookie.toString(),
-                jwtRefreshCookie.toString(),
-                new UserInfoResponse( userDetails.getId(),
-                        userDetails.getFirstname(),
-                        userDetails.getLastname(),
-                        userDetails.getUsername(),
-                        roles)
-        );
+            return new SigninResponse(
+                    jwtCookie.toString(),
+                    jwtRefreshCookie.toString(),
+                    new UserInfoResponse(userDetails.getId(),
+                            userDetails.getFirstname(),
+                            userDetails.getLastname(),
+                            userDetails.getUsername(),
+                            roles)
+            );
+        } catch (BadCredentialsException ex){
+            throw new BadCredentialsException("Bad Credentials");
+        }catch (DisabledException ex){
+            throw new DisabledException("User account is disabled");
+        }
     }
    public MessageResponse register(SignupRequest signupRequest, HttpServletRequest request) {
        if (userRepository.existsByEmail(signupRequest.getEmail())){
@@ -170,7 +177,7 @@ public class AuthenticationService {
     }
 
 
-    public String resetPasswordRequest(ResetPasswordRequest resetPasswordRequest,
+    public void resetPasswordRequest(ResetPasswordRequest resetPasswordRequest,
                                         HttpServletRequest servletRequest)
             throws MessagingException, UnsupportedEncodingException {
 
@@ -180,7 +187,7 @@ public class AuthenticationService {
             var passwordResetToken = passwordResetTokenService.createPasswordResetToken(user.get());
             passwordResetUrl = passwordResetEmailLink(user.get(), applicationUrl(servletRequest), passwordResetToken.getToken());
         }
-        return passwordResetUrl;
+        //return passwordResetUrl;
     }
 
     private String passwordResetEmailLink(User user, String applicationUrl,

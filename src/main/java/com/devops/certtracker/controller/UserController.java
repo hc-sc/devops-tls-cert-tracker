@@ -1,6 +1,7 @@
 package com.devops.certtracker.controller;
 
 import com.devops.certtracker.dto.request.ChangePasswordRequest;
+import com.devops.certtracker.dto.response.MessageResponse;
 import com.devops.certtracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class UserController {
     @PatchMapping("/change-password")
     ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest request, Principal authenticatedUser){
         userservice.changePassword(request, authenticatedUser);
-        return  ResponseEntity.ok().build();
+        return  ResponseEntity.ok().body(new MessageResponse("Password changed successfully!"));
     }
 
 }

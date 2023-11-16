@@ -53,18 +53,19 @@ public class AuthenticationController {
                 .body(response.getMessageResponse());
     }
     @PostMapping("/password-reset-request")
-    public  ResponseEntity<String> resetPasswordRequest(
+    public  ResponseEntity<MessageResponse> resetPasswordRequest(
             @RequestBody ResetPasswordRequest resetPasswordRequest,
             final HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
-        String response = authenticationService.resetPasswordRequest(resetPasswordRequest, request);
-        return ResponseEntity.ok(response);
+        //String response = authenticationService.resetPasswordRequest(resetPasswordRequest, request);
+        authenticationService.resetPasswordRequest(resetPasswordRequest, request);
+        return ResponseEntity.ok(new MessageResponse("For your security, we've sent you an email with password reset instructions"));
     }
     @PostMapping("/password-reset")
-    public  ResponseEntity<String> resetPassword(
+    public  ResponseEntity<MessageResponse> resetPassword(
             @RequestBody ResetPasswordRequest resetPasswordRequest,
             @RequestParam("token") String token){
         String response = authenticationService.resetPassword(resetPasswordRequest, token);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok().body(new MessageResponse(response));
     }
     @GetMapping("/verifyEmail")
     public ResponseEntity<String> sendVerificationToken(@RequestParam("token") String token){
