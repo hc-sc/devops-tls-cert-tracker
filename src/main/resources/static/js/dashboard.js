@@ -1,4 +1,4 @@
-import {userBtn, displayServerErrorMessages, clearServerMessage, signOut, setAttributes, refreshToken} from "./module.js";
+import {userBtn, displayServerErrorMessages, clearServerMessage, signOut, setAttributes, refreshToken, displaySuccessMessages} from "./module.js";
 
 refreshToken();
 // sign out
@@ -13,6 +13,11 @@ let submissionInProgress = false;
 
 // prevent the form from submitting with enter for user input
 const urlIputForm = document.querySelector('#url-form');
+urlIputForm.addEventListener('input', (event) => {
+  if (event.target.tagName.toLowerCase() === 'input') {
+    clearServerMessage();
+  }
+});
 urlIputForm.addEventListener('submit', async function (e) {
   e.preventDefault();
 
@@ -275,8 +280,10 @@ async function sendUrlAndFetchCertificate(userInputUrl) {
     const data = await response.json();
 
     if(!response.ok){
+      displayServerErrorMessages('url-form', "Something went wrong, please check your URL address.")
       throw data;
     } else {
+      displaySuccessMessages('url-form', "Successfully added new certificate.")
       // Don't need to manualy add a row because of refreshing the page
       // manipulateRow(data);
       // refresh the page to update table

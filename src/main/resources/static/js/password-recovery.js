@@ -17,7 +17,7 @@ async function fetchPasswordRecovery(emailData) {
         body: JSON.stringify(emailData)
       });
       if(!response.ok ||response.ok){
-        displaySuccessMessages('recovery-email-form', "Recovery Email has send to you.");
+        displaySuccessMessages('recovery-email-form', `Recovery email has sent to you (${emailData.email}).`);
         throw data;
       }
     } catch (error) {

@@ -118,7 +118,7 @@ export function displayServerErrorMessages(formId, error) {
       const ul = document.createElement('ul');
       const li = document.createElement('li');
       const anchor = document.createElement('a');
-      anchor.textContent = `Invalid Authentication: ${error}`;
+      anchor.textContent = error;
       li.appendChild(anchor);
       ul.appendChild(li);
   
@@ -210,7 +210,7 @@ async function fetctSignOut() {
             location.href="../index.html";
             
           } else {
-            console.log(data);
+            // location.reload();
           }
         } catch (error) {
           console.error("Error fetching JSON data (Sign in):", error);
@@ -235,3 +235,12 @@ async function fetctSignOut() {
       console.error("Error fetching JSON data (refreshToken redirection):", error);
   }
 }
+
+export function clearForm(form){
+  form.addEventListener('input', (event) => {
+    if (event.target.tagName.toLowerCase() === 'input') {
+      clearServerMessage();
+    }
+  });
+}
+

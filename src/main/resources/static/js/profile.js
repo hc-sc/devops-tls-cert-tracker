@@ -1,4 +1,4 @@
-import {userBtn, getCookie, togglePasswordView, authenticationSubmit, displayServerErrorMessages, displaySuccessMessages, signOut, refreshToken} from "./module.js";
+import {userBtn, getCookie, togglePasswordView, authenticationSubmit, displayServerErrorMessages, displaySuccessMessages, signOut, refreshToken, clearForm} from "./module.js";
 refreshToken();
 userBtn();
 signOut();
@@ -8,6 +8,7 @@ document.querySelector("#lastname").value = getCookie("userLastName");
 document.querySelector("#email").value = getCookie("userEmail");
 
 const passwordChangeForm = document.querySelector('#profile-change-password-form');
+clearForm(passwordChangeForm);
 authenticationSubmit(passwordChangeForm, fetctChangePassword);
 
 

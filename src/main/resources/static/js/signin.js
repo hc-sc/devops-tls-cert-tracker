@@ -1,8 +1,12 @@
-import {setCookie, authenticationSubmit, togglePasswordView, displayServerErrorMessages, refreshTokenPageRedirection} from "./module.js";
+import {setCookie, authenticationSubmit, togglePasswordView, displayServerErrorMessages, refreshTokenPageRedirection, clearForm} from "./module.js";
 
 refreshTokenPageRedirection('./dashboard.html');
 
+
 const signinForm = document.querySelector("#signin-form");
+
+// dynamically interact with form to clear messages
+clearForm(signinForm)
 
 authenticationSubmit(signinForm, fetchSignIn);
 
@@ -26,7 +30,13 @@ async function fetchSignIn(signinData) {
       });
       const data = await response.json();
       if(!response.ok){
-        displayServerErrorMessages('signin-form', data.message);
+        if(data.status == 401){
+          displayServerErrorMessages('signin-form', "Please, check if you have correct email and password.");
+        } else if(data.status == 403){
+          displayServerErrorMessages('signin-form', "Please verify your email before sign in"); 
+        } else {
+          displayServerErrorMessages('signin-form', `${data.status} + "Internal Server Error"`); 
+        }
         throw data;
 
       } else {

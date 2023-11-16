@@ -1,11 +1,13 @@
-import {authenticationSubmit, togglePasswordView, displayServerErrorMessages} from "./module.js";
+import {authenticationSubmit, togglePasswordView, displayServerErrorMessages, displaySuccessMessages, clearForm} from "./module.js";
 
 // form submit will trigger validation, if no there are no errors, sbumit the form
 const registrationForm = document.querySelector("#register-form");
+const successRegistrationContainer = document.querySelector('#registration-success');
 
+// dynamically interact with form to clear messages
+clearForm(registrationForm);
 
-
-authenticationSubmit(registrationForm, fetctRegister);
+authenticationSubmit(registrationForm, fetchRegister);
 
 
 // let testData = authenticationSubmit(registrationForm);
@@ -32,7 +34,7 @@ passwordConfirmIcon.addEventListener("click", () => {
 });
 
 // Calling backend API for registration
-async function fetctRegister(registrationInfo) {
+async function fetchRegister(registrationInfo) {
     
     let apiUrl = "/api/auth/register"
   
@@ -47,14 +49,13 @@ async function fetctRegister(registrationInfo) {
       const data = await response.json();
       if(!response.ok){
 
-        displayServerErrorMessages(data.error);
+        displayServerErrorMessages("register-form", data.message);
         throw data;
 
       } else {
-        console.log(data);
-        if (data.message){
-            // location.href = "./signin.html";
-        }
+        registrationForm.classList.add("hidden");
+        displaySuccessMessages("registration-success", "Verification email has sent to your email address, please verify your email to sign in.")
+        successRegistrationContainer.classList.remove("hidden");
       }
   
     } catch (error) {
