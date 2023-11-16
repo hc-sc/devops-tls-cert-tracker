@@ -28,6 +28,8 @@ urlIputForm.addEventListener('input', (event) => {
 urlIputForm.addEventListener('submit', async function (e) {
   e.preventDefault();
 
+  clearServerMessage();
+  
   // renew refresh token if access token is expired and user hasn't signed out
   await refreshToken();
   let inputValid = $(this).valid();
