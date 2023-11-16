@@ -1,8 +1,14 @@
 import {userBtn, displayServerErrorMessages, clearServerMessage, signOut, setAttributes, refreshToken, displaySuccessMessages} from "./module.js";
 
+// Call refresh token to renew the accesstoken if the user hasn't signed out yet
 refreshToken();
-// sign out
+
+// Adding functionality to user button overlay
+userBtn();
+
+// Adding functionality to sign out link in user button over lay
 signOut();
+
 // Function call to fetch all the list of certificates in the database
 fetctAllCertificate();
 
@@ -18,9 +24,12 @@ urlIputForm.addEventListener('input', (event) => {
     clearServerMessage();
   }
 });
+
 urlIputForm.addEventListener('submit', async function (e) {
   e.preventDefault();
 
+  // renew refresh token if access token is expired and user hasn't signed out
+  await refreshToken();
   let inputValid = $(this).valid();
   
   if(inputValid){
@@ -235,8 +244,11 @@ function colorAlert(daysRemaining, status){
 
 // GET request to API to fetch list of all the certificate in the database and populate Table when browser open
 async function fetctAllCertificate() {
-  refreshToken();
-  let apiUrl = "/api/certificates/all"
+
+  // renew refresh token if access token is expired and user hasn't signed out
+  await refreshToken();
+
+  let apiUrl = "/api/certificates/user/all"
 
   try {
     const response = await fetch(apiUrl, {
@@ -266,6 +278,10 @@ async function fetctAllCertificate() {
 
 // POST request to API for sending URL to the backend and fetch corresponding data
 async function sendUrlAndFetchCertificate(userInputUrl) {
+  
+  // renew refresh token if access token is expired and user hasn't signed out
+  await refreshToken();
+
   let apiUrl = "/api/certificates/add";
 
   try {
@@ -297,7 +313,10 @@ async function sendUrlAndFetchCertificate(userInputUrl) {
 // Delete request to Backend API, with ID# of the certificate to be deleted
 async function fetchDeleteCertificate(certificateId) {
 
-  let apiUrl = `/api/certificates/delete/${certificateId}`;
+  // renew refresh token if access token is expired and user hasn't signed out
+  await refreshToken();
+
+  let apiUrl = `/api/certificates/delete/user/${certificateId}`;
   try {
     const response = await fetch(apiUrl, {
       method: 'DELETE',
@@ -329,6 +348,10 @@ async function fetchDeleteCertificate(certificateId) {
 }
 
 async function fetchCertificateById(certificateId) {
+
+  // renew refresh token if access token is expired and user hasn't signed out
+  await refreshToken();
+
   let apiUrl = `/api/certificates/get/${certificateId}`
 
   try {
@@ -350,10 +373,6 @@ async function fetchCertificateById(certificateId) {
     console.error("Error fetching JSON data (get one certificate with id):", error);
   }
 }
-
-
-
-
 
 
 
@@ -425,7 +444,3 @@ document.querySelector("#close-url-form").addEventListener('click',()=>{
     // refreshing the page to update table once the popup is closed
     location.reload();
   });
-
-
-// user button behaviour for signed in user
-userBtn();

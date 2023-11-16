@@ -1,15 +1,18 @@
-import {setCookie, authenticationSubmit, togglePasswordView, displayServerErrorMessages, refreshTokenPageRedirection, clearForm} from "./module.js";
+import { authenticationSubmit, togglePasswordView, displayServerErrorMessages, refreshTokenPageRedirection, clearForm, refreshToken } from "./module.js";
 
+// Protecting the page and redirecting the user to correct page depending on user status (signed in, or not signed in)
 refreshTokenPageRedirection('./dashboard.html');
 
 
 const signinForm = document.querySelector("#signin-form");
 
-// dynamically interact with form to clear messages
+// Dynamically clears any server messages
 clearForm(signinForm)
 
+// Preventing default form submission, and fetch from the endpoint
 authenticationSubmit(signinForm, fetchSignIn);
 
+// Adding functioanlity to show password feature
 const passwordIcon = document.querySelector("#show-password");
 passwordIcon.addEventListener("click", () => {
     togglePasswordView("password", passwordIcon, "show-password-text");
@@ -18,6 +21,7 @@ passwordIcon.addEventListener("click", () => {
 
 // Calling backend API for sign in
 async function fetchSignIn(signinData) {
+  
     let apiUrl = "/api/auth/signin"
   
     try {
@@ -40,9 +44,9 @@ async function fetchSignIn(signinData) {
         throw data;
 
       } else {
-        setCookie('userFirstName', data.firstname);
-        setCookie('userLastName', data.lastname);
-        setCookie('userEmail', data.email);
+        // If the user is successfully signed in, save user info in local storage
+        localStorage.setItem('user', JSON.stringify(data));
+        // and redirect the user to the dashboard page
         location.href = "./dashboard.html";
       }
   

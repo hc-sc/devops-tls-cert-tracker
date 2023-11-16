@@ -1,17 +1,12 @@
-// sign out functionality
+// sign out functionality for sign out link on user button overlay
 export function signOut(){
     const signOutBtn = document.querySelector(`.signOut`);
     signOutBtn.addEventListener('click', ()=>{
             
     // call sign out api here
-    fetctSignOut();
-    
-    // redirect user to landing page if signed out.
-    
+    fetctSignOut();  
     })
-    
 }
-
 
 // overlay panel navigation for signed in user 
 export function userBtn(){
@@ -19,9 +14,10 @@ export function userBtn(){
     const closeOverlayBtn = document.getElementById('close-user-overlay-btn');
     const overlay = document.getElementById('user-overlay');
     
-    const userFirstName = getCookie('userFirstName');
-    if(userFirstName !=null) {
-        openOverlayBtn.textContent = `Hi, ${userFirstName[0].toUpperCase() + userFirstName.slice(1)}`;
+    // const userFirstName = getCookie('userFirstName');
+    const userInfo = JSON.parse(localStorage.getItem('user'));
+    if(userInfo !=null) {
+      openOverlayBtn.textContent = `Hi, ${userInfo.firstname[0].toUpperCase() + userInfo.firstname.slice(1)}`;
     }
 
     openOverlayBtn.addEventListener('click', function () {
@@ -38,7 +34,6 @@ export function userBtn(){
         }
     });
 }
-
 
 // to set cookie
 export function setCookie(name, value){
@@ -131,6 +126,7 @@ export function displayServerErrorMessages(formId, error) {
     }
   }
 
+  // Dynamically add corresponding html elements to show successful attempt message
   export function displaySuccessMessages(formId, message) {
 
     if (message) {
@@ -172,6 +168,8 @@ export function setAttributes(el, attrs) {
   }
 }
 
+
+// Interact with sign out end point
 async function fetctSignOut() {
 
     let apiUrl = "/api/auth/signout";
@@ -195,6 +193,7 @@ async function fetctSignOut() {
     }
   }
 
+  // Interact with refresh token end point to renew access token
   export async function refreshToken(){
         let apiUrl = "/api/auth/refreshtoken";
       
@@ -208,7 +207,6 @@ async function fetctSignOut() {
           const data = await response.json();
           if(!response.ok){
             location.href="../index.html";
-            
           } else {
             // location.reload();
           }
@@ -217,6 +215,7 @@ async function fetctSignOut() {
       }
   }
 
+  // Interact with refresh token and redirect user depending on the result
   export async function refreshTokenPageRedirection(htmlPage){
     let apiUrl = "/api/auth/refreshtoken"
   
@@ -236,6 +235,7 @@ async function fetctSignOut() {
   }
 }
 
+// Dynamically listent to changes in authentication related forms and clear any server messages upon any changes being made to the form
 export function clearForm(form){
   form.addEventListener('input', (event) => {
     if (event.target.tagName.toLowerCase() === 'input') {

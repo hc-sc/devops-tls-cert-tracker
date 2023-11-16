@@ -1,9 +1,10 @@
-import { togglePasswordView, authenticationSubmit, displayServerErrorMessages, displaySuccessMessages } from "./module.js";
+import { togglePasswordView, authenticationSubmit, displayServerErrorMessages, displaySuccessMessages, clearForm } from "./module.js";
 
 
-const passwordIcon = document.querySelector("#show-resetPassword");
+// Adding functioanlity to show password feature
+const passwordIcon = document.querySelector("#show-newPassword");
 passwordIcon.addEventListener("click", () => {
-    togglePasswordView("resetPassword", passwordIcon, "show-resetPassword-text");
+    togglePasswordView("newPassword", passwordIcon, "show-newPassword-text");
 });
 const passwordConfirmIcon = document.querySelector("#show-password-confirm");
 passwordConfirmIcon.addEventListener("click", () => {
@@ -11,6 +12,13 @@ passwordConfirmIcon.addEventListener("click", () => {
 });
 
 const resetPasswordForm = document.querySelector('#reset-password-form');
+const errorPasswordReset = document.querySelector('#password-reset-error');
+const successPasswordReset = document.querySelector('#password-reset-success');
+
+// Dynamically clears any server messages
+clearForm(resetPasswordForm);
+
+// Preventing default form submission, and fetch from the endpoint
 authenticationSubmit(resetPasswordForm, fetchResetPassword);
 
 
@@ -23,20 +31,24 @@ async function fetchResetPassword(passwordInfoWithToken) {
         headers: {
           'Content-Type': "application/json"
         },
-        body: JSON.stringify(passwordInfoWithToken.resetPassword)
+        body: JSON.stringify({ newPassword: passwordInfoWithToken.newPassword })
       });
-      const data = await response.json();
+      // const data = await response.json();
       if(!response.ok){
-        displayServerErrorMessages('reset-password-form', data.message);
-        // "Something went wrong, please check your passwords"
+        resetPasswordForm.classList.add("hidden");
+        displayServerErrorMessages('password-reset-error', "Your link for resetting the password might have expired.");
+        errorPasswordReset.classList.remove("hidden");
+        
       } else{
-        displaySuccessMessages('reset-password-form', "Your password is successfully changed");
-        document.querySelector("#resetPassword").value = ""
+        resetPasswordForm.classList.add("hidden");
+        displaySuccessMessages('password-reset-success', "Your password has successfully changed");
+        successPasswordReset.classList.remove("hidden");
+        document.querySelector("#newPassword").value = ""
         document.querySelector("#password-confirm").value = ""
       }
   
     } catch (error) {
-      console.error("Error fetching JSON data (profile, changing password):", error);
+      console.error("Error fetching JSON data (reset password):", error);
     }
   }
 

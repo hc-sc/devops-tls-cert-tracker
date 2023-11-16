@@ -1,9 +1,39 @@
-.dashboard-header{
+/* generic css */
+.remove-padding{
+    padding: 0;
+}
+
+.padding-left{
+    padding-left: 15px;
+}
+
+.hidden{
+    display: hidden;
+}
+
+.icon-btn{
+    padding: 0;
+    border: none;
+    background-color: transparent;
+}
+
+.capitalization {
+    text-transform: capitalize;
+}
+
+
+/* Styles for authentication related forms */
+.checkbox, .checkbox-inline, .radio, .radio-inline, :not(#wb-srch) form, form .btn:not(.btn-call-to-action) {
+    font-size: 20px;
+    line-height: 30px;
+}
+
+/* .dashboard-header{
     text-align: right;
     display: flex; 
     justify-content: space-between; 
-    /* align-items: center; */
- }
+
+ } */
 
 /* Visual notification (color notification) */
 .color-expiringInTwoWeeks{
@@ -86,23 +116,8 @@ td.status-cell{
     transform: translate(-50%, -50%);
 }
 
-.hidden{
-    display: hidden;
-}
 
-
-/* Styles for URL submission section */
-
-/* #urlForm {
-    display: flex;
-    align-items: center;
-} */
-
-.icon-btn{
-    padding: 0;
-    border: none;
-    background-color: transparent;
-}
+/* styles for form to add certificate on dash board */
 .urlInput-wrapper {
     display: flex;
     align-items: center;
@@ -121,38 +136,29 @@ td.status-cell{
 #submitUrl {
     font-size: 1.5em;
     vertical-align: middle;
-    /* margin-bottom: 0.15em; */
 
 }
-/* #url-form {
-    display: flex;
-    flex-direction: column;
-    texst
-} */
 
 #submitUrl:hover, .moreCertInfo:hover, .deleteBtn:hover {
     cursor: pointer;
     color: grey;
 }
 
-/* Styles for certificate detail page (certinfo.html) */
+/* hiding WET plug in for lightbox modal popup's default button to add reloading feature to the button on closure*/
+#url-popup .popup-modal-dismiss {
+    display: none !important;
+}
+
+/* Styles for certificate detail displaying more info popup about a cert */
 .certInfo-container{
     display: flex;
     justify-content: center;
     flex-direction: column;
-
 }
 
 .certInfo {
     padding: 1em;
 }
-
-/* Form error styles */
-/* .error {
-    display: inline-block;
-    width: 100%;
-} */
-
 
 /* styles for positioning show password icon on signin.html, registration.html, profile.html for the changing the password */
 .password-input-wrapper{
@@ -173,7 +179,7 @@ td.status-cell{
 }
 
 
-/* landing page style (certificate-tracker.html) */
+/* landing page style (index.html) */
 .key-feature-row{
    display:flex;
 }
@@ -228,10 +234,6 @@ hr {
     text-decoration: none;
 }
 
-.remove-padding{
- padding: 0;
-}
-
 /* password rule style for profile.html and registration.html */
 .alert > .password-rules {
     margin-left: 0;
@@ -248,21 +250,10 @@ hr {
     .key-feature-row{
         /* flex-direction: column; */
         font-size: 3vw;
-     }
- }
-
-#url-popup .popup-modal-dismiss {
-    display: none !important;
+    }
 }
 
-.capitalization {
-    text-transform: capitalize;
-}
-
-.padding-left{
-    padding-left: 15px;
-}
-
+/* Hiding edge's default show password icon */
 input[type="password"]::-ms-reveal,
 input[type="password"]::-ms-clear {
   display: none;
