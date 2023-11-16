@@ -220,7 +220,6 @@
                   </div>
                   <div class="password-input-wrapper">
                     <input class="form-control" id="currentPassword" name="currentPassword" type="password"
-                      maxlength="12" 
                       size="12" 
                       autocomplete="off"
                       required="required"/>
@@ -232,11 +231,10 @@
                     <label for="newPassword" class="required"><span class="field-name">New password</span> <strong class="required">(required)</strong></label>
                   </div>
                   <div class="password-input-wrapper">
-                    <input class="form-control" id="newPassword" name="newPassword" type="password"
-                      maxlength="12" 
+                    <input class="form-control" id="newPassword" name="newPassword" type="password" 
                       size="12" 
                       autocomplete="off"
-                      pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&+=!])(?!.*\s).{6,12}$" 
+                      pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&+=!])(?!.*\s).{6,}$" 
                       data-msg="Password must be between 6 and 12 characters and contains at least 1 letter, 1 number and 1 special character." 
                       required="required"/>
                       <button type="button" id="show-new-password" class="glyphicon glyphicon-eye-open icon-btn"><span id="show-new-password-text" class="wb-inv">show password</span></button>
@@ -249,7 +247,7 @@
                   </div>
                   <div class="password-input-wrapper">
                     <input class="form-control" id="confirmationPassword" name="confirmationPassword" type="password"
-                      maxlength="12" size="12" autocomplete="off" data-rule-equalTo="#newPassword" required="required" />
+                      size="12" autocomplete="off" data-rule-equalTo="#newPassword" required="required" />
                     <button type="button" id="show-new-password-confirm" class="glyphicon glyphicon-eye-open icon-btn"><span id="show-new-password-confirm-text" class="wb-inv">show password</span></button>
                   </div>
                 </div>
@@ -257,7 +255,7 @@
                   <p class="h5">Your password must:</p>
                   <ul class="password-rules">
                     <li>
-                      be at least 6 and maximum 12 characters longs
+                      be at least 6 characters longs
                     </li>
                     <li>
                       include at least 1 number and 1 symbol

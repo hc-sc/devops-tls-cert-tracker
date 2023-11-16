@@ -159,14 +159,12 @@ export function displayServerErrorMessages(formId, error) {
 
   }
 
-
 // set multiple attributes in key, value pairs
 export function setAttributes(el, attrs) {
   for(var key in attrs) {
     el.setAttribute(key, attrs[key]);
   }
 }
-
 
 // Interact with sign out end point
 async function fetctSignOut() {
