@@ -13,7 +13,6 @@ public class EmailScheduler {
     // Schedule an email to be sent out every week on Monday morning at 8:00 AM.
     @Scheduled(fixedRate = 604800000)
     public void sendEmail() {
-        emailService.sendListEmail("test@jatodemo.com", 14);
+        emailService.checkCertificateExpirationAndSendEmail( 30000);
     }
-
 }

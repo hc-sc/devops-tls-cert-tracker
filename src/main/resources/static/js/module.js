@@ -71,7 +71,6 @@ export function authenticationSubmit(form, api){
         formData.forEach(function(key, value) {
             formJsonData[value] = key;
         });
-        console.log(formJsonData);
         api(formJsonData);
             
         }       
