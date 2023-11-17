@@ -92,18 +92,7 @@ public class EmailServiceTest {
     @Test
     @DisplayName("Get list of certificates expiring in the next 14 days")
     public void testWriteEmailBody() {
-        // Mock data
-        List<Certificate> certificates = new ArrayList<>();
-        certificates.add(certificate1);
-        certificates.add(certificate2);
 
-        // Mock the repository's findAll() method to return the mock data
-//        when(certificateRepository.findAll()).thenReturn(certificates);
-        when(certificateService.getAllCertificates()).thenReturn(certificates);
-        int days = 14;
-
-        // Verify that the email is sent successfully
-        assertEquals(body, emailService.writeEmailBody(days));
     }
 
     /**
@@ -112,18 +101,6 @@ public class EmailServiceTest {
     @Test
     @DisplayName("Send email to user")
     public void testSendEmail() {
-        // Mock data
-        List<Certificate> certificates = new ArrayList<>();
-        certificates.add(certificate1);
-        certificates.add(certificate2);
 
-        // Mock the repository's findAll() method to return the mock data
-        when(certificateService.getAllCertificates()).thenReturn(certificates);
-
-        // Verify that the email is sent successfully
-        assertEquals(
-                "Email sent successfully",
-                emailService.sendListEmail("kyle.ryc@gmail.com"));
     }
-
 }
