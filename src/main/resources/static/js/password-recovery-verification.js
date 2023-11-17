@@ -1,7 +1,7 @@
 import { displayServerErrorMessages, clearForm, clearServerMessage} from './module.js'
 
 const forgotPasswordCodeForm = document.querySelector('#recovery-code-form');
-
+const passwordRecoveryCodeError = document.querySelector('#password-recovery-code-error');
 
 clearForm(forgotPasswordCodeForm);
 // generic form behavior for sign in, registration, password change (relevant to authentication)
@@ -41,10 +41,13 @@ async function fetchValidatePasswordRecoveryCode(code) {
       });
       const data = await response.json();
       if(!response.ok){
-        if(data.status == 400){
+        if(data.message.includes("Invalid")){
           displayServerErrorMessages("recovery-code-form", "Invalid code, please check your code again.");
+          console.log(data);
         } else {
-          displayServerErrorMessages("recovery-code-form", "Your code might have expired, please try again by sending new recovery email.");
+          displayServerErrorMessages("password-recovery-code-error", "Your code might have expired, please try again by sending new recovery email.");
+          passwordRecoveryCodeError.classList.remove("hidden");
+          forgotPasswordCodeForm.classList.add("hidden");
         }
         return false;
       } else{

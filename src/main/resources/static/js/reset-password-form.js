@@ -21,8 +21,6 @@ clearForm(resetPasswordForm);
 // Preventing default form submission, and fetch from the endpoint
 authenticationSubmit(resetPasswordForm, fetchResetPassword);
 
-// Get the current URL
-
 // Create a URLSearchParams object from the query string of the URL
 const urlParams = new URLSearchParams(new URL(window.location.href).search);
 
@@ -32,6 +30,7 @@ const code = urlParams.get('code');
 // Calling backend API for registration
 async function fetchResetPassword(passwordInfo) {
   
+  // code is retrieved from this JavaScript page not module.js
   let apiUrl = `/api/auth/password-reset?token=${code}`;
   try {
     const response = await fetch(apiUrl, {
