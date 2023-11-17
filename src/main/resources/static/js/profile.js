@@ -10,7 +10,7 @@ userBtn();
 signOut();
 
 // Retrieve values from localstorage to fill some fileds in profile page
-const userInfo = JSON.parse(localStorage.getItem('user'))
+const userInfo = JSON.parse(localStorage.getItem('user'));
 document.querySelector("#firstname").value = userInfo.firstname;
 document.querySelector("#lastname").value = userInfo.lastname;
 document.querySelector("#email").value = userInfo.email;

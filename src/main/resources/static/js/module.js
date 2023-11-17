@@ -66,7 +66,10 @@ export function authenticationSubmit(form, api){
         } else {
         // Convert form data into JSON data
         const formData = new FormData(this);
-        formData.delete('password-confirm');
+        if(formData.has('password-confirm')){
+          formData.delete('password-confirm');
+        }
+        
         const formJsonData = {};
         formData.forEach(function(key, value) {
             formJsonData[value] = key;

@@ -7,7 +7,7 @@ refreshTokenPageRedirection('./dashboard.html');
 const signinForm = document.querySelector("#signin-form");
 
 // Dynamically clears any server messages
-clearForm(signinForm)
+clearForm(signinForm);
 
 // Preventing default form submission, and fetch from the endpoint
 authenticationSubmit(signinForm, fetchSignIn);
