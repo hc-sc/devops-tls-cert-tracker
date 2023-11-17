@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseCookie;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -29,6 +30,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -205,7 +207,14 @@ public class AuthenticationService {
             throw new PasswordResetException("User not found for the given token");
         }
     }
-
+    public MessageResponse validatePasswordResetCode(@RequestParam("code") String code){
+        String tokenVerificationResult = passwordResetTokenService.validateToken(code);
+        if (tokenVerificationResult.equalsIgnoreCase("valid")){
+            return new MessageResponse("The code valid");
+        }else{
+           throw  new PasswordResetException(tokenVerificationResult);
+        }
+    }
    public SignoutResponse signout() {
        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

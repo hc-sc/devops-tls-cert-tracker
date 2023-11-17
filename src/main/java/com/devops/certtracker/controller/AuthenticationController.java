@@ -26,8 +26,6 @@ import java.io.UnsupportedEncodingException;
 public class AuthenticationController {
     @Autowired
     private AuthenticationService authenticationService;
-    @Autowired
-    private PasswordResetTokenService passwordResetTokenService;
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody SignupRequest signupRequest, final HttpServletRequest request){
         MessageResponse response = authenticationService.register(signupRequest, request);
@@ -86,14 +84,7 @@ public class AuthenticationController {
 
     @GetMapping("/validate-password-code")
     public ResponseEntity<?> validatePasswordResetCode(@RequestParam("code") String code){
-        String tokenVerificationResult = passwordResetTokenService.validateToken(code);
-        if (tokenVerificationResult.equalsIgnoreCase("valid")){
-            return ResponseEntity.ok(new MessageResponse("The code valid"));
-        }else{
-            return ResponseEntity.badRequest().body(new ErrorResponse(400,"Bad Request",tokenVerificationResult));
-        }
+       MessageResponse response= authenticationService.validatePasswordResetCode(code);
+       return ResponseEntity.ok(response);
     }
-
-
-
 }
