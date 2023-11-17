@@ -7,7 +7,9 @@ import com.devops.certtracker.dto.response.RefreshTokenResponse;
 import com.devops.certtracker.dto.response.SigninResponse;
 import com.devops.certtracker.dto.response.MessageResponse;
 import com.devops.certtracker.dto.response.SignoutResponse;
+import com.devops.certtracker.entity.ErrorResponse;
 import com.devops.certtracker.service.AuthenticationService;
+import com.devops.certtracker.service.PasswordResetTokenService;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -24,6 +26,8 @@ import java.io.UnsupportedEncodingException;
 public class AuthenticationController {
     @Autowired
     private AuthenticationService authenticationService;
+    @Autowired
+    private PasswordResetTokenService passwordResetTokenService;
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody SignupRequest signupRequest, final HttpServletRequest request){
         MessageResponse response = authenticationService.register(signupRequest, request);
@@ -65,8 +69,8 @@ public class AuthenticationController {
     public  ResponseEntity<MessageResponse> resetPassword(
             @RequestBody ResetPasswordRequest resetPasswordRequest,
             @RequestParam("token") String token){
-        String response = authenticationService.resetPassword(resetPasswordRequest, token);
-        return ResponseEntity.ok().body(new MessageResponse(response));
+        MessageResponse response = authenticationService.resetPassword(resetPasswordRequest, token);
+        return ResponseEntity.ok(response);
     }
     @GetMapping("/verifyEmail")
     public ResponseEntity<String> sendVerificationToken(@RequestParam("token") String token){
@@ -79,5 +83,17 @@ public class AuthenticationController {
         String response = authenticationService.resendVerificationToken(oldToken, request);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/validate-password-code")
+    public ResponseEntity<?> validatePasswordResetCode(@RequestParam("code") String code){
+        String tokenVerificationResult = passwordResetTokenService.validateToken(code);
+        if (tokenVerificationResult.equalsIgnoreCase("valid")){
+            return ResponseEntity.ok(new MessageResponse("The code valid"));
+        }else{
+            return ResponseEntity.badRequest().body(new ErrorResponse(400,"Bad Request",tokenVerificationResult));
+        }
+    }
+
+
 
 }

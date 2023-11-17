@@ -7,7 +7,9 @@ import com.devops.certtracker.dto.response.*;
 import com.devops.certtracker.entity.*;
 import com.devops.certtracker.event.RegistrationCompleteEvent;
 import com.devops.certtracker.event.listener.RegistrationCompleteEventListener;
+import com.devops.certtracker.exception.ChangePasswordException;
 import com.devops.certtracker.exception.EmailAlreadyInUseException;
+import com.devops.certtracker.exception.PasswordResetException;
 import com.devops.certtracker.exception.RefreshTokenException;
 import com.devops.certtracker.repository.RoleRepository;
 import com.devops.certtracker.repository.UserRepository;
@@ -189,18 +191,19 @@ public class AuthenticationService {
         }
     }
 
-    public String resetPassword(ResetPasswordRequest resetPasswordRequest, String token){
+    public MessageResponse resetPassword(ResetPasswordRequest resetPasswordRequest, String token){
         String tokenVerificationResult = passwordResetTokenService.validateToken(token);
         if (!tokenVerificationResult.equalsIgnoreCase("valid")) {
-            return "Invalid password reset token";
+            throw new PasswordResetException(tokenVerificationResult);
         }
         Optional<User> user = passwordResetTokenService.findUserByPasswordToken(token);
         if (user.isPresent()) {
             userService.changePassword(user.get(), resetPasswordRequest.getNewPassword());
             passwordResetTokenService.clearExistingToken(user.get());
-            return "Password has been reset successfully";
+            return new MessageResponse("Password has been reset successfully");
+        } else {
+            throw new PasswordResetException("User not found for the given token");
         }
-        return "Invalid password reset token";
     }
 
    public SignoutResponse signout() {
@@ -241,26 +244,5 @@ public class AuthenticationService {
         }
        // return ResponseEntity.badRequest().body(new MessageResponse("Refresh Token is empty !"));
     }
-    /*
-    public void resetPasswordRequest(ResetPasswordRequest resetPasswordRequest,
-                                     HttpServletRequest servletRequest)
-            throws MessagingException, UnsupportedEncodingException {
-
-        Optional<User> user = userRepository.findByEmail(resetPasswordRequest.getEmail());
-        String passwordResetUrl = "";
-        if (user.isPresent()) {
-            var passwordResetToken = passwordResetTokenService.createPasswordResetToken(user.get());
-            passwordResetUrl = passwordResetEmailLink(user.get(), applicationUrl(servletRequest), passwordResetToken.getToken());
-        }
-        //return passwordResetUrl;
-    }
-
-    private String passwordResetEmailLink(User user, String applicationUrl,
-                                          String passwordToken) throws MessagingException, UnsupportedEncodingException {
-        String url = applicationUrl+"/form?token="+passwordToken;
-        emailService.sendPasswordResetVerificationEmail(user, url);
-        return url;
-    }
-    */
 }
 

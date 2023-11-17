@@ -63,10 +63,9 @@ public class PasswordResetTokenService {
         if (passwordResetToken == null) {
             return "Invalid password reset token";
         }
-
         if (passwordResetToken.getExpirationDate().compareTo(Instant.now()) <= 0) {
             passwordResetTokenRepository.delete(passwordResetToken);
-            return "The link has already expired. Please resend the link.";
+            return "The code has expired. Please send a new request.";
 
         }
         return "valid";

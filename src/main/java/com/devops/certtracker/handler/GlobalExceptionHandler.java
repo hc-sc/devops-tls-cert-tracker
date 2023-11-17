@@ -14,7 +14,12 @@ import org.springframework.web.context.request.WebRequest;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
+    @ExceptionHandler(PasswordResetException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorResponse> handlePasswordResetException(PasswordResetException ex){
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), "Bad Request", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
     @ExceptionHandler(BadCredentialsException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ErrorResponse handleBadCredentialsException(BadCredentialsException ex){
