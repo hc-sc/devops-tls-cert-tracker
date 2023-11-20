@@ -21,36 +21,43 @@ clearForm(resetPasswordForm);
 // Preventing default form submission, and fetch from the endpoint
 authenticationSubmit(resetPasswordForm, fetchResetPassword);
 
+// Create a URLSearchParams object from the query string of the URL
+const urlParams = new URLSearchParams(new URL(window.location.href).search);
+
+// Get the value of the 'code' parameter from the query string
+const code = urlParams.get('code');
 
 // Calling backend API for registration
-async function fetchResetPassword(passwordInfoWithToken) {
-    let apiUrl = `/api/auth/password-reset?token=${passwordInfoWithToken.token}`;
-    try {
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': "application/json"
-        },
-        body: JSON.stringify({ newPassword: passwordInfoWithToken.newPassword })
-      });
-      // const data = await response.json();
-      if(!response.ok){
-        resetPasswordForm.classList.add("hidden");
-        displayServerErrorMessages('password-reset-error', "Your link for resetting the password might have expired.");
-        errorPasswordReset.classList.remove("hidden");
-        
-      } else{
-        resetPasswordForm.classList.add("hidden");
-        displaySuccessMessages('password-reset-success', "Your password has successfully changed");
-        successPasswordReset.classList.remove("hidden");
-        document.querySelector("#newPassword").value = ""
-        document.querySelector("#password-confirm").value = ""
-      }
+async function fetchResetPassword(passwordInfo) {
   
-    } catch (error) {
-      console.error("Error fetching JSON data (reset password):", error);
+  // code is retrieved from this JavaScript page not module.js
+  let apiUrl = `/api/auth/password-reset?token=${code}`;
+  try {
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': "application/json"
+      },
+      body: JSON.stringify({ newPassword: passwordInfo.newPassword })
+    });
+    const data = await response.json();
+    if(!response.ok){
+      resetPasswordForm.classList.add("hidden");
+      displayServerErrorMessages('password-reset-error', data.message);
+      errorPasswordReset.classList.remove("hidden");
+      
+    } else{
+      resetPasswordForm.classList.add("hidden");
+      displaySuccessMessages('password-reset-success', "Your password has successfully changed");
+      successPasswordReset.classList.remove("hidden");
+      document.querySelector("#newPassword").value = ""
+      document.querySelector("#password-confirm").value = ""
     }
+
+  } catch (error) {
+    console.error("Error fetching JSON data (reset password):", error);
   }
+}
 
 
   

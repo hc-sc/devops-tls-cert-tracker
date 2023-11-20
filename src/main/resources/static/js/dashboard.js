@@ -250,7 +250,7 @@ async function fetctAllCertificate() {
   // renew refresh token if access token is expired and user hasn't signed out
   await refreshToken();
 
-  let apiUrl = "/api/certificates/user/all"
+  let apiUrl = "/api/certificates/user/all";
 
   try {
     const response = await fetch(apiUrl, {
@@ -354,7 +354,7 @@ async function fetchCertificateById(certificateId) {
   // renew refresh token if access token is expired and user hasn't signed out
   await refreshToken();
 
-  let apiUrl = `/api/certificates/get/${certificateId}`
+  let apiUrl = `/api/certificates/get/${certificateId}`;
 
   try {
     const response = await fetch(apiUrl, {

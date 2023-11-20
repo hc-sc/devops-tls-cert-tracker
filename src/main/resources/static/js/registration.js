@@ -25,7 +25,7 @@ passwordConfirmIcon.addEventListener("click", () => {
 // Calling backend API for registration
 async function fetchRegister(registrationInfo) {
     
-    let apiUrl = "/api/auth/register"
+    let apiUrl = "/api/auth/register";
   
     try {
       const response = await fetch(apiUrl, {
