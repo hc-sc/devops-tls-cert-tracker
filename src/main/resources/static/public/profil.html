@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en" dir="ltr">
+<html class="no-js" lang="fr" dir="ltr">
 
 <head>
   <meta charset="utf-8">
@@ -11,7 +11,7 @@
   <meta name="dcterms.title" content="SSL/TLS Tracking Application" />
   <meta name="dcterms.description" content=" " />
   <meta name="dcterms.creator" content=" " />
-  <meta name="dcterms.language" content="eng" />
+  <meta name="dcterms.language" content="fr" />
   <meta name="dcterms.subject" content="" />
   <meta name="dcterms.issued" content="" />
   <meta name="dcterms.modified" content="2023-09-20" />
@@ -34,10 +34,10 @@
           <h2 class="wb-inv">Language selection</h2>
           <ul class="list-inline mrgn-bttm-0">
             <li>
-              <a lang="fr" hreflang="fr" href="profil.html">
-                <span class="hidden-xs" translate="no">Français</span>
-                <abbr title="Français" translate="no"
-                  class="visible-xs h3 mrgn-tp-sm mrgn-bttm-0 text-uppercase">fr</abbr>
+              <a lang="en" hreflang="en" href="profile.html">
+                <span class="hidden-xs" translate="no">English</span>
+                <abbr title="English" translate="no"
+                  class="visible-xs h3 mrgn-tp-sm mrgn-bttm-0 text-uppercase">en</abbr>
               </a>
             </li>
           </ul>
@@ -46,8 +46,8 @@
 
         <div class="brand col-xs-9 col-sm-5 col-md-4" property="publisher" typeof="GovernmentOrganization">
           <a href="https://www.canada.ca/" property="url">
-            <img src="../GCWeb/assets/sig-blk-en.svg"
-              alt="Government of Canada" property="logo" /><span class="wb-inv"> / <span lang="fr">Gouvernement du
+            <img src="../GCWeb/assets/sig-blk-fr.svg"
+              alt="Government of Canada" property="logo" /><span class="wb-inv"> / <span lang="en">Government of
                 Canada</span></span>
           </a>
           <meta property="name" content="Government of Canada">
@@ -96,7 +96,7 @@
             <div class="row">
                 <div class="col-md-12 button-container">
                   <!-- button overlay -->
-                  <button id="open-user-overlay-btn" class="btn btn-primary" data-json-replace="../i18n/en.json#/account">Account</button>
+                    <button id="open-user-overlay-btn" class="btn btn-primary" data-json-replace="../i18n/fr.json#/account">Account</button>
                     <div class="user-overlay" id="user-overlay">
                       <ul class="list-unstyled overlay-list">
                         <li>
@@ -155,23 +155,23 @@
 
     <main property="mainContentOfPage" resource="#wb-main" typeof="WebPageElement">
       <div class="container">
-        <h1 id="wb-cont" property="name">Profile</h1>
+        <h1 id="wb-cont" property="name" data-json-replace="../i18n/fr.json#/profile"></h1>
         <form>
           <div class="form-group col-md-6">
             <label for="firstname">
-              <span class="field-name" data-json-replace="../i18n/en.json#/first-name"></span>
+              <span class="field-name" data-json-replace="../i18n/fr.json#/first-name"></span>
             </label>
             <input class="form-control capitalization" id="firstname" name="firstname" type="firstname" readonly />
           </div>
           <div class="form-group col-md-6">
             <label for="lastname">
-              <span class="field-name"  data-json-replace="../i18n/en.json#/lastname"></span>
+              <span class="field-name"  data-json-replace="../i18n/fr.json#/lastname"></span>
             </label>
             <input class="form-control capitalization" id="lastname" name="lastname" type="lastname" readonly />
           </div>
           <div class="form-group padding-left">
             <label for="email">
-              <span class="field-name"  data-json-replace="../i18n/en.json#/email">Email</span>
+              <span class="field-name"  data-json-replace="../i18n/fr.json#/email">Email</span>
             </label>
             <input class="form-control" id="email" name="email" type="email" size="30" readonly />
           </div>
@@ -183,22 +183,29 @@
         <form action="" method="post" id="profile-change-password-form">
           <div class="form-group col-md-12"> 
             <fieldset class="legend-brdr-bttm">
-              <legend data-json-replace="../i18n/en.json#/change-password">Change your password</legend>
+              <legend data-json-replace="../i18n/fr.json#/change-password">Change your password</legend>
                 <div class="form-group">
                   <div>
-                    <label for="currentPassword" class="required"><span class="field-name">Current password</span> <strong class="required">(required)</strong></label>
+                    <label for="currentPassword" class="required">
+                      <span class="field-name" data-json-replace="../i18n/fr.json#/current-password">1</span>
+<!--                      <strong class="required">(required)</strong></label>-->
                   </div>
                   <div class="password-input-wrapper">
                     <input class="form-control" id="currentPassword" name="currentPassword" type="password"
                       size="12" 
                       autocomplete="off"
                       required="required"/>
-                      <button type="button" id="show-current-password" class="glyphicon glyphicon-eye-open icon-btn"><span id="show-current-password-text" class="wb-inv">show password</span></button>
+                      <button type="button" id="show-current-password" class="glyphicon glyphicon-eye-open icon-btn">
+                        <span id="show-current-password-text" class="wb-inv">show password</span>
+                      </button>
                   </div>
                 </div>
                 <div class="form-group">
                   <div>
-                    <label for="newPassword" class="required"><span class="field-name">New password</span> <strong class="required">(required)</strong></label>
+                    <label for="newPassword" class="required">
+                      <span class="field-name" data-json-replace="../i18n/fr.json#/new-password"></span>
+<!--                      <strong class="required">(required)</strong>-->
+                    </label>
                   </div>
                   <div class="password-input-wrapper">
                     <input class="form-control" id="newPassword" name="newPassword" type="password" 
@@ -207,13 +214,16 @@
                       pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&+=!])(?!.*\s).{6,}$" 
                       data-msg="Password must be between 6 and 12 characters and contains at least 1 letter, 1 number and 1 special character." 
                       required="required"/>
-                      <button type="button" id="show-new-password" class="glyphicon glyphicon-eye-open icon-btn"><span id="show-new-password-text" class="wb-inv">show password</span></button>
+                      <button type="button" id="show-new-password" class="glyphicon glyphicon-eye-open icon-btn">
+                        <span id="show-new-password-text" class="wb-inv">show password</span></button>
                   </div>
     
                 </div>
                 <div class="form-group">
                   <div>
-                    <label for="confirmationPassword" class="required"><span class="field-name">Confirm your new password</span> <strong class="required">(required)</strong></label>
+                    <label for="confirmationPassword" class="required">
+                      <span class="field-name" data-json-replace="../i18n/fr.json#/confirm-password">Confirm your password</span>
+                      <strong class="required">(required)</strong></label>
                   </div>
                   <div class="password-input-wrapper">
                     <input class="form-control" id="confirmationPassword" name="confirmationPassword" type="password"
@@ -222,34 +232,29 @@
                   </div>
                 </div>
                 <section class="alert alert-info">
-                  <p class="h5">Your password must:</p>
+                  <p class="h5" data-json-replace="../i18n/fr.json#/your-password-must"></p>
                   <ul class="password-rules">
-                    <li>
-                      be at least 6 characters longs
+                    <li data-json-replace="../i18n/fr.json#/password-rule-1">
                     </li>
-                    <li>
-                      include at least 1 number and 1 symbol
+                    <li data-json-replace="../i18n/fr.json#/password-rule-2">
                     </li>
-                    <li>
-                      match in both fields
+                    <li data-json-replace="../i18n/fr.json#/password-rule-3">
                     </li>
-                    <li>
-                      cannot contain spaces
+                    <li data-json-replace="../i18n/fr.json#/password-rule-4">
                     </li>
                   </ul>
                 </section>
             </fieldset>
           </div>
           <input type="submit" value="Save" class="btn btn-primary">
-          <a class="btn btn-default" href="dashboard.html">Exit</a>
+          <a class="btn btn-default" href="tableau.html" data-json-replace="../i18n/fr.json#/exit">Exit</a>
         </form>
       </div>
-      
-  
-    </main>
+    </div>
+
     
   </main>
-  <footer class="mrgn-tp-xl" id="wb-info" data-json-replace="../i18n/en.json#/footer">
+  <footer class="mrgn-tp-xl" id="wb-info" data-json-replace="../i18n/fr.json#/footer">
   </footer>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"
     integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB"

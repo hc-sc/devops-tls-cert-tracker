@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html class="no-js" lang="fr" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+  <title>Sign in</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta name="description" content=" " />
+  <meta name="author" content=" " />
+  <meta name="dcterms.title" content="SSL/TLS Tracking Application Connecter" />
+  <meta name="dcterms.description" content=" " />
+  <meta name="dcterms.creator" content=" " />
+  <meta name="dcterms.language" content="eng" />
+  <meta name="dcterms.subject" content="" />
+  <meta name="dcterms.issued" content="" />
+  <meta name="dcterms.modified" content="2023-09-20" />
+
+  <link href="../GCWeb/assets/favicon.ico" rel="icon" type="image/x-icon" />
+  <link rel="stylesheet" href="../GCWeb/css/theme.min.css" />
+  <noscript>
+    <link rel="stylesheet" href="../wet-boew/css/noscript.min.css" />
+  </noscript>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+
+<body>
+
+  <header>
+    <div id="wb-bnr" class="container">
+      <div class="row">
+<!--Language Selection-->
+        <section id="wb-lng" class="col-xs-3 col-sm-12 pull-right text-right">
+          <h2 class="wb-inv">Language selection</h2>
+          <ul class="list-inline mrgn-bttm-0">
+            <li>
+              <a lang="fr" hreflang="en" href="signin.html">
+                <span class="hidden-xs" translate="no">English</span>
+                <abbr title="English" translate="no"
+                      class="visible-xs h3 mrgn-tp-sm mrgn-bttm-0 text-uppercase">en</abbr>
+              </a>
+            </li>
+          </ul>
+        </section>
+
+          <!-- Logo -->
+          <div class="brand col-xs-9 col-sm-5 col-md-4" property="publisher" typeof="GovernmentOrganization">
+              <a href="https://www.canada.ca/" property="url">
+                  <img src="../GCWeb/assets/sig-blk-fr.svg"
+                       alt="Government of Canada" property="logo" /><span class="wb-inv"> / <span lang="fr">Gouvernement du
+                Canada</span></span>
+              </a>
+              <meta property="name" content="Government of Canada">
+              <meta property="areaServed" typeof="Country" content="Canada" />
+              <link property="logo" href="../GCWeb/assets/wmms-blk.svg" />
+          </div>
+      </div>
+    </div>
+      <hr>
+      <div class="container">
+          <div class="row">
+              <div class="col-md-8">
+                  <nav class="gcweb-menu" typeof="SiteNavigationElement">
+                      <h2 class="wb-inv">Menu</h2>
+                      <button type="button" aria-haspopup="true" aria-expanded="false"><span class="wb-inv">Main </span>Menu <span
+                              class="expicon glyphicon glyphicon-chevron-down"></span></button>
+                      <ul role="menu" aria-orientation="vertical"
+                          data-ajax-replace="https://www.canada.ca/content/dam/canada/sitemenu/sitemenu-v2-en.html">
+                      </ul>
+                  </nav>
+
+              </div>
+          </div>
+      </div>
+  </header>
+  <nav id="wb-bc" property="breadcrumb">
+      <h2>You are here:</h2>
+      <div class="container">
+          <ol class="breadcrumb" typeof="BreadcrumbList">
+              <li property="itemListElement" typeof="ListItem">
+                  <a property="item" typeof="WebPage" href="../index-fr.html">
+                      <span property="name" data-json-replace="../i18n/fr.json#/home"></span>
+                  </a>
+                  <meta property="position" content="1">
+              </li>
+              <li property="itemListElement" typeof="ListItem">
+                  <a property="item" typeof="WebPage" href="connecter.html.html">
+                      <span property="name" data-json-replace="../i18n/fr.json#/signin">Sign In</span>
+                  </a>
+                  <meta property="position" content="1">
+              </li>
+          </ol>
+      </div>
+  </nav>
+  <main property="mainContentOfPage" resource="#wb-main" typeof="WebPageElement">
+      <div class="container">
+          <h1 id="wb-cont" property="name" data-json-replace="../i18n/fr.json#/signintocert"></h1>
+          <div class="wb-frmvld">
+              <form action="" method="post" id="signin-form">
+                  <div class="form-group">
+                      <label for="email" class="required">
+                          <span class="field-name" data-json-replace="../i18n/fr.json#/email"></span>
+                          <strong class="required" data-json-replace="../i18n/fr.json#/required"></strong>
+                      </label>
+                      <input class="form-control" id="email" name="email" type="email" size="30" autocomplete="email" required="required" />
+                  </div>
+                  <div class="form-group">
+                      <div>
+                          <label for="password" class="required">
+                              <span class="field-name" data-json-replace="../i18n/fr.json#/password"></span>
+                              <strong class="required" data-json-replace="../i18n/fr.json#/required"></strong>
+                          </label>
+
+                      </div>
+                      <div class="password-input-wrapper">
+                          <input class="form-control" id="password" name="password" type="password"
+                                 size="15" autocomplete="off" required="required"/>
+                          <button type="button" id="show-password" class="glyphicon glyphicon-eye-open icon-btn"><span id="show-password-text" class="wb-inv" data-json-replace="../i18n/fr.json#/show-password"></span></button>
+                      </div>
+                      <p><a href="password-recovery.html" data-json-replace="../i18n/fr.json#/forgot-password"></a></p>
+                  </div>
+                  <input type="submit" value="Se connecter" class="btn btn-primary">
+                  <a id="exit-btn" class="btn btn-default" href="../index-en.html" data-json-replace="../i18n/fr.json#/exit"></a>
+              </form>
+              <p class="mrgn-tp-md" data-json-replace="../i18n/fr.json#/register-here"></p>
+          </div>
+
+
+
+  </main>
+  <footer class="mrgn-tp-xl" id="wb-info" data-json-replace="../i18n/fr.json#/footer">
+  </footer>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"
+          integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB"
+          crossorigin="anonymous"></script>
+  <script src="../wet-boew/js/wet-boew.min.js"></script>
+  <script src="../GCWeb/js/theme.min.js"></script>
+  <script type="module" src="../js/signin.js"></script>
+</body>
+
+</html>

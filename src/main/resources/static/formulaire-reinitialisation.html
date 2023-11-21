@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+<html class="no-js" lang="fr" dir="ltr" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="utf-8">
@@ -11,7 +11,7 @@
   <meta name="dcterms.title" content="SSL/TLS Tracking Application Reset Password" />
   <meta name="dcterms.description" content=" " />
   <meta name="dcterms.creator" content=" " />
-  <meta name="dcterms.language" content="eng" />
+  <meta name="dcterms.language" content="fr" />
   <meta name="dcterms.subject" content="" />
   <meta name="dcterms.issued" content="" />
   <meta name="dcterms.modified" content="2023-09-20" />
@@ -34,10 +34,10 @@
         <h2 class="wb-inv">Language selection</h2>
         <ul class="list-inline mrgn-bttm-0">
           <li>
-            <a lang="fr" hreflang="fr" href="formulaire-reinitialisation.html">
-              <span class="hidden-xs" translate="no">Français</span>
-              <abbr title="Français" translate="no"
-                    class="visible-xs h3 mrgn-tp-sm mrgn-bttm-0 text-uppercase">fr</abbr>
+            <a lang="en" hreflang="en" href="reset-password-form.html">
+              <span class="hidden-xs" translate="no">English</span>
+              <abbr title="English" translate="no"
+                    class="visible-xs h3 mrgn-tp-sm mrgn-bttm-0 text-uppercase">en</abbr>
             </a>
           </li>
         </ul>
@@ -46,9 +46,8 @@
       <!--Logo-->
       <div class="brand col-xs-9 col-sm-5 col-md-4" property="publisher" typeof="GovernmentOrganization">
         <a href="https://www.canada.ca/" property="url">
-          <img src="GCWeb/assets/sig-blk-en.svg"
-               alt="Government of Canada" property="logo" /><span class="wb-inv"> / <span lang="fr">Gouvernement du
-                Canada</span></span>
+          <img src="GCWeb/assets/sig-blk-fr.svg"
+               alt="Government of Canada" property="logo" /><span class="wb-inv"> / <span lang="en">Government of Canada</span></span>
         </a>
         <meta property="name" content="Government of Canada">
         <meta property="areaServed" typeof="Country" content="Canada" />
@@ -69,7 +68,7 @@
           <button type="button" aria-haspopup="true" aria-expanded="false"><span class="wb-inv">Main </span>Menu <span
                   class="expicon glyphicon glyphicon-chevron-down"></span></button>
           <ul role="menu" aria-orientation="vertical"
-              data-ajax-replace="https://www.canada.ca/content/dam/canada/sitemenu/sitemenu-v2-en.html">
+              data-ajax-replace="https://www.canada.ca/content/dam/canada/sitemenu/sitemenu-v2-fr.html">
           </ul>
         </nav>
       </div>
@@ -78,15 +77,15 @@
   </div>
 </header>
 
-  <main property="mainContentOfPage" resource="#wb-main" typeof="WebPageElement">
-    <div class="container">
-      <h1 id="wb-cont" property="name" data-json-replace="i18n/en.json#/reset-password"></h1>
+<main property="mainContentOfPage" resource="#wb-main" typeof="WebPageElement">
+  <div class="container">
+    <h1 id="wb-cont" property="name" data-json-replace="i18n/fr.json#/reset-password"></h1>
     <div class="wb-frmvld">
       <div id="password-reset-error" class="hidden">
-        <a href="./public/password-recovery.html" data-json-replace="i18n/en.json#/click-to-send-email"></a>
+        <a href="./public/password-recovery.html" data-json-replace="i18n/fr.json#/click-to-send-email"></a>
       </div>
       <div id="password-reset-success" class="hidden">
-        <a href="./public/signin.html" data-json-replace="i18n/en.json#/signintocert"></a>
+        <a href="./public/signin.html" data-json-replace="i18n/en/json#/singintocert"></a>
       </div>
       <form action="#" method="post" id="reset-password-form">
         <div class="form-group">
@@ -95,57 +94,56 @@
         <div class="form-group">
           <div>
             <label for="newPassword" class="required">
-              <span class="field-name" data-json-replace="i18n/en.json#/new-password"></span>
-              <strong class="required" data-json-replace="i18n/en.json#/required"></strong>
-            </label>
+              <span class="field-name" data-json-replace="i18n/fr.json#/new-password"></span>
+              <strong class="required" data-json-replace="i18n/fr.json#/required"></strong></label>
           </div>
           <div class="password-input-wrapper">
             <input class="form-control" id="newPassword" name="newPassword" type="password"
                    size="12"
                    autocomplete="off"
                    pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&+=!])(?!.*\s).{6,}$"
-                   data-msg="Password must be between 6 and 12 characters and contains at least 1 letter, 1 number and 1 special character."
+                   data-msg="Le mot de passe doit comporter entre 6 et 12 caractères et contenir au moins 1 lettre, 1 chiffre et 1 caractère spécial."
                    required="required"/>
             <button type="button" id="show-newPassword" class="glyphicon glyphicon-eye-open icon-btn">
-              <span id="show-newPassword-text" class="wb-inv" data-json-replace="i18n/en.json#/show-password"></span>
+              <span id="show-newPassword-text" class="wb-inv" data-json-replace="i18n/fr.json#/show-password"></span>
             </button>
           </div>
           <div>
             <label for="password-confirm" class="required">
-              <span class="field-name" data-json-replace="i18n/en.json#/confirm-password"></span>
-              <strong class="required" data-json-replace="i18n/en.json#/required"></strong></label>
+              <span class="field-name" data-json-replace="i18n/fr.json#/confirm-password">Confirm password</span>
+              <strong class="required" data-json-replace="i18n/fr.json#/required"></strong></label>
           </div>
           <div class="password-input-wrapper">
             <input class="form-control" id="password-confirm" name="password-confirm" type="password"
                    maxlength="12" size="12" autocomplete="off" data-rule-equalTo="#newPassword" required="required" />
             <button type="button" id="show-password-confirm" class="glyphicon glyphicon-eye-open icon-btn">
               <span id="show-password-confirm-text" class="wb-inv"
-                    data-json-replace="i18n/en.json#/show-password"></span></button>
+                    data-json-replace="i18n/fr.json#/show-password"></span></button>
           </div>
         </div>
         <section class="alert alert-info">
-          <p class="h5" data-json-replace="i18n/en.json#/show-password"></p>
-          <ul class="password-rules" data-json-replace="i18n/en.json#/password-rules">
+          <p class="h5" data-json-replace="i18n/fr.json#/show-password"></p>
+          <ul class="password-rules" data-json-replace="i18n/fr.json#/password-rules">
 
           </ul>
         </section>
         <input type="submit" value="Submit" class="btn btn-primary">
-        <a class="btn btn-default" href="index-en.html" data-json-replace="i18n/en.json#/exit"></a>
+        <a class="btn btn-default" href="index-en.html" data-json-replace="i18n/fr.json#/exit"></a>
         <input type="reset" value="Reset page to defaults" class="btn btn-link btn-sm show p-0 mrgn-tp-md">
       </form>
 
     </div>
-    </div>
-  </main>
-  <footer class="mrgn-tp-xl" id="wb-info" data-json-replace="i18n/en.json#/footer">
-  </footer>
+  </div>
+</main>
+<footer class="mrgn-tp-xl" id="wb-info" data-json-replace="i18n/fr.json#/footer">
+</footer>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"
-    integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB"
-    crossorigin="anonymous"></script>
-  <script src="./wet-boew/js/wet-boew.min.js"></script>
-  <script src="./GCWeb/js/theme.min.js"></script>
-  <script type="module" src="./js/reset-password-form.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"
+        integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB"
+        crossorigin="anonymous"></script>
+<script src="./wet-boew/js/wet-boew.min.js"></script>
+<script src="./GCWeb/js/theme.min.js"></script>
+<script type="module" src="./js/reset-password-form.js"></script>
 </body>
 
 </html>

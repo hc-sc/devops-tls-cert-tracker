@@ -4,14 +4,14 @@
 <head>
   <meta charset="utf-8">
   <!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
-  <title>SSL/TLS Tracking Application Registration</title>
+  <title>SSL/TLS Inscription</title>
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta name="description" content=" " />
   <meta name="author" content=" " />
-  <meta name="dcterms.title" content="SSL/TLS Tracking Application" />
+  <meta name="dcterms.title" content="SSL/TLS Inscription" />
   <meta name="dcterms.description" content=" " />
   <meta name="dcterms.creator" content=" " />
-  <meta name="dcterms.language" content="eng" />
+  <meta name="dcterms.language" content="fr" />
   <meta name="dcterms.subject" content="" />
   <meta name="dcterms.issued" content="" />
   <meta name="dcterms.modified" content="2023-09-20" />
@@ -34,9 +34,9 @@
         <h2 class="wb-inv">Language selection</h2>
         <ul class="list-inline mrgn-bttm-0">
           <li>
-            <a lang="fr" hreflang="fr" href="inscription.html">
-              <span class="hidden-xs" translate="no">Français</span>
-              <abbr title="Français" translate="no"
+            <a lang="en" hreflang="en" href="registration.html">
+              <span class="hidden-xs" translate="no">English</span>
+              <abbr title="English" translate="no"
                     class="visible-xs h3 mrgn-tp-sm mrgn-bttm-0 text-uppercase">fr</abbr>
             </a>
           </li>
@@ -46,9 +46,8 @@
       <!-- Logo -->
       <div class="brand col-xs-9 col-sm-5 col-md-4" property="publisher" typeof="GovernmentOrganization">
         <a href="https://www.canada.ca/" property="url">
-          <img src="../GCWeb/assets/sig-blk-en.svg"
-               alt="Government of Canada" property="logo" /><span class="wb-inv"> / <span lang="fr">Gouvernement du
-                Canada</span></span>
+          <img src="../GCWeb/assets/sig-blk-fr.svg"
+               alt="Government of Canada" property="logo" /><span class="wb-inv"> / <span lang="en">Government of Canada</span></span>
         </a>
         <meta property="name" content="Government of Canada">
         <meta property="areaServed" typeof="Country" content="Canada" />
@@ -65,7 +64,7 @@
           <button type="button" aria-haspopup="true" aria-expanded="false"><span class="wb-inv">Main </span>Menu <span
                   class="expicon glyphicon glyphicon-chevron-down"></span></button>
           <ul role="menu" aria-orientation="vertical"
-              data-ajax-replace="https://www.canada.ca/content/dam/canada/sitemenu/sitemenu-v2-en.html">
+              data-ajax-replace="https://www.canada.ca/content/dam/canada/sitemenu/sitemenu-v2-fr.html">
           </ul>
         </nav>
 
@@ -78,14 +77,14 @@
   <div class="container">
     <ol class="breadcrumb" typeof="BreadcrumbList">
       <li property="itemListElement" typeof="ListItem">
-        <a property="item" typeof="WebPage" href="../index-en.html">
-          <span property="name" data-json-replace="../i18n/en.json#/home"></span>
+        <a property="item" typeof="WebPage" href="../index-fr.html">
+          <span property="name" data-json-replace="../i18n/fr.json#/home"></span>
         </a>
         <meta property="position" content="1">
       </li>
       <li property="itemListElement" typeof="ListItem">
-        <a property="item" typeof="WebPage" href="registration.html">
-          <span property="name" data-json-replace="../i18n/en.json#/registration"></span>
+        <a property="item" typeof="WebPage" href="inscription.html">
+          <span property="name" data-json-replace="../i18n/fr.json#/registration"></span>
         </a>
         <meta property="position" content="1">
       </li>
@@ -95,39 +94,41 @@
 
   <main property="mainContentOfPage" resource="#wb-main" typeof="WebPageElement">
     <div class="container">
-      <h1 id="wb-cont" property="name" data-json-replace="../i18n/en.json#/registration"></h1>
+      <h1 id="wb-cont" property="name" data-json-replace="../i18n/fr.json#/registration"></h1>
       <div id="registration-success" class="hidden">
-        <a href="./signin.html">Click here to move to sign in page.</a>
+        <a href="./connecter.html.html" data-json-replace="../i18n/fr.json#/signintocert"></a>
       </div>
     <div class="wb-frmvld">
       <form action="#" method="post" id="register-form">
         <div class="form-group">
           <label for="firstname" class="required">
-            <span class="field-name" data-json-replace="../i18n/en.json#/first-name" >First name</span>
-            <strong class="required" data-json-replace="../i18n/en.json#/required"></strong>
+            <span class="field-name" data-json-replace="../i18n/fr.json#/first-name"></span>
+            <strong class="required" data-json-replace="../i18n/fr.json#/required">1</strong>
           </label>
           <input class="form-control" id="firstname" name="firstname" type="text" autocomplete="given-name" required="required"
           data-rule-lettersonly="true" data-rule-minlength="2" />
         </div>
         <div class="form-group">
           <label for="lastname" class="required">
-            <span class="field-name" data-json-replace="../i18n/en.json#/lastname" >Last name</span>
-            <strong class="required" data-json-replace="../i18n/en.json#/required"></strong>
+            <span class="field-name" data-json-replace="../i18n/fr.json#/lastname">1</span>
+            <strong class="required" data-json-replace="../i18n/fr.json#/required">2</strong>
           </label>
 
           <input class="form-control" id="lastname" name="lastname" type="text" autocomplete="family-name" required="required"
           data-rule-lettersonly="true" data-rule-minlength="2" />
         </div>
-        <!-- <div class="form-group">
+        <!--
+        <div class="form-group">
           <label for="tel" class="required"><span class="field-name">Telephone number (including area code)</span>
             <strong class="required">(required)</strong></label>
           <input class="form-control" id="tel" name="tel" type="tel" autocomplete="tel" required="required"
             data-rule-phoneUS="true" />
-        </div> -->
+        </div>
+        -->
         <div class="form-group">
           <label for="email" class="required">
-            <span class="field-name">Email address</span>
-            <strong class="required" data-json-replace="../i18n/en.json#/required"></strong>
+            <span class="field-name" data-json-replace="../i18n/fr.json#/email">3</span>
+            <strong class="required" data-json-replace="../i18n/fr.json#/required">4</strong>
           </label>
           <input class="form-control" id="email" name="email" type="email" size="30" autocomplete="email" 
           pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
@@ -136,23 +137,23 @@
         <div class="form-group">
           <div>
             <label for="password" class="required">
-              <span class="field-name">Password</span>
-              <strong class="required" data-json-replace="../i18n/en.json#/required"></strong>
+              <span class="field-name" data-json-replace="../i18n/fr.json#/password">5</span>
+              <strong class="required" data-json-replace="../i18n/fr.json#/required">6</strong>
             </label>
           </div>
           <div class="password-input-wrapper">
             <input class="form-control" id="password" name="password" type="password" 
               size="12" 
               autocomplete="off" 
-              pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&+=!])(?!.*\s).{6,}$" 
-              data-msg="Password must be between 6 and 12 characters and contains at least 1 letter, 1 number and 1 special character." 
+              pattern="^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&+=!])(?!.*\s).{6,}$"
+              data-msg="Le mot de passe doit comporter entre 6 et 12 caractères et contenir au moins 1 lettre, 1 chiffre et 1 caractère spécial."
               required="required"/>
               <button type="button" id="show-password" class="glyphicon glyphicon-eye-open icon-btn"><span id="show-password-text" class="wb-inv">show password</span></button>
           </div>
           <div>
             <label for="password-confirm" class="required">
-              <span class="field-name">Confirm your password</span>
-              <strong class="required" data-json-replace="../i18n/en.json#/required"></strong>
+              <span class="field-name" data-json-replace="../i18n/fr.json#/confirm-password">7</span>
+              <strong class="required" data-json-replace="../i18n/fr.json#/required">8</strong>
             </label>
           </div>
           <div class="password-input-wrapper">
@@ -162,18 +163,18 @@
           </div>
         </div>
         <section class="alert alert-info">
-          <p class="h5">Your password must:</p>
+          <p class="h5" data-json-replace="../i18n/fr.json#/your-password-must">9</p>
           <ul class="password-rules">
-            <li>
+            <li data-json-replace="../i18n/fr.json#/password-rule-1">
               be at least 6 characters longs
             </li>
-            <li>
+            <li data-json-replace="../i18n/fr.json#/password-rule-2">
               include at least 1 number and 1 symbol
             </li>
-            <li>
+            <li data-json-replace="../i18n/fr.json#/password-rule-3">
               match in both fields
             </li>
-            <li>
+            <li data-json-replace="../i18n/fr.json#/password-rule-4">
               cannot contain spaces
             </li>
           </ul>
@@ -184,9 +185,10 @@
       </form>
 
     </div>
-    
+    </div>
+
   </main>
-<footer class="mrgn-tp-xl" id="wb-info" data-json-replace="../i18n/en.json#/footer">
+<footer class="mrgn-tp-xl" id="wb-info" data-json-replace="i18n/fr.json#/footer">
 </footer>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"

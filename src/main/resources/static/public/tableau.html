@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en" dir="ltr">
+<html class="no-js" lang="fr" dir="ltr">
 
 <head>
   <meta charset="utf-8">
@@ -11,7 +11,7 @@
   <meta name="dcterms.title" content="SSL/TLS Tracking Application" />
   <meta name="dcterms.description" content=" " />
   <meta name="dcterms.creator" content=" " />
-  <meta name="dcterms.language" content="eng" />
+  <meta name="dcterms.language" content="fr" />
   <meta name="dcterms.subject" content="" />
   <meta name="dcterms.issued" content="" />
   <meta name="dcterms.modified" content="2023-09-20" />
@@ -36,10 +36,10 @@
           <h2 class="wb-inv">Language selection</h2>
           <ul class="list-inline mrgn-bttm-0">
             <li>
-              <a lang="fr" hreflang="fr" href="tableau.html">
-                <span class="hidden-xs" translate="no">Français</span>
-                <abbr title="Français" translate="no"
-                      class="visible-xs h3 mrgn-tp-sm mrgn-bttm-0 text-uppercase">fr</abbr>
+              <a lang="en" hreflang="en" href="dashboard.html">
+                <span class="hidden-xs" translate="no">English</span>
+                <abbr title="English" translate="no"
+                      class="visible-xs h3 mrgn-tp-sm mrgn-bttm-0 text-uppercase">en</abbr>
               </a>
             </li>
           </ul>
@@ -47,8 +47,8 @@
 
         <div class="brand col-xs-9 col-sm-5 col-md-4" property="publisher" typeof="GovernmentOrganization">
           <a href="https://www.canada.ca/" property="url">
-            <img src="../GCWeb/assets/sig-blk-en.svg"
-              alt="Government of Canada" property="logo" /><span class="wb-inv"> / <span lang="fr">Gouvernement du
+            <img src="../GCWeb/assets/sig-blk-fr.svg"
+              alt="Government of Canada" property="logo" /><span class="wb-inv"> / <span lang="en">Government of
                 Canada</span></span>
           </a>
           <meta property="name" content="Government of Canada">
@@ -85,7 +85,7 @@
             <button type="button" aria-haspopup="true" aria-expanded="false"><span class="wb-inv">Main </span>Menu <span
                 class="expicon glyphicon glyphicon-chevron-down"></span></button>
             <ul role="menu" aria-orientation="vertical"
-              data-ajax-replace="https://www.canada.ca/content/dam/canada/sitemenu/sitemenu-v2-en.html">
+              data-ajax-replace="https://www.canada.ca/content/dam/canada/sitemenu/sitemenu-v2-fr.html">
             </ul>
           </nav>
         </div>
@@ -94,23 +94,23 @@
               <div class="row">
                   <div class="col-md-12 button-container">
                     <!-- button overlay -->
-                      <button id="open-user-overlay-btn" class="btn btn-primary"></button>
+                    <button id="open-user-overlay-btn" class="btn btn-primary" data-json-replace="../i18n/fr.json#/account">Account</button>
                       <div class="user-overlay" id="user-overlay">
                         <ul class="list-unstyled overlay-list">
                           <li>
-                            <a class="remove-link-style" href="./profile.html"><span class="glyphicon glyphicon-user"></span> <span data-json-replace="../i18n/en.json#/profile"> </span></a>
+                            <a class="remove-link-style" href="./profil.html"><span class="glyphicon glyphicon-user"></span> <span data-json-replace="../i18n/fr.json#/profile"> </span></a>
                           </li>
                           <hr class="mrgn-tp-sm mrgn-bttm-sm">
                           <li>
-                            <a class="remove-link-style" href="./dashboard.html"><span class="glyphicon glyphicon-tasks"></span> <span data-json-replace="../i18n/en.json#/dashboard"></span></a>
+                            <a class="remove-link-style" href="tableau.html"><span class="glyphicon glyphicon-tasks"></span> <span data-json-replace="../i18n/fr.json#/dashboard"></span></a>
                           </li>
                           <hr class="mrgn-tp-sm mrgn-bttm-sm">
                           <li>
-                            <button class="signOut icon-btn" ><span class="glyphicon glyphicon-log-out"></span> <span data-json-replace="../i18n/en.json#/signout"></span></button>
+                            <button class="signOut icon-btn" ><span class="glyphicon glyphicon-log-out"></span> <span data-json-replace="../i18n/fr.json#/signout"></span></button>
                           </li>
                         </ul>
                         <div class="user-overlay-footer">
-                          <button class="btn btn-primary" id="close-user-overlay-btn" data-json-replace="../i18n/en.json#/close">Close</button>
+                          <button class="btn btn-primary" id="close-user-overlay-btn" data-json-replace="../i18n/fr.json#/close">Close</button>
                         </div>
                       </div>
                   </div>
@@ -138,19 +138,19 @@
 
   <main property="mainContentOfPage" resource="#wb-main" typeof="WebPageElement">
     <div class="container">
-      <h1 id="wb-cont" property="name" data-json-replace="../i18n/en.json#/dashboard"></h1>
-      <h4 data-json-replace="../i18n/en.json#/add-new-cert"></h4>
-      <p><a href="#url-popup" aria-controls="centred-popup" class="wb-lbx lbx-modal url-form" role="button" data-json-replace="../i18n/en.json#/click-to-add-new"></a></p>
+      <h1 id="wb-cont" property="name" data-json-replace="../i18n/fr.json#/dashboard"></h1>
+      <h4 data-json-replace="../i18n/fr.json#/add-new-cert"></h4>
+      <p><a href="#url-popup" aria-controls="centred-popup" class="wb-lbx lbx-modal url-form" role="button" data-json-replace="../i18n/fr.json#/click-to-add-new"></a></p>
 
       <section id="url-popup" class="mfp-hide modal-dialog modal-content overlay-def" >
         <header class="modal-header">
-          <h2 class="modal-title" data-json-replace="../i18n/en.json#/add-new-cert"></h2>
+          <h2 class="modal-title" data-json-replace="../i18n/fr.json#/add-new-cert"></h2>
         </header>
         <div class="modal-body">
           <div class="url-form-container wb-frmvld">
             <form action="#" method="get" id="url-form">
-              <span data-json-replace="../i18n/en.json#/add-url-info"></span>
-              <span class="small" data-json-replace="../i18n/en.json#/add-url-rule"></span>
+              <span data-json-replace="../i18n/fr.json#/add-url-info"></span>
+              <span class="small" data-json-replace="../i18n/fr.json#/add-url-rule"></span>
               <div class="urlInput-wrapper mrgn-tp-lg">
                 <label for="userInputUrl" class="wb-inv">Enter URL</label>
                 <input name="userInputUrl" id="userInputUrl"
@@ -169,28 +169,28 @@
         <img class="loadingImg hidden" src="../images/loading.gif" alt="loading image">
       </section>
       <div class="color-key-container mrgn-tp-sm">
-        <h4 data-json-replace="../i18n/en.json#/colour-key">Colour Key</h4>
+        <h4 data-json-replace="../i18n/fr.json#/colour-key">Colour Key</h4>
         <div class="color-key">
           <ul class="list-unstyled">
             <li>
               <details>
-                <summary data-json-replace="../i18n/en.json#/colourLegend"></summary>
+                <summary data-json-replace="../i18n/fr.json#/colourLegend"></summary>
                 <div class="color-item">
                   <div class="color-expiringGood color-circle" alt="color for the certificate expires in more than 6 weeks">
                   </div>
-                  <span data-json-replace="../i18n/en.json#/colourGreen" ></span>
+                  <span data-json-replace="../i18n/fr.json#/colourGreen" ></span>
                 </div>
                 <div class="color-item">
                   <div class="color-expiringInSixWeeks color-circle" alt="color for the certificate expires in 6 weeks"></div>
-                  <span data-json-replace="../i18n/en.json#/colourYellow"></span>
+                  <span data-json-replace="../i18n/fr.json#/colourYellow"></span>
                 </div>
                 <div class="color-item">
                   <div class="color-expiringInTwoWeeks color-circle" alt="color for the certificate expires in 2 weeks"></div>
-                  <span data-json-replace="../i18n/en.json#/colourOrange"></span>
+                  <span data-json-replace="../i18n/fr.json#/colourOrange"></span>
                 </div>
                 <div class="color-item">
                   <div class="color-expired color-circle" alt="color for the expired certificate"></div>
-                  <span data-json-replace="../i18n/en.json#/colourRed"></span>
+                  <span data-json-replace="../i18n/fr.json#/colourRed"></span>
                 </div>
               </details>
             </li>
@@ -210,12 +210,12 @@
             } ]
           }'
           aria-label="This table provides list of SSL/TLS certificates user saved to the table providing information about the certificates">
-          <h4 data-json-replace="../i18n/en.json#/listOfCertificates"></h4>
+          <h4 data-json-replace="../i18n/fr.json#/listOfCertificates"></h4>
           <thead>
             <tr>
               <th>Status</th>
               <th>URL</th>
-              <th data-json-replace="../i18n/en.json#/expiry"></th>
+              <th data-json-replace="../i18n/fr.json#/expiry"></th>
               <th>Action</th>
             </tr>
           </thead>
@@ -234,35 +234,35 @@
                 Issued To
               </dt>
               <dd>
-                <span data-json-replace="../i18n/en.json#/common-name">Common Name</span> &#40;CN&#41;&#58; <span class="certSubjectName"></span>
+                <span data-json-replace="../i18n/fr.json#/common-name">Common Name</span> &#40;CN&#41;&#58; <span class="certSubjectName"></span>
               </dd>
               <dd>
                 Organisation &#40;O&#41; &#58; <span class="certSubjectOrganization"></span>
               </dd>
               <dd>
-                <span data-json-replace="../i18n/en.json#/org-unit"> Organizational Unit</span> &#40;OU&#41;&#58; <span class="certSubjectOrganizationUnit"></span>
+                <span data-json-replace="../i18n/fr.json#/org-unit"> Organizational Unit</span> &#40;OU&#41;&#58; <span class="certSubjectOrganizationUnit"></span>
               </dd>
               <dt>
-                <span data-json-replace="../i18n/en.json#/issuer" id="issuer">-</span>
+                <span data-json-replace="../i18n/fr.json#/issuer" id="issuer">-</span>
               </dt>
               <dd>
-                <span data-json-replace="../i18n/en.json#/common-name">Common Name</span> &#40;CN&#41;&#58; <span class="certIssuerName"></span>
+                <span data-json-replace="../i18n/fr.json#/common-name">Common Name</span> &#40;CN&#41;&#58; <span class="certIssuerName"></span>
               </dd>
               <dd>
                 Organisation &#40;O&#41; &#58; <span class="certIssuerOrganization"></span>
               </dd>
               <dd>
-                <span data-json-replace="../i18n/en.json#/org-unit"> Organizational Unit</span> &#40;OU&#41;&#58; <span class="certIssuerOrganizationUnit"></span>
+                <span data-json-replace="../i18n/fr.json#/org-unit"> Organizational Unit</span> &#40;OU&#41;&#58; <span class="certIssuerOrganizationUnit"></span>
               </dd>
               <dt>
-                <span data-json-replace="../i18n/en.json#/validity"></span>
+                <span data-json-replace="../i18n/fr.json#/validity"></span>
               </dt>
               <dd>
-                <span data-json-replace="../i18n/en.json#/valid-from"></span>
+                <span data-json-replace="../i18n/fr.json#/valid-from"></span>
                 <span class="certValidFrom"></span>
               </dd>
               <dd>
-                <span data-json-replace="../i18n/en.json#/valid-to"></span>
+                <span data-json-replace="../i18n/fr.json#/valid-to"></span>
                 <span class="certValidTo"></span>
               </dd>
             </dl>
@@ -272,7 +272,7 @@
     </div>
     
   </main>
-  <footer class="mrgn-tp-xl" id="wb-info" data-json-replace="../i18n/en.json#/footer">
+  <footer class="mrgn-tp-xl" id="wb-info" data-json-replace="../i18n/fr.json#/footer">
   </footer>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"
