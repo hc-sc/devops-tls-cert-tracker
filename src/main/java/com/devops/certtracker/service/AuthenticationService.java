@@ -7,7 +7,9 @@ import com.devops.certtracker.dto.response.*;
 import com.devops.certtracker.entity.*;
 import com.devops.certtracker.event.RegistrationCompleteEvent;
 import com.devops.certtracker.event.listener.RegistrationCompleteEventListener;
+import com.devops.certtracker.exception.ChangePasswordException;
 import com.devops.certtracker.exception.EmailAlreadyInUseException;
+import com.devops.certtracker.exception.PasswordResetException;
 import com.devops.certtracker.exception.RefreshTokenException;
 import com.devops.certtracker.repository.RoleRepository;
 import com.devops.certtracker.repository.UserRepository;
@@ -19,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseCookie;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -27,6 +30,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -185,31 +189,32 @@ public class AuthenticationService {
         String passwordResetUrl = "";
         if (user.isPresent()) {
             var passwordResetToken = passwordResetTokenService.createPasswordResetToken(user.get());
-            passwordResetUrl = passwordResetEmailLink(user.get(), applicationUrl(servletRequest), passwordResetToken.getToken());
+            emailService.sendPasswordResetVerificationEmail(user.get(), passwordResetToken.getToken());
         }
-        //return passwordResetUrl;
     }
 
-    private String passwordResetEmailLink(User user, String applicationUrl,
-                                          String passwordToken) throws MessagingException, UnsupportedEncodingException {
-        String url = applicationUrl+"/form?token="+passwordToken;
-        emailService.sendPasswordResetVerificationEmail(user, url);
-        return url;
-    }
-
-    public String resetPassword(ResetPasswordRequest resetPasswordRequest, String token){
+    public MessageResponse resetPassword(ResetPasswordRequest resetPasswordRequest, String token){
         String tokenVerificationResult = passwordResetTokenService.validateToken(token);
         if (!tokenVerificationResult.equalsIgnoreCase("valid")) {
-            return "Invalid token password reset token";
+            throw new PasswordResetException(tokenVerificationResult);
         }
         Optional<User> user = passwordResetTokenService.findUserByPasswordToken(token);
         if (user.isPresent()) {
             userService.changePassword(user.get(), resetPasswordRequest.getNewPassword());
-            return "Password has been reset successfully";
+            passwordResetTokenService.clearExistingToken(user.get());
+            return new MessageResponse("Password has been reset successfully");
+        } else {
+            throw new PasswordResetException("User not found for the given token");
         }
-        return "Invalid password reset token";
     }
-
+    public MessageResponse validatePasswordResetCode(@RequestParam("code") String code){
+        String tokenVerificationResult = passwordResetTokenService.validateToken(code);
+        if (tokenVerificationResult.equalsIgnoreCase("valid")){
+            return new MessageResponse("The code valid");
+        }else{
+           throw  new PasswordResetException(tokenVerificationResult);
+        }
+    }
    public SignoutResponse signout() {
        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -248,6 +253,5 @@ public class AuthenticationService {
         }
        // return ResponseEntity.badRequest().body(new MessageResponse("Refresh Token is empty !"));
     }
-
 }
 

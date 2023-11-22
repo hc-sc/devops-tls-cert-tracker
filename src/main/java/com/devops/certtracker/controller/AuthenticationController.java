@@ -7,7 +7,9 @@ import com.devops.certtracker.dto.response.RefreshTokenResponse;
 import com.devops.certtracker.dto.response.SigninResponse;
 import com.devops.certtracker.dto.response.MessageResponse;
 import com.devops.certtracker.dto.response.SignoutResponse;
+import com.devops.certtracker.entity.ErrorResponse;
 import com.devops.certtracker.service.AuthenticationService;
+import com.devops.certtracker.service.PasswordResetTokenService;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
 public class AuthenticationController {
@@ -64,8 +67,8 @@ public class AuthenticationController {
     public  ResponseEntity<MessageResponse> resetPassword(
             @RequestBody ResetPasswordRequest resetPasswordRequest,
             @RequestParam("token") String token){
-        String response = authenticationService.resetPassword(resetPasswordRequest, token);
-        return ResponseEntity.ok().body(new MessageResponse(response));
+        MessageResponse response = authenticationService.resetPassword(resetPasswordRequest, token);
+        return ResponseEntity.ok(response);
     }
     @GetMapping("/verifyEmail")
     public ResponseEntity<String> sendVerificationToken(@RequestParam("token") String token){
@@ -79,4 +82,9 @@ public class AuthenticationController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/validate-password-code")
+    public ResponseEntity<?> validatePasswordResetCode(@RequestParam("code") String code){
+       MessageResponse response= authenticationService.validatePasswordResetCode(code);
+       return ResponseEntity.ok(response);
+    }
 }

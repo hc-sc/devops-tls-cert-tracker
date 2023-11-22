@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -21,13 +23,38 @@ public class PasswordResetTokenService {
     private UserRepository userRepository;
     @Value("${application.jwt.verification.expiration}")
     private Long passwordResetTokenExpiration;
+    @Value("${application.code.length}")
+    private int codeSize;
     public PasswordResetToken createPasswordResetToken(User user){
+        // Clear existing password reset tokens for the user
+        clearExistingToken(user);
+        // create a new access token
         PasswordResetToken passwordResetToken = new PasswordResetToken();
         passwordResetToken.setUser(user);
         passwordResetToken.setExpirationDate(Instant.now().plusMillis(passwordResetTokenExpiration));
-        passwordResetToken.setToken(UUID.randomUUID().toString());
+        passwordResetToken.setToken(generateSecureRandomCode(codeSize));
         passwordResetToken = passwordResetTokenRepository.save(passwordResetToken);
         return passwordResetToken;
+    }
+
+    public void clearExistingToken(User user){
+        // Find and delete existing password reset tokens for the user
+        List<PasswordResetToken> existingTokens = passwordResetTokenRepository.findByUser(user);
+        passwordResetTokenRepository.deleteAll();
+    }
+
+    private String generateSecureRandomCode(int length) {
+        // Define characters to be used for the token (0-9)
+        String characters = "0123456789";
+        StringBuilder token = new StringBuilder();
+
+        // Generate random token of the specified length using SecureRandom
+        SecureRandom secureRandom = new SecureRandom();
+        for (int i = 0; i < length; i++) {
+            int index = secureRandom.nextInt(characters.length());
+            token.append(characters.charAt(index));
+        }
+        return token.toString();
     }
 
 
@@ -36,10 +63,9 @@ public class PasswordResetTokenService {
         if (passwordResetToken == null) {
             return "Invalid password reset token";
         }
-
         if (passwordResetToken.getExpirationDate().compareTo(Instant.now()) <= 0) {
             passwordResetTokenRepository.delete(passwordResetToken);
-            return "The link has already expired. Please resend the link.";
+            return "The code has expired. Please send a new request.";
 
         }
         return "valid";
