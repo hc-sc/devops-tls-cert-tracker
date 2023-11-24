@@ -2,6 +2,7 @@ package com.devops.certtracker.security;
 
 import com.devops.certtracker.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.StaticResourceLocation;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableMethodSecurity
@@ -27,6 +33,8 @@ public class SecurityConfiguration {
 
     @Autowired
     private AuthenticationEntryPointJwt unauthorizedHandler;
+    @Value("${application.cors.domain}")
+    private String domain;
 
     @Bean
     public AuthenticationTokenFilter authenticationJwtTokenFilter(){
@@ -50,29 +58,37 @@ public class SecurityConfiguration {
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin(domain);
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        source.registerCorsConfiguration("/api/**", config); // Adjust the path pattern as needed
+        return new CorsFilter(source);
+    }
 
-   @Bean
-   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-       http.csrf(csrf -> csrf.disable())
-               .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
-               .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-               .authorizeHttpRequests(auth -> auth
-                       .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                       .requestMatchers("/").permitAll() // Allow access to the root endpoint
-                       .requestMatchers("/index.html").permitAll() // Allow access to HTML files in the root
-                       .requestMatchers("/public/**").permitAll() // Allow access to HTML files in public
-                       .requestMatchers("/api/auth/**").permitAll()
-                       .requestMatchers("/GCWeb/**").permitAll()
-                       .requestMatchers("/wet-boew/**").permitAll()
-                       .requestMatchers("form/**").permitAll()
-                       .requestMatchers("/api/certificates/**").hasAnyRole("USER")
-                       .anyRequest().authenticated()
-               );
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.csrf(csrf -> csrf.disable())
+                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .cors(withDefaults()) // Enable CORS with default configuration
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("form/**").permitAll()
+                        .requestMatchers("/api/certificates/**").hasAnyRole("USER")
+                        .anyRequest().authenticated()
+                );
 
-       http.authenticationProvider(authenticationProvider());
-       http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.authenticationProvider(authenticationProvider());
+        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
-       return http.build();
-   }
+        return http.build();
+    }
+
 
 }
