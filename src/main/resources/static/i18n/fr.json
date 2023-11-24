@@ -52,6 +52,7 @@
   "password-rule-3": "correspond aux deux champs",
   "password-rule-4": "ne peut contenir d'espacement ",
   "password-rules": "<li> avoir une longueur d'au moins 6 caractères</li> <li>inclure au moins 1 chiffre et 1 symbole    </li> <li> correspond aux deux champs</li> <li>ne peut contenir d'espacement </li>",
+  "pr_page_title": "Certificate Tracker - Mot de passe oublié?",
   "profile": "Profil",
   "register-here": "<a href=\"inscription.html\">S'inscrire</a> si vous êtes un nouvel utilisateur",
   "registration": "Inscription",

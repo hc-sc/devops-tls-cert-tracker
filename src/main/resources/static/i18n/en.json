@@ -52,6 +52,7 @@
   "password-rule-3": "match in both fields",
   "password-rule-4": "cannot contain spaces",
   "password-rules": "            <li>               be at least 6 characters longs             </li>             <li>               include at least 1 number and 1 symbol             </li>             <li>               match in both fields             </li>             <li>               cannot contain spaces             </li>",
+  "pr_page_title": "Certificate Tracker - Forgot your password?",
   "profile": "Profile",
   "register-here": "<a href=\"registration.html\">Register</a> if you are a new user",
   "registration": "Registration",

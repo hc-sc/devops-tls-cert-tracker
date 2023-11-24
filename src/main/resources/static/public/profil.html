@@ -165,13 +165,13 @@
           </div>
           <div class="form-group col-md-6">
             <label for="lastname">
-              <span class="field-name"  data-json-replace="../i18n/fr.json#/lastname"></span>
+              <span class="field-name" > Nom de famille</span>
             </label>
             <input class="form-control capitalization" id="lastname" name="lastname" type="lastname" readonly />
           </div>
           <div class="form-group padding-left">
             <label for="email">
-              <span class="field-name"  data-json-replace="../i18n/fr.json#/email">Email</span>
+              <span class="field-name">Courriel</span>
             </label>
             <input class="form-control" id="email" name="email" type="email" size="30" readonly />
           </div>
@@ -186,8 +186,9 @@
               <legend data-json-replace="../i18n/fr.json#/change-password">Change your password</legend>
                 <div class="form-group">
                   <div>
-                    <label for="currentPassword" class="required">
-                      <span class="field-name" data-json-replace="../i18n/fr.json#/current-password">1</span>
+                    <label for="currentPassword" class="required" >
+                      <span class="field-name" >Mot de passe actuel</span>
+                      <strong class="required">(requis)</strong>
                     </label>
                   </div>
                   <div class="password-input-wrapper">
@@ -203,10 +204,9 @@
                 <div class="form-group">
                   <div>
                     <label for="newPassword" class="required">
-                      <span class="field-name" data-json-replace="../i18n/fr.json#/new-password">
-
+                      <span class="field-name" >Nouveau mot de passe
                       </span>
-<!--                      <strong class="required">(required)</strong>-->
+                      <strong class="required">(requis)</strong>
                     </label>
                   </div>
                   <div class="password-input-wrapper">
@@ -248,15 +248,15 @@
                 </section>
             </fieldset>
           </div>
-          <input type="submit" value="Save" class="btn btn-primary">
-          <a class="btn btn-default" href="tableau.html" data-json-replace="../i18n/fr.json#/exit">Exit</a>
+          <input type="submit" value="Sauvegarder" class="btn btn-primary">
+          <a class="btn btn-default" href="tableau.html">Sortie</a>
         </form>
       </div>
     </div>
 
     
   </main>
-  <footer class="mrgn-tp-xl" id="wb-info" data-json-replace="../i18n/fr.json#/footer">
+  <footer class="mrgn-tp-xl" id="wb-info" data-ajax-replace="../i18n/footer_fr.html">
   </footer>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"
     integrity="sha384-rY/jv8mMhqDabXSo+UCggqKtdmBfd3qC2/KvyTDNQ6PcUJXaxK1tMepoQda4g5vB"

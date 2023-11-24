@@ -100,7 +100,9 @@
                   <div class="form-group">
                       <label for="email" class="required">
                           <span class="field-name" data-json-replace="../i18n/fr.json#/email"></span>
-                          <strong class="required" data-json-replace="../i18n/fr.json#/required"></strong>
+<!--                          <strong class="required" data-json-replace="../i18n/fr.json#/required"></strong>-->
+                          <strong class="required">(requis)</strong>
+
                       </label>
                       <input class="form-control" id="email" name="email" type="email" size="30" autocomplete="email" required="required" />
                   </div>
@@ -108,7 +110,8 @@
                       <div>
                           <label for="password" class="required">
                               <span class="field-name" data-json-replace="../i18n/fr.json#/password"></span>
-                              <strong class="required" data-json-replace="../i18n/fr.json#/required"></strong>
+                              <!--                          <strong class="required" data-json-replace="../i18n/fr.json#/required"></strong>-->
+                              <strong class="required">(requis)</strong>
                           </label>
 
                       </div>
@@ -117,7 +120,7 @@
                                  size="15" autocomplete="off" required="required"/>
                           <button type="button" id="show-password" class="glyphicon glyphicon-eye-open icon-btn"><span id="show-password-text" class="wb-inv" data-json-replace="../i18n/fr.json#/show-password"></span></button>
                       </div>
-                      <p><a href="password-recovery.html" data-json-replace="../i18n/fr.json#/forgot-password"></a></p>
+                      <p><a href="formulaire-reinitialisation.html" data-json-replace="../i18n/fr.json#/forgot-password"></a></p>
                   </div>
                   <input type="submit" value="Se connecter" class="btn btn-primary">
                   <a id="exit-btn" class="btn btn-default" href="../index-fr.html" data-json-replace="../i18n/fr.json#/exit"></a>
@@ -128,7 +131,7 @@
 
 
   </main>
-  <footer class="mrgn-tp-xl" id="wb-info" data-json-replace="../i18n/fr.json#/footer">
+  <footer class="mrgn-tp-xl" id="wb-info" data-ajax-replace="../i18n/footer_fr.html">
   </footer>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"
