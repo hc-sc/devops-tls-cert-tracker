@@ -1,5 +1,18 @@
 import { togglePasswordView, authenticationSubmit, displayServerErrorMessages, displaySuccessMessages, clearForm } from "./module.js";
 
+// i18n
+var resetPageLanguage = document.documentElement.lang;
+var successfulPasswordChange;
+switch (resetPageLanguage) {
+    case "en":
+         successfulPasswordChange = "Your password has been successfully changed.";
+        break;
+    case "fr":
+        successfulPasswordChange = "Votre mot de passe a été changé avec succès.";
+        break;
+    default:
+         successfulPasswordChange = "Your password has been successfully changed.";
+}
 
 // Adding functioanlity to show password feature
 const passwordIcon = document.querySelector("#show-newPassword");
@@ -10,6 +23,7 @@ const passwordConfirmIcon = document.querySelector("#show-password-confirm");
 passwordConfirmIcon.addEventListener("click", () => {
     togglePasswordView("password-confirm", passwordConfirmIcon, "show-password-confirm-text");
 });
+
 
 const resetPasswordForm = document.querySelector('#reset-password-form');
 const errorPasswordReset = document.querySelector('#password-reset-error');
@@ -48,7 +62,7 @@ async function fetchResetPassword(passwordInfo) {
       
     } else{
       resetPasswordForm.classList.add("hidden");
-      displaySuccessMessages('password-reset-success', "Your password has successfully changed");
+      displaySuccessMessages('password-reset-success', ${successfulPasswordChange});
       successPasswordReset.classList.remove("hidden");
       document.querySelector("#newPassword").value = ""
       document.querySelector("#password-confirm").value = ""

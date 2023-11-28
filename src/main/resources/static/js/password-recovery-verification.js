@@ -3,6 +3,21 @@ import { displayServerErrorMessages, clearForm, clearServerMessage} from './modu
 const forgotPasswordCodeForm = document.querySelector('#recovery-code-form');
 const passwordRecoveryCodeError = document.querySelector('#password-recovery-code-error');
 
+// i18n
+var passwordRecoveryPageLanguage = document.documentElement.lang;
+var errorMessageInvalidCodeString, errorMessageCodeExpiredString;
+switch (passwordRecoveryPageLanguage) {
+    case "en":
+        errorMessageCodeExpiredString = "Your code has expired. Please request a new code.";
+        errorMessageInvalidCodeString = "Invalid code, please check your code again.";
+        break;
+    case "fr":
+        errorMessageCodeExpiredString = "Votre code a expiré. Veuillez demander un nouveau code.";
+        errorMessageInvalidCodeString = "Code invalide. Veuillez réessayer.";
+        break;
+    default:
+}
+
 clearForm(forgotPasswordCodeForm);
 // generic form behavior for sign in, registration, password change (relevant to authentication)
 
@@ -42,10 +57,10 @@ async function fetchValidatePasswordRecoveryCode(code) {
       const data = await response.json();
       if(!response.ok){
         if(data.message.includes("Invalid")){
-          displayServerErrorMessages("recovery-code-form", "Invalid code, please check your code again.");
+          displayServerErrorMessages("recovery-code-form", ${errorMessageInvalidCodeString});
           console.log(data);
         } else {
-          displayServerErrorMessages("password-recovery-code-error", "Your code might have expired, please try again by sending new recovery email.");
+          displayServerErrorMessages("password-recovery-code-error", ${errorMessageCodeExpiredString});
           passwordRecoveryCodeError.classList.remove("hidden");
           forgotPasswordCodeForm.classList.add("hidden");
         }

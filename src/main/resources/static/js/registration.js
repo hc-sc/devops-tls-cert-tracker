@@ -1,5 +1,20 @@
 import {authenticationSubmit, togglePasswordView, displayServerErrorMessages, displaySuccessMessages, clearForm} from "./module.js";
 
+// i18n
+
+var registrationPageLanguage = document.documentElement.lang;
+var emailSuccess;
+switch (registrationPageLanguage) {
+    case "en":
+        emailSuccess = "An email has been sent to you with a link to verify your email address.";
+        break;
+    case "fr":
+        emailSuccess = "Un courriel vous a été envoyé avec un lien pour vérifier votre adresse courriel.";
+        break;
+    default:
+        emailSuccess = "An email has been sent to you with a link to verify your email address.";
+}
+
 // form submit will trigger validation, if no there are no errors, sbumit the form
 const registrationForm = document.querySelector("#register-form");
 const successRegistrationContainer = document.querySelector('#registration-success');
@@ -43,7 +58,7 @@ async function fetchRegister(registrationInfo) {
 
       } else {
         registrationForm.classList.add("hidden");
-        displaySuccessMessages("registration-success", "Verification email has sent to your email address, please verify your email to sign in.")
+        displaySuccessMessages("registration-success", ${emailSuccess} )
         successRegistrationContainer.classList.remove("hidden");
       }
   

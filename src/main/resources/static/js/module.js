@@ -8,16 +8,30 @@ export function signOut(){
     })
 }
 
+var pageLanguage = document.documentElement.lang;
+var greeting;
+switch (pageLanguage) {
+    case "en":
+        greeting = "Hi";
+        break;
+    case "fr":
+        greeting = "Bonjour";
+        break;
+    default:
+        greeting = "Hi";
+}
+
+
 // overlay panel navigation for signed in user 
 export function userBtn(){
     const openOverlayBtn = document.getElementById('open-user-overlay-btn');
     const closeOverlayBtn = document.getElementById('close-user-overlay-btn');
     const overlay = document.getElementById('user-overlay');
-    
+
     // const userFirstName = getCookie('userFirstName');
     const userInfo = JSON.parse(localStorage.getItem('user'));
     if(userInfo !=null) {
-      openOverlayBtn.textContent = `Hi, ${userInfo.firstname[0].toUpperCase() + userInfo.firstname.slice(1)}`;
+      openOverlayBtn.textContent = `${greeting}, ${userInfo.firstname[0].toUpperCase() + userInfo.firstname.slice(1)}`;
     }
 
     openOverlayBtn.addEventListener('click', function () {

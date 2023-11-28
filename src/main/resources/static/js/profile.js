@@ -1,5 +1,24 @@
 import { userBtn, togglePasswordView, authenticationSubmit, displayServerErrorMessages, displaySuccessMessages, signOut, refreshToken, clearForm } from "./module.js";
 
+// i18n
+
+var profilePageLanguage = document.documentElement.lang;
+var passwordChangeSuccessfulString, errorMessageString;
+switch (profilePageLanguage) {
+    case "en":
+        errorMessageString  = "Something went wrong, please try again later.";
+        passwordChangeSuccessfulString = "Your password has been successfully changed.";
+        break;
+    case "fr":
+        errorMessageString = "Quelque chose s'est mal passé, veuillez réessayer plus tard.";
+        passwordChangeSuccessfulString = "Votre mot de passe a été changé avec succès.";
+        break;
+    default:
+        errorMessageString = "Something went wrong, please try again later.";
+        passwordChangeSuccessfulString = "Your password has been successfully changed.";
+}
+
+
 // Call refresh token to renew the accesstoken if the user hasn't signed out yet
 refreshToken();
 
@@ -56,9 +75,9 @@ async function fetctChangePassword(passwordInfo) {
     });
     // const data = await response.json();
     if(!response.ok){
-      displayServerErrorMessages('profile-change-password-form', "Something went wrong");
+      displayServerErrorMessages('profile-change-password-form', ${errorMessageString});
     } else{
-      displaySuccessMessages('profile-change-password-form', "Your password has successfully changed");
+      displaySuccessMessages('profile-change-password-form', ${passwordChangeSuccessfulString}
       document.querySelector("#currentPassword").value = ""
       document.querySelector("#newPassword").value = ""
       document.querySelector("#confirmationPassword").value = ""

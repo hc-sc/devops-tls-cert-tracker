@@ -1,8 +1,28 @@
 import { authenticationSubmit, togglePasswordView, displayServerErrorMessages, refreshTokenPageRedirection, clearForm, refreshToken } from "./module.js";
 
+
+
+var signinPageLanguage = document.documentElement.lang;
+var checkValidEmailOrPassword, verifyEmail, internalServerError;
+switch (signinPageLanguage) {
+    case "en":
+        checkValidEmailOrPassword = "Please, check if you have correct email and password.";
+        verifyEmail= "Please verify your email before sign in"
+        internalServerError = "Internal server error, please try again later.";
+        break;
+    case "fr":
+        checkValidEmailOrPassword = "Veuillez vérifier si votre adresse e-mail et votre mot de passe sont corrects.";
+        verifyEmail = "Veuillez vérifier votre adresse e-mail avant de vous connecter";
+        internalServerError = "Erreur interne du serveur, veuillez réessayer plus tard.";
+        break;
+    default:
+        checkValidEmailOrPassword = "Please, check if you have correct email and password.";
+        verifyEmail= "Please verify your email before sign in"
+        internalServerError = "Internal server error, please try again later.";
+}
+
 // Protecting the page and redirecting the user to correct page depending on user status (signed in, or not signed in)
 refreshTokenPageRedirection('./dashboard.html');
-
 
 const signinForm = document.querySelector("#signin-form");
 
@@ -17,6 +37,8 @@ const passwordIcon = document.querySelector("#show-password");
 passwordIcon.addEventListener("click", () => {
     togglePasswordView("password", passwordIcon, "show-password-text");
 });
+
+
 
 
 // Calling backend API for sign in
@@ -35,11 +57,11 @@ async function fetchSignIn(signinData) {
       const data = await response.json();
       if(!response.ok){
         if(data.status == 401){
-          displayServerErrorMessages('signin-form', "Please, check if you have correct email and password.");
+          displayServerErrorMessages('signin-form', ${checkValidEmailOrPassword});
         } else if(data.status == 403){
-          displayServerErrorMessages('signin-form', "Please verify your email before sign in"); 
+          displayServerErrorMessages('signin-form', ${verifyEmail});
         } else {
-          displayServerErrorMessages('signin-form', `${data.status} + "Internal Server Error"`); 
+          displayServerErrorMessages('signin-form', `${data.status} + ${internalServerError}`
         }
         throw data;
 
